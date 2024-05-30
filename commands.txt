@@ -1,0 +1,274 @@
+d:&cd D:\USER\Downloads\ATLAS\Projects\Mastering-Security-Token-ERC-3643\scaffold-eth-2
+
+d:&cd D:\USER\Downloads\ATLAS\Projects\Mastering-Security-Token-ERC-3643\scaffold-eth-2\packages\hardhat
+
+yarn install
+
+yarn hardhat clean
+
+yarn compile
+
+
+yarn add --dev hardhat
+
+yarn add ethers@5.7.0
+
+yarn add ethers@5.7.0
+
+yarn add @typechain/ethers-v5
+
+yarn add ethers@5.7.0
+
+yarn remove ethers@6.10.0
+
+npm i ethers@5.7.0
+
+npm uninstall @typechain/ethers-v6
+
+yarn info -A
+
+typechain
+
+npx hardhat compile --force
+
+yarn hardhat compile --force
+
+yarn hardhat compile contracts/YourContract.sol
+
+npx hardhat compile contracts/YourContract.sol
+
+npx hardhat compile ./node_modules/@onchain-id/solidity/contracts/Identity.sol
+
+yarn chain
+yarn deploy --reset
+yarn start
+
+ADDITIONAL STEPS
+
+1. yarn add @onchain-id/solidity        npm install --save-dev "@nomiclabs/hardhat-ethers@^2.0.0"
+
+2. Create a the folder deploy_paused and move the file 00_deploy_your_contract to that folder
+
+3. Create a 00_full_deploy file in the deploy folder and paste the contents of the  deploy-full-suite.fixture.ts
+
+console.log(await hre.artifacts.getArtifactPaths());
+
+4. Add utils.ts file in the original tests folder to the scripts folder and update the route in the 00_full_deploy file
+
+5. Add dependencies in the original hardhat.config.ts to the new one
+
+6. Add dependencies in the original package.json to the scaffold-eth file: files - dependencies (a coupe of lines) - devDependencies (couple of lines) - lint-staged (couple of lines at the end)
+
+7. Add the contracts .sol except the testcontracts folder
+
+Places to check
+
+D:\USER\Downloads\ATLAS\Projects\Mastering-Security-Token-ERC-3643\scaffold-eth-2\packages\hardhat\node_modules\hardhat\node_modules
+D:\USER\Downloads\ATLAS\Projects\Mastering-Security-Token-ERC-3643\scaffold-eth-2\packages\hardhat\node_modules
+
+CONTINUE HERE: 
+
+ITS WORKING!
+
+UPLOAD IT TO GITHUB REPO. 
+
+NEXT STEP IS TO MAKE IT WORK USING SCAFFOLD ETH
+
+
+https://github.com/Aboudjem/ERC-3643
+https://erc-3643.github.io/documentation/docs/abstract
+https://assets-global.website-files.com/63d7968e79bf1252d92c981f/64c0f2c72ea4fb62e1c838e6_Whitepaper%20-%20T-REX%20v4%20-%20Security%20tokens.pdf
+
+cd D:\USER\Downloads\ATLAS\Projects\Mastering-Security-Token-ERC-3643\ERC-3643-Raptor
+
+npm install --save-dev hardhat
+npx hardhat node
+npx hardhat run --network localhost scripts/deploy.js
+
+
+ERC-3643-RAPTOR-DESCRIPTION
+
+---------------deploy.js---------------
+
+deployFullSuiteFixture: Declares the execution of another script. A fixture is a setup function made to be ran only once.
+
+main function: Does the execution of another script.
+
+Get the addresses of the following entities:
+
+-Deployer: The one who launches the smart contrat
+-Token Issuer: The company who issues the token
+-Token Agent: The manager technical deployer of the token
+-Token Admin: The manager of the token post deployment
+-Claim Issuer: Third part ntity that usually does the KYC is registered in the Trusted Issuers Registry. They can add info to an investor ONCHAIN ID.
+-Claim Issuer Signing Key: A claim issuer can hold 1 or several Signing Keys to be able to add KYC/AML info to the ONCHAINID of people.
+
+-Alice Action Key: Seems to be a randomly generated action key to sign stuff
+-Alice wallet: Wallet of Alice. Entity #1
+-Bob wallet: Wallet of Bob. Entity #2
+-Charlie wallet: Wallet of Charlie. Entity #3
+-David wallet: Wallet of David. Entity #4
+-Another wallet: An extra wallet. Entity #5
+
+---------------fixture.ts---------------
+
+deployIdentityProxy: Function that allows users to seploy their identity. It takes as parameter:
+--Address of the implementation authority contract
+--Management key for the identity
+--Signer object to sign transactions
+
+-Alice Identity: The identity of the user is created by launching the method deployIdentityProxy with the parameters:
+--address of the implementation authority smart contract
+--address of the wallet of the user (Alice)
+--the deployer of the contract as a signer
+
+
+aliceIdentity action key: The action key (a randomly generated key to sign stuff with) gets asigned to aliceIdentity.
+
+bobIdentity: The identity of the user is created by launching the method deployIdentityProxy
+
+charlieIdentity: The identity of the user is created by launching the method deployIdentityProxy
+
+claimIssuerContract: Deploy an issuer contract by deploying a smart contract with the following parameters:
+--"Claim Issuer" Laber
+--claimIssuerAddress: Address of the claim issuer
+--Signer to deploy the contract
+
+-claimIssuerContract action key: Add a key to the smart contract to sign transactions.
+
+After adding the action key to the claim issuer contract it gets added to the claimIssuersRegistry using the function claimIssuersRegistry.addClaimIssuer().
+
+-claimTopics: An array that will contain the single hashed value representing the string CLAIM_TOPIC.
+
+-claimTopicsRegistry: Smart contract deployed with no parameters. It stores the type of claim topics that the users will be asigned to.
+
+After being deployed, gets added the claimTopics array in position [0] previously mentioned.
+
+-identityRegistryStorage: Smart contract deployed with no parameters. It serves as a repossitory for a mapping table. It associates wallet addresses with the corresponding ONCHAIN IDS.
+
+After deployment binds the address of the IdentityRegistry to the identityRegistryStorage using bindIdentityRegistry.
+
+-basicCompliance: Token deployed only with the address of the deployer as parameter. 
+Allows to bound an admin and a token to be ruled under basic compliance.
+
+It ensures that token transfers, creations and destructions adhere to specific rules.
+
+Currently rules for transfer are empty and open for users to be able to add any required logic.
+
+It's tied to the token address after deploying it with the grantRole function. 
+
+
+-identityRegistry: This one serves as the execution hub for the Eligibility Verification System (EVS). Stablishes the connections between the Trusted Issuers Registry and the claim topics registry. Responsible to execute the "isVerfied" function.
+
+Smart contract that deploys with 3 parameters:
+--Address of the claimIssuersRegistry
+--Address of the ClaimTopicsRegistry
+--Address of the IdentityRegistryStorage
+
+After deploying grants de role of AGENT_ROLE to the tokenAgent and the token address.
+
+It has the ability to regiser identities in batch using the method batchRegisterIdentity 
+
+-TokenOID: Deploy the contract IdentityProxy for the token to assigne it an ONCHAIN identity.
+
+-Token: Deploy the real token of the protocol. It deploys pretty similar to deploying tokens ERC-20. 
+
+The difference is, it integrates onchain identity and compliance mechanisms to ensure regulated token transactions.
+
+It calls IdentityRegistry to verify the identities of token holders. Only verified addresses can participate in token transactions.
+
+A compliance contract is linked to enforce regulatory checks on token transfers, minting and burning. It does the binding of the token in the execution.
+
+It has a difference between AGENT_ROLE and OWNER_ROLE. Agent role is for management and Owner is like super admin. The functions that can be executed by only Owner are setOnchainID, setIdentityRegistry and setCompliance.
+
+After deployment it grants the AGENT_ROLE to the agent address
+
+The contract is pausable and has fucntions to free and unfreeze addresses and specific amounts of tokens. Functionalities like setAddressFrozen and freezePartialTokens.
+
+Batch operations: Like batchTransfer, batchTransferFrom, batchForcedTransfer, batchMint, batchSetAddressFrozen, batchFreezePartialTokens, batchUnfreezePartialTokens and batchBurn. Where you provide an array of addresses and amounts to execute.
+
+Forced transfers can be initiated by agents to move tokens from one address to another without the senders consent. Typically used for regulatory or recovery scenarios.
+
+Recovery functionality: Allows agents to recover tokens from lost wallets by tranferring the balance to a new wallet. ASOCIATED WITH THE SAME ONCHAIN IDENTITY.	
+
+
+-identityImplementation: It contains the logic and functionality of the Identity contract that will be used by other identity instances. Acts as a blue print from which other contracts (proxies) can delegate their calls.
+Deployed using the Identity contract ABI and bytecode from OnchainID library.
+
+-identityImplementationAuthority:Contract that manages the implementation address of the Identity contract. It's a point of refference for proxies to know which implementation (Identity) they should delegate their calls to. 
+
+It requires the address of the "identity implementation" to be passed during deployment, establishing the linkage. 
+
+Its referenced by proxy contracts like identity proxy to determine the current implementation address.
+
+identityImplementation is the core identity logic. identityImplementationAuthority is the proxy reference to the current implementation of that logic.
+
+-claimForAlice: Claims are made based on public claim data, issuer address, topic (claim type), scheme (the method or format used to encode the claims data), address of the user identity and signature of the claim.
+
+Then the signature of the claim is created by hasing the user of the claim address, the topic, and the data of the claim.
+
+Later on the claim is added to the user identity contract (in this case aliceIdentity).
+
+-claimForBob: Repeat the same process as claim for Alice.
+
+-token.mint: A way to issuer/mint tokens to users wallets. Can only work if their respective user claims have been added to their corresponding user identity smart contracts.
+
+
+
+
+
+Note: The reason why you can't just use non-smart contract address to quickly deploy is because inside of the smart contracts there are calls to specific methods that will break the execution if there is not a way to call them the right way.
+
+
+-------IdentityRegistry-------
+
+Used to MANAGE and VERIFY IDENTITIES using the T-Rex standard.
+THis aims to provide a comprehensive solution for identity management allowing for the registration, updating and deletion of identities associated with user addresses.
+
+It manages claim topics and claim issuers to verify the identities.
+
+
+-Constructor: Requires the addreses of _claimIssuersRegistry, the _claimTopicsRegistry and the _identityStorage.
+
+-registerIdentity: Function with the _userAddress, _identity and country.
+
+-batchRegisterIdentity: Registers multiple identities in a batch, as arrays.
+
+-updateIdentity: Updates the identity of a user address.
+
+-updateCountry: Updates the country code of a user address.
+
+-deleteIdentity: Deletes the identity associated with a user address. 
+
+-setIdentityRegistryStorage: Allows you to set the address of the IdentityRegistryStorage contract.
+
+-setClaimTopicsRegistry: Allows you to set the address of the ClaimTopicsRegistry contract.
+
+-setClaimIssuersRegistry: Allows you to set the address of the ClaimIssuersRegistry. 
+
+-isVerified: Checks if a user is verified based on their identity, claim topics and claim issuers. Verification means going through the whole list of claims in the tokenTopicsRegistry and checking one by one if the claims are valid for the whole list of claim topics.
+
+-investorCountry: Retrieves the country code associated with a user address.
+
+-issuersRegistry: Returns the current ClaimIssuersRegistry contract.
+
+-topicsRegistry: Returns the current  ClaimTopicsRegistry contract.
+
+-identityStorage: Returns the current IdentityRegistryStorage contract.
+
+-contains: Checks if an address is contained in the registry, based on the user address.
+
+-identity: Retrieves the identity of an user address stored in the identityStorage.
+
+-_registerIdentity: Internal function to register an identity in the identity storage.
+
+-_getIdentity: Internal function to get the identity of a user.
+
+-_isClaimValid: Internal function to check if a claim is valid for a given identity and a claim topic. Ensures taht a users identity has a valid claim issued by an authorized claim issuer for an specific claim topic. It does it by checking EACH CLAIM ISSUER FOR THE TOPIC, validating the claims and ensuring they match the requirements.
+
+-_isIssuerClaimValid: Internal function to validate a claim issued by an issuer. It validates it by calling the interface of IClaimIssuer. 
+
+
+
+
+
