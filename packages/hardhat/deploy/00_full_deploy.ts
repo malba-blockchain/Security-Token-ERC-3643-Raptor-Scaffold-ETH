@@ -16,7 +16,7 @@ async function deployIdentityProxy(
   implementationAuthority: Contract["address"], // Address of the implementation authority contract
   managementKey: string, // Management key for the identity
   signer: Signer // Signer object to sign transactions
-) {
+  ) {
 
   const IdentityProxyFactory = new ethers.ContractFactory(
     OnchainID.contracts.IdentityProxy.abi, // ABI of the IdentityProxy contract
@@ -50,7 +50,7 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   const provider = new providers.JsonRpcProvider('http://localhost:8545');
 
   const [
-    deployer1,
+    deployer,
     tokenIssuer,
     tokenAgent,
     tokenAdmin,
@@ -67,7 +67,7 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   const aliceActionKey = ethers.Wallet.createRandom();
 
   console.log("\n~~ Accounts ~~");
-  console.log("Deployer: ", deployer1);
+  console.log("Deployer: ", deployer);
   console.log("Token Issuer: ", tokenIssuer);
   console.log("Token Agent: ", tokenAgent);
   console.log("Token Admin: ", tokenAdmin);
@@ -86,38 +86,37 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   const identityImplementation = await new ethers.ContractFactory(
     OnchainID.contracts.Identity.abi, // ABI of the Identity contract
     OnchainID.contracts.Identity.bytecode, // Bytecode of the Identity contract
-    provider.getSigner(deployer1) // Signer to deploy the contract
-  ).deploy(deployer1, true); // Deploy with the deployer's address and a boolean flag
+    provider.getSigner(deployer) // Signer to deploy the contract
+  ).deploy(deployer, true); // Deploy with the deployer's address and a boolean flag
 
   // Deploy the ImplementationAuthority contract
   const identityImplementationAuthority = await new ethers.ContractFactory(
     OnchainID.contracts.ImplementationAuthority.abi, // ABI of the ImplementationAuthority contract
     OnchainID.contracts.ImplementationAuthority.bytecode, // Bytecode of the ImplementationAuthority contract
-    provider.getSigner(deployer1) // Signer to deploy the contract
+    provider.getSigner(deployer) // Signer to deploy the contract
   ).deploy(identityImplementation.address); // Deploy with the address of the Identity implementation
 
   // Deploy the ClaimTopicsRegistry contract
-  const ClaimTopicsRegistry = await ethers.getContractFactory("ClaimTopicsRegistry", provider.getSigner(deployer1));
+  const ClaimTopicsRegistry = await ethers.getContractFactory("ClaimTopicsRegistry", provider.getSigner(deployer));
   const claimTopicsRegistry = await ClaimTopicsRegistry.deploy();
 
   // Deploy the ClaimIssuersRegistry contract
-  const ClaimIssuersRegistry = await ethers.getContractFactory("ClaimIssuersRegistry", provider.getSigner(deployer1));
+  const ClaimIssuersRegistry = await ethers.getContractFactory("ClaimIssuersRegistry", provider.getSigner(deployer));
   const claimIssuersRegistry = await ClaimIssuersRegistry.deploy();
 
   // Deploy the IdentityRegistryStorage contract
-  const IdentityRegistryStorage = await ethers.getContractFactory("IdentityRegistryStorage", provider.getSigner(deployer1));
+  const IdentityRegistryStorage = await ethers.getContractFactory("IdentityRegistryStorage", provider.getSigner(deployer));
   const identityRegistryStorage = await IdentityRegistryStorage.deploy();
 
   console.log("\n~~ Suite ~~");
   console.log("Identity Implementation Contract: ", identityImplementation.address);
   console.log("Identity Implementation Authority Contract: ", identityImplementationAuthority.address);
   console.log("Claim Issuer Contract: ", claimTopicsRegistry.address);
-  console.log("Claim Issuer Contract: ", claimTopicsRegistry.address);
   console.log("Claim Topics Registry: ", claimIssuersRegistry.address);
   console.log("Identity Registry Storage: ", identityRegistryStorage.address);
 
   // Deploy the IdentityRegistry contract
-  const IdentityRegistry = await ethers.getContractFactory("IdentityRegistry", provider.getSigner(deployer1));
+  const IdentityRegistry = await ethers.getContractFactory("IdentityRegistry", provider.getSigner(deployer));
   const identityRegistry = await IdentityRegistry.deploy(
     claimIssuersRegistry.address, // Address of the ClaimIssuersRegistry contract
     claimTopicsRegistry.address, // Address of the ClaimTopicsRegistry contract
@@ -128,14 +127,14 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   // Deploy the BasicCompliance contract
   const basicCompliance = await ethers.deployContract(
     "BasicCompliance",
-    provider.getSigner(deployer1) // Signer to deploy the contract
+    provider.getSigner(deployer) // Signer to deploy the contract
   );
   console.log("BasicCompliance: ", basicCompliance.address);
 
   const tokenOID = await deployIdentityProxy(
     identityImplementationAuthority.address, // Address of the ImplementationAuthority contract
     tokenIssuer, // Address of the token issuer
-    provider.getSigner(deployer1) // Signer to deploy the contract
+    provider.getSigner(deployer) // Signer to deploy the contract
   );
   console.log("TokenOID: ", tokenOID.address);
 
@@ -145,7 +144,7 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   const tokenDecimals = BigNumber.from("6");
 
   // Deploy the Token contract
-  const Token = await ethers.getContractFactory("Token", provider.getSigner(deployer1));
+  const Token = await ethers.getContractFactory("Token", provider.getSigner(deployer));
   const token = await Token.deploy(
     identityRegistry.address, // Address of the IdentityRegistry contract
     basicCompliance.address, // Address of the BasicCompliance contract
@@ -168,10 +167,10 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
 
   // Define the claim topics and add them to the ClaimTopicsRegistry
   const claimTopics = [ethers.utils.id("CLAIM_TOPIC")];
-  await claimTopicsRegistry.connect(provider.getSigner(deployer1)).addClaimTopic(claimTopics[0]);
+  await claimTopicsRegistry.connect(provider.getSigner(deployer)).addClaimTopic(claimTopics[0]);
   
   // Deploy the ClaimIssuer contract and add a key
-  const claimIssuerContractFactory = await ethers.getContractFactory("ClaimIssuer", provider.getSigner(deployer1));
+  const claimIssuerContractFactory = await ethers.getContractFactory("ClaimIssuer", provider.getSigner(deployer));
   const claimIssuerContract = await claimIssuerContractFactory.deploy(claimIssuer);
   console.log("Claim Issuer Contract: ", claimIssuerContract.address);
 
@@ -191,14 +190,14 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
 
   // Add the ClaimIssuer contract to the ClaimIssuersRegistry
   await claimIssuersRegistry
-  .connect(provider.getSigner(deployer1))
+  .connect(provider.getSigner(deployer))
   .addClaimIssuer(claimIssuerContract.address, claimTopics);
 
   // Deploy IdentityProxy contracts for Alice, Bob, and Charlie
   const aliceIdentity = await deployIdentityProxy(
     identityImplementationAuthority.address, // Address of the ImplementationAuthority contract
     aliceWallet, // Address of Alice's wallet
-    provider.getSigner(deployer1) // Signer to deploy the contract
+    provider.getSigner(deployer) // Signer to deploy the contract
   );
   console.log("Alice Identity Contract: ", aliceIdentity.address);
 
@@ -219,14 +218,14 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   const bobIdentity = await deployIdentityProxy(
     identityImplementationAuthority.address, // Address of the ImplementationAuthority contract
     bobWallet, // Address of Bob's wallet
-    provider.getSigner(deployer1) // Signer to deploy the contract
+    provider.getSigner(deployer) // Signer to deploy the contract
   );
   console.log("Bob Identity Contract: ", bobIdentity.address);
 
   const charlieIdentity = await deployIdentityProxy(
     identityImplementationAuthority.address, // Address of the ImplementationAuthority contract
     charlieWallet, // Address of Charlie's wallet
-    provider.getSigner(deployer1) // Signer to deploy the contract
+    provider.getSigner(deployer) // Signer to deploy the contract
   );
   console.log("Charlie Identity Contract: ", charlieIdentity.address);
   
@@ -324,10 +323,11 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   // Grant the AGENT_ROLE to the token agent in the IdentityRegistry contract
   await identityRegistry.grantRole(AGENT_ROLE, tokenAgent);
 
+
 };
 
 export default deployYourContract;
 
 // Tags are useful if you have multiple deploy files and only want to run one of them.
 // e.g. yarn deploy --tags YourContract
-deployYourContract.tags = ["ClaimTopicsRegistry", "ClaimIssuersRegistry"];
+deployYourContract.tags = ["ClaimTopicsRegistry", "ClaimIssuersRegistry", "IdentityRegistryStorage", "IdentityRegistry", "Token", "ClaimIssuer"];

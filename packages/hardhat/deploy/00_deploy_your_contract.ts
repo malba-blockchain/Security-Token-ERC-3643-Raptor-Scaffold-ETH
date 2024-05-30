@@ -1,6 +1,6 @@
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
-import { Contract } from "ethers";
+import { Contract, providers } from "ethers";
 
 /**
  * Deploys a contract named "YourContract" using the deployer account and
@@ -21,6 +21,7 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   */
   const { deployer } = await hre.getNamedAccounts();
   const { deploy } = hre.deployments;
+  const provider = new providers.JsonRpcProvider('http://localhost:8545');
 
   await deploy("YourContract", {
     from: deployer,
@@ -33,7 +34,15 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   });
 
   // Get the deployed contract to interact with it after deploying.
-  const yourContract = await hre.ethers.getContract<Contract>("YourContract", deployer);
+  //const yourContract = await hre.ethers.getContract<Contract>("YourContract", deployer);
+
+  const yourContractDeployment = await hre.deployments.get("YourContract");
+  const yourContract = new hre.ethers.Contract(
+    yourContractDeployment.address,
+    yourContractDeployment.abi,
+    provider.getSigner(deployer)
+  );
+  
   console.log("👋 Initial greeting:", await yourContract.greeting());
 };
 
