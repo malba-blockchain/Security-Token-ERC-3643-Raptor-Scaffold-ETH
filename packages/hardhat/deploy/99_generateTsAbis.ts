@@ -121,7 +121,7 @@ const generateTsAbis: DeployFunction = async function () {
     ),
   );
 
-  console.log(`📝 Updated TypeScript contract definition file on ${TARGET_DIR}deployedContracts.ts`);
+  console.log(`\n📝 Updated TypeScript contract definition file on ${TARGET_DIR}deployedContracts.ts`);
 };
 
 export default generateTsAbis;

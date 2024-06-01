@@ -26,8 +26,7 @@ async function deployIdentityProxy(
 
   const identity = await IdentityProxyFactory.deploy(implementationAuthority, managementKey); // Deploy with the provided parameters
 
-  var Identity1 = await new ethers.Contract(identity.address, OnchainID.contracts.Identity.abi, signer)
-  //console.log(Identity1);
+  const Identity1 = await new ethers.Contract(identity.address, OnchainID.contracts.Identity.abi, signer)
 
   // Return an instance of the Identity contract at the deployed address
   return Identity1;
@@ -46,6 +45,8 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   */
 
   // Get the list of signer objects to represent different actors in the test environment
+
+  const { deploy } = hre.deployments;
 
   const provider = new providers.JsonRpcProvider('http://localhost:8545');
 
@@ -77,7 +78,7 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   console.log("Alice Action Key: ", aliceActionKey.address);
 
   console.log("Alice Wallet: ", aliceWallet);
-  console.log("Bob WAllet: ", bobWallet);
+  console.log("Bob Wallet: ", bobWallet);
   console.log("Charlie Wallet: ", charlieWallet);
   console.log("David Wallet: ", davidWallet);
   console.log("Another Wallet: ", anotherWallet);
@@ -97,25 +98,86 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   ).deploy(identityImplementation.address); // Deploy with the address of the Identity implementation
 
   // Deploy the ClaimTopicsRegistry contract
+  /*
   const ClaimTopicsRegistry = await ethers.getContractFactory("ClaimTopicsRegistry", provider.getSigner(deployer));
   const claimTopicsRegistry = await ClaimTopicsRegistry.deploy();
+  */
 
+  await deploy("ClaimTopicsRegistry", {
+    from: deployer,
+    // Contract constructor arguments
+    args: [],
+    log: false,
+    // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
+    // automatically mining the contract deployment transaction. There is no effect on live networks.
+    autoMine: true,
+  });
+
+  const ClaimTopicsRegistry = await hre.deployments.get("ClaimTopicsRegistry");
+  
+  const claimTopicsRegistry = new hre.ethers.Contract(
+    ClaimTopicsRegistry.address,
+    ClaimTopicsRegistry.abi,
+    provider.getSigner(deployer)
+  );
+  
   // Deploy the ClaimIssuersRegistry contract
+  /*
   const ClaimIssuersRegistry = await ethers.getContractFactory("ClaimIssuersRegistry", provider.getSigner(deployer));
   const claimIssuersRegistry = await ClaimIssuersRegistry.deploy();
+  */
+
+  await deploy("ClaimIssuersRegistry", {
+    from: deployer,
+    // Contract constructor arguments
+    args: [],
+    log: false,
+    // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
+    // automatically mining the contract deployment transaction. There is no effect on live networks.
+    autoMine: true,
+  });
+
+  const ClaimIssuersRegistry = await hre.deployments.get("ClaimIssuersRegistry");
+  
+  const claimIssuersRegistry = new hre.ethers.Contract(
+    ClaimIssuersRegistry.address,
+    ClaimIssuersRegistry.abi,
+    provider.getSigner(deployer)
+  );
 
   // Deploy the IdentityRegistryStorage contract
+  /*
   const IdentityRegistryStorage = await ethers.getContractFactory("IdentityRegistryStorage", provider.getSigner(deployer));
   const identityRegistryStorage = await IdentityRegistryStorage.deploy();
+  */
+
+  await deploy("IdentityRegistryStorage", {
+    from: deployer,
+    // Contract constructor arguments
+    args: [],
+    log: false,
+    // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
+    // automatically mining the contract deployment transaction. There is no effect on live networks.
+    autoMine: true,
+  });
+
+  const IdentityRegistryStorage = await hre.deployments.get("IdentityRegistryStorage");
+  
+  const identityRegistryStorage = new hre.ethers.Contract(
+    IdentityRegistryStorage.address,
+    IdentityRegistryStorage.abi,
+    provider.getSigner(deployer)
+  );
 
   console.log("\n~~ Suite ~~");
   console.log("Identity Implementation Contract: ", identityImplementation.address);
   console.log("Identity Implementation Authority Contract: ", identityImplementationAuthority.address);
-  console.log("Claim Issuer Contract: ", claimTopicsRegistry.address);
-  console.log("Claim Topics Registry: ", claimIssuersRegistry.address);
+  console.log("Claim Topics Registry: ", claimTopicsRegistry.address);
+  console.log("Claim Issuers Contract: ", claimIssuersRegistry.address);
   console.log("Identity Registry Storage: ", identityRegistryStorage.address);
 
   // Deploy the IdentityRegistry contract
+  /*
   const IdentityRegistry = await ethers.getContractFactory("IdentityRegistry", provider.getSigner(deployer));
   const identityRegistry = await IdentityRegistry.deploy(
     claimIssuersRegistry.address, // Address of the ClaimIssuersRegistry contract
@@ -123,13 +185,59 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
     identityRegistryStorage.address // Address of the IdentityRegistryStorage contract
   );
   console.log("Identity Registry: ", identityRegistry.address);
+  */
+
+  await deploy("IdentityRegistry", {
+    from: deployer,
+    // Contract constructor arguments
+    args: [
+      claimIssuersRegistry.address, // Address of the ClaimIssuersRegistry contract
+      claimTopicsRegistry.address, // Address of the ClaimTopicsRegistry contract
+      identityRegistryStorage.address // Address of the IdentityRegistryStorage contract
+    ],
+    log: false,
+    // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
+    // automatically mining the contract deployment transaction. There is no effect on live networks.
+    autoMine: true,
+  });
+
+  const IdentityRegistry = await hre.deployments.get("IdentityRegistry");
+  
+  const identityRegistry = new hre.ethers.Contract(
+    IdentityRegistry.address,
+    IdentityRegistry.abi,
+    provider.getSigner(deployer)
+  );
+
+  console.log("Identity Registry: ", identityRegistry.address);
 
   // Deploy the BasicCompliance contract
+  /*
   const basicCompliance = await ethers.deployContract(
     "BasicCompliance",
     provider.getSigner(deployer) // Signer to deploy the contract
   );
+  */
+  await deploy("BasicCompliance", {
+    from: deployer,
+    // Contract constructor arguments
+    args: [],
+    log: false,
+    // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
+    // automatically mining the contract deployment transaction. There is no effect on live networks.
+    autoMine: true,
+  });
+
+  const BasicCompliance = await hre.deployments.get("BasicCompliance");
+  
+  const basicCompliance = new hre.ethers.Contract(
+    BasicCompliance.address,
+    BasicCompliance.abi,
+    provider.getSigner(deployer)
+  );
+  
   console.log("BasicCompliance: ", basicCompliance.address);
+
 
   const tokenOID = await deployIdentityProxy(
     identityImplementationAuthority.address, // Address of the ImplementationAuthority contract
@@ -138,12 +246,14 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   );
   console.log("TokenOID: ", tokenOID.address);
 
+
   // Define the token details as Name, Symbol and Decimals.
   const tokenName = "ERC-3643";
   const tokenSymbol = "TREX";
   const tokenDecimals = BigNumber.from("6");
 
   // Deploy the Token contract
+  /*
   const Token = await ethers.getContractFactory("Token", provider.getSigner(deployer));
   const token = await Token.deploy(
     identityRegistry.address, // Address of the IdentityRegistry contract
@@ -152,6 +262,34 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
     tokenSymbol, // Symbol of the token
     tokenDecimals, // Decimals of the token
     tokenOID.address // Address of the token's IdentityProxy contract
+  );
+
+   console.log("Token Address: ", token.address);
+  */
+
+  await deploy("Token", {
+    from: deployer,
+    // Contract constructor arguments
+    args: [
+      identityRegistry.address, // Address of the IdentityRegistry contract
+      basicCompliance.address, // Address of the BasicCompliance contract
+      tokenName, // Name of the token
+      tokenSymbol, // Symbol of the token
+      tokenDecimals, // Decimals of the token
+      tokenOID.address // Address of the token's IdentityProxy contract
+    ],
+    log: false,
+    // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
+    // automatically mining the contract deployment transaction. There is no effect on live networks.
+    autoMine: true,
+  });
+
+  const Token = await hre.deployments.get("Token");
+  
+  const token = new hre.ethers.Contract(
+    Token.address,
+    Token.abi,
+    provider.getSigner(deployer)
   );
 
   console.log("Token Address: ", token.address);
@@ -168,10 +306,34 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   // Define the claim topics and add them to the ClaimTopicsRegistry
   const claimTopics = [ethers.utils.id("CLAIM_TOPIC")];
   await claimTopicsRegistry.connect(provider.getSigner(deployer)).addClaimTopic(claimTopics[0]);
+
+  console.log("\n~~ Claims setup ~~");
   
   // Deploy the ClaimIssuer contract and add a key
+  /*
   const claimIssuerContractFactory = await ethers.getContractFactory("ClaimIssuer", provider.getSigner(deployer));
   const claimIssuerContract = await claimIssuerContractFactory.deploy(claimIssuer);
+  console.log("Claim Issuer Contract: ", claimIssuerContract.address);
+  */
+
+  await deploy("ClaimIssuer", {
+    from: deployer,
+    // Contract constructor arguments
+    args: [claimIssuer],
+    log: false,
+    // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
+    // automatically mining the contract deployment transaction. There is no effect on live networks.
+    autoMine: true,
+  });
+
+  const ClaimIssuerContract = await hre.deployments.get("ClaimIssuer");
+  
+  const claimIssuerContract = new hre.ethers.Contract(
+    ClaimIssuerContract.address,
+    ClaimIssuerContract.abi,
+    provider.getSigner(deployer)
+  );
+
   console.log("Claim Issuer Contract: ", claimIssuerContract.address);
 
   // Add a key to the ClaimIssuer contract
@@ -231,7 +393,7 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   
   // Grant the AGENT_ROLE to the token agent and token in the IdentityRegistry contract
   await identityRegistry.grantRole(AGENT_ROLE, tokenAgent);
-  await identityRegistry.grantRole(AGENT_ROLE, token.address);
+  await identityRegistry.grantRole(TOKEN_ROLE, token.address);
 
   // Batch register Alice's and Bob's identities in the IdentityRegistry
   await identityRegistry
@@ -322,8 +484,6 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
 
   // Grant the AGENT_ROLE to the token agent in the IdentityRegistry contract
   await identityRegistry.grantRole(AGENT_ROLE, tokenAgent);
-
-
 };
 
 export default deployYourContract;

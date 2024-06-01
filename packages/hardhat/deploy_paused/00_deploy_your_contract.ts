@@ -33,10 +33,11 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
     autoMine: true,
   });
 
-  // Get the deployed contract to interact with it after deploying.
+  //Get the deployed contract to interact with it after deploying.
   //const yourContract = await hre.ethers.getContract<Contract>("YourContract", deployer);
 
   const yourContractDeployment = await hre.deployments.get("YourContract");
+  
   const yourContract = new hre.ethers.Contract(
     yourContractDeployment.address,
     yourContractDeployment.abi,
