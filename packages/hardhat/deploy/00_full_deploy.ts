@@ -355,6 +355,14 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   .connect(provider.getSigner(deployer))
   .addClaimIssuer(claimIssuerContract.address, claimTopics);
 
+  // Deploy IdentityProxy contract for the deployer to be able to do metatesting
+  const deployerIdentity = await deployIdentityProxy(
+    identityImplementationAuthority.address, // Address of the ImplementationAuthority contract
+    deployer, // Address of Alice's wallet
+    provider.getSigner(deployer) // Signer to deploy the contract
+  );
+  console.log("Deployer Identity Contract: ", deployerIdentity.address);
+
   // Deploy IdentityProxy contracts for Alice, Bob, and Charlie
   const aliceIdentity = await deployIdentityProxy(
     identityImplementationAuthority.address, // Address of the ImplementationAuthority contract
@@ -390,21 +398,64 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
     provider.getSigner(deployer) // Signer to deploy the contract
   );
   console.log("Charlie Identity Contract: ", charlieIdentity.address);
+
+  const davidIdentity = await deployIdentityProxy(
+    identityImplementationAuthority.address, // Address of the ImplementationAuthority contract
+    davidWallet, // Address of Charlie's wallet
+    provider.getSigner(deployer) // Signer to deploy the contract
+  );
+  console.log("David Identity Contract: ", davidIdentity.address);
   
   // Grant the AGENT_ROLE to the token agent and token in the IdentityRegistry contract
   await identityRegistry.grantRole(AGENT_ROLE, tokenAgent);
   await identityRegistry.grantRole(TOKEN_ROLE, token.address);
 
-  // Batch register Alice's and Bob's identities in the IdentityRegistry
+  // Batch register identities in the IdentityRegistry
   await identityRegistry
     .connect(provider.getSigner(tokenAgent))
     .batchRegisterIdentity(
-      [aliceWallet, bobWallet], // Addresses of Alice and Bob's wallets
-      [aliceIdentity.address, bobIdentity.address], // Addresses of Alice and Bob's identities
-      [42, 666] //Values associated with Alice and Bob in the identity registry
+      [deployer, aliceWallet, bobWallet, charlieWallet, davidWallet], // Addresses of Alice and Bob's wallets
+      [deployerIdentity.address, aliceIdentity.address, bobIdentity.address, charlieIdentity.address, davidIdentity.address], // Addresses of Alice and Bob's identities
+      [300, 42, 666, 304, 201] //Values associated with Alice and Bob in the identity registry
     );
 
-  // Define the claim data for Alice and Bob
+    // Define the claim data for the deployer
+    const claimForDeployer = {
+      data: ethers.utils.hexlify(
+       ethers.utils.toUtf8Bytes("Some claim public data.") // Public claim data for Deployer
+      ),
+      issuer: claimIssuerContract.address, // Address of the ClaimIssuer contract
+      topic: claimTopics[0], // Claim topic
+      scheme: 1, // Scheme of the claim
+      identity: deployerIdentity.address, // Address of Deployer's Identity contract
+      signature: "", // Placeholder for the claim signature
+   };
+ 
+   // Sign the claim data for Deployer
+   claimForDeployer.signature = await claimIssuerSigningKey.signMessage(
+     ethers.utils.arrayify(
+       ethers.utils.keccak256(
+         ethers.utils.defaultAbiCoder.encode(
+           ["address", "uint256", "bytes"], // Types of the claim data
+           [claimForDeployer.identity, claimForDeployer.topic, claimForDeployer.data] // Claim data for Deployer
+         )
+       )
+     )
+   );
+ 
+   // Add the claim to Deployer's Identity contract
+   await deployerIdentity
+     .connect(provider.getSigner(deployer))
+     .addClaim(
+      claimForDeployer.topic, // Claim topic
+      claimForDeployer.scheme, // Claim scheme
+      claimForDeployer.issuer, // Address of the ClaimIssuer contract
+      claimForDeployer.signature, // Signed claim data
+      claimForDeployer.data, // Public claim data
+       "" // Additional data (optional)
+     );
+
+  // Define the claim data for Alice
   const claimForAlice = {
      data: ethers.utils.hexlify(
       ethers.utils.toUtf8Bytes("Some claim public data.") // Public claim data for Alice
@@ -440,6 +491,7 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
       "" // Additional data (optional)
     );
 
+  // Define the claim data for Bob
   const claimForBob = {
     data: ethers.utils.hexlify(
       ethers.utils.toUtf8Bytes("Some claim public data.") // Public claim data for Bob
@@ -475,12 +527,87 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
       "" // Additional data (optional)
     );
 
+  // Define the claim data for Charlie
+  const claimForCharlie = {
+    data: ethers.utils.hexlify(
+      ethers.utils.toUtf8Bytes("Some claim public data.") // Public claim data for Charlie
+    ),
+    issuer: claimIssuerContract.address, // Address of the ClaimIssuer contract
+    topic: claimTopics[0], // Claim topic
+    scheme: 1, // Scheme of the claim
+    identity: charlieIdentity.address, // Address of Charlie's Identity contract
+    signature: "", // Placeholder for the claim signature
+  };
+
+  // Sign the claim data for Charlie
+  claimForCharlie.signature = await claimIssuerSigningKey.signMessage(
+    ethers.utils.arrayify(
+      ethers.utils.keccak256(
+        ethers.utils.defaultAbiCoder.encode(
+          ["address", "uint256", "bytes"], // Types of the claim data
+          [claimForCharlie.identity, claimForCharlie.topic, claimForCharlie.data] // Claim data for Charlie
+        )
+      )
+    )
+  );
+
+  // Add the claim to Charlie's Identity contract
+  await charlieIdentity
+    .connect(provider.getSigner(charlieWallet)) 
+    .addClaim(
+      claimForCharlie.topic, // Claim topic
+      claimForCharlie.scheme, // Claim scheme
+      claimForCharlie.issuer, // Address of the ClaimIssuer contract
+      claimForCharlie.signature, // Signed claim data
+      claimForCharlie.data, // Public claim data
+      "" // Additional data (optional)
+    );
+
+  // Define the claim data for David
+  const claimForDavid = {
+    data: ethers.utils.hexlify(
+      ethers.utils.toUtf8Bytes("Some claim public data.") // Public claim data for David
+    ),
+    issuer: claimIssuerContract.address, // Address of the ClaimIssuer contract
+    topic: claimTopics[0], // Claim topic
+    scheme: 1, // Scheme of the claim
+    identity: davidIdentity.address, // Address of David's Identity contract
+    signature: "", // Placeholder for the claim signature
+  };
+
+  // Sign the claim data for David
+  claimForDavid.signature = await claimIssuerSigningKey.signMessage(
+    ethers.utils.arrayify(
+      ethers.utils.keccak256(
+        ethers.utils.defaultAbiCoder.encode(
+          ["address", "uint256", "bytes"], // Types of the claim data
+          [claimForDavid.identity, claimForDavid.topic, claimForDavid.data] // Claim data for David
+        )
+      )
+    )
+  );
+
+  // Add the claim to David's Identity contract
+  await davidIdentity
+    .connect(provider.getSigner(davidWallet)) 
+    .addClaim(
+      claimForDavid.topic, // Claim topic
+      claimForDavid.scheme, // Claim scheme
+      claimForDavid.issuer, // Address of the ClaimIssuer contract
+      claimForDavid.signature, // Signed claim data
+      claimForDavid.data, // Public claim data
+      "" // Additional data (optional)
+    );
+
   // Grant the AGENT_ROLE to the token agent in the token contract
   await token.grantRole(AGENT_ROLE, tokenAgent);
   
   // Mint tokens to Alice's and Bob's wallets
   await token.connect(provider.getSigner(tokenAgent)).mint(aliceWallet, 1000); // Mint 1000 tokens to Alice
   await token.connect(provider.getSigner(tokenAgent)).mint(bobWallet, 500); // Mint 500 tokens to Bob
+  await token.connect(provider.getSigner(tokenAgent)).mint(charlieWallet, 5000); // Mint 500 tokens to Charlie
+  await token.connect(provider.getSigner(tokenAgent)).mint(davidWallet, 2000); // Mint 500 tokens to David
+  await token.connect(provider.getSigner(tokenAgent)).mint(deployer, 100000); // Mint 500 tokens to David
 
   // Grant the AGENT_ROLE to the token agent in the IdentityRegistry contract
   await identityRegistry.grantRole(AGENT_ROLE, tokenAgent);

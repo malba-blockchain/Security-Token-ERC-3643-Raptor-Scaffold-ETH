@@ -43,6 +43,9 @@ yarn chain
 yarn deploy --reset
 yarn start
 
+["ClaimTopicsRegistry", "ClaimIssuersRegistry", "IdentityRegistryStorage", "IdentityRegistry", "Token", "ClaimIssuer"];
+
+
 ADDITIONAL STEPS
 
 1. yarn add @onchain-id/solidity        npm install --save-dev "@nomiclabs/hardhat-ethers@^2.0.0"
@@ -68,11 +71,7 @@ D:\USER\Downloads\ATLAS\Projects\Mastering-Security-Token-ERC-3643\scaffold-eth-
 
 CONTINUE HERE: 
 
-ITS WORKING!
-
-UPLOAD IT TO GITHUB REPO. 
-
-NEXT STEP IS TO MAKE IT WORK USING SCAFFOLD ETH
+CONTINUE WITH TURNING tokenOID INTO A SMART CONTRACT YOU CAN SEE IN THE INTERFACE
 
 
 https://github.com/Aboudjem/ERC-3643
@@ -269,6 +268,95 @@ It manages claim topics and claim issuers to verify the identities.
 -_isIssuerClaimValid: Internal function to validate a claim issued by an issuer. It validates it by calling the interface of IClaimIssuer. 
 
 
+--------DEPLOYMENT ORDER--------
 
+1. List of all wallets that will be in the environment. 
+2. Signing keys for claimIsser
+2. Signing keys for users (alice)
+3. Deploy Identity contract from OnchainID library "identityImplementation"
+4. Deploy ImplementationAuthority contract from OnchainID library "identityImplementationAuthority"
+5. Deploy ClaimTopicsRegistry contract from ERC3643 - Raptor suite "claimTopicsRegistry"
+6. Deploy IdentityRegistryStorage contract from ERC3643 - Raptor suite "identityRegistryStorage"
+7. Deploy IdentityRegistry contract from ERC3643 - Raptor suite "identityRegistry"
+8. Deploy BasicCompliance contract from ERC3643 - Raptor suite "basicCompliance"
+9. Deploy IdentityProxy contract from OnchainID library "tokenOID"
+10. Deploy Token contract from from ERC3643 - Raptor suite "token"
+
+11. Grant TOKEN_ROLE to token address in the basicCompliance contract
+12. Grant AGENT_ROLE to token agent in the token contract
+13. Bind the identityRegistry address to the identityRegistryStorage in the identityRegistryStorage contract
+14. Define claim topis and add them to the claimTopicsRegistry contract
+
+15. Deploy ClaimIssuer contract from OnchainID library for "claimIssuerContract"
+16. Add claimIssuerContract to the claimIssuersRegistry
+
+17. Deploy Identity contract from OnchainID library for "aliceIdentity". Sending as parameter the "identityImplementationAuthority" contract address.
+18. Add "aliceActionKey" to "aliceIdentity" contract using aliceWallet 
+19. Deploy Identity contract from OnchainID library for "bobIdentity". Sending as parameter the "identityImplementationAuthority" contract address.
+20. Deploy Identity contract from OnchainID library for "charlieIdentity". Sending as parameter the "identityImplementationAuthority" contract address.
+
+21. Grant AGENT_ROLE to tokenAgent in the identityRegistry contract
+22. Grant AGENT_TOKEN to tokenAgent in the identityRegistry contract XXXXXXXXXXX Line 185
+
+23. Do batch registration of identities in identityRegistry alice and bob for [address, identity, country]
+
+24. Create claimForAlice with claim data to attach for the aliceIdentity
+25. Sign the claimForAlice using the claimIssuerSigningKey
+26. Add the claim to aliceIdentity, the one who adds it is the aliceWallet
+
+27. Create claimForBob with claim data to attach for the bobIdentity
+28. Sign the claimForBob using the claimIssuerSigningKey
+29. Add the claim to bobIdentity, the one who adds it is the bobWallet
+
+30.  Grant AGENT_ROLE to token agent in the token contract. AGAIN?? XXXXXXXXXXX Line 269
+
+31. Mint tokens to Alice's and Bob's wallets, using tokenAgent as a signer and aliceWallet and amount as mint() parameters
+
+32. Grant AGENT_ROLE to tokenAgent in the identityRegistry contract. AGAIN?? XXXXXXXXXXXXXXXXXXXX Line 276
+
+
+--------INVESTOR REGISTRATION PROCESS--------
+
+1. Get an address to enroll - Create the wallet/address for the investor
+2. Create an action key for signing stuff as investor (optional)
+3. Create an identity for the investor - Deploy IdentityProxy smart contract instance. Parameters (address identityImplementationAuthority, address walletOfInvestor, signer to deploy the contract)
+4. Add the actionKey (created in step 2) to the newly created identity for that investor using the addKey() method, the addition must be made using the investor wallet as singer.
+
+5. Add to the identity registry (can be in batch) using the registerIdentity() method the information about the investor: [address investorWallet , address investorIdentity, uint16 countryCode]
+
+6. Create a claim for the investor. Contains as parameter values: 
+Data: Claim public data - Hexadecimal string.
+Issuer: address ClaimIssuerContract
+Topic: claimTopics[0] . I.e. KYC or AML
+Scheme: Schema of the claim. (The minimal set of information required to create an onchain identity. Can be for individual or institution)
+Identity: Identity address of the investor
+Signature: Signature for the claim. Initially empty when created.
+
+7. Sign the claim created as the claimIssuer using the claimIssuer signing Key. Sign using as parameter 
+address claimForInvestor.Identity (address the identity of the investor)
+uint256 claimForInvestor.Topic (topic of the claim)
+bytes claimForInvestor.data (data to be assured in Hexadecimal string)
+
+8. Add the claim of the investor to the investorIdentity, using his own wallet as signer.
+claimForInvestor.topic (Claim topic)
+claimForInvestor.scheme (Claim scheme)
+claimForInvestor.issuer (Address of the ClaimIssuer contract)
+claimForInvestor.signature (Signed claim data)
+claimForInvestor.data (Public claim data)
+"" Additional data (optional)
+
+Once the claim have been added it's possible to make traditional interactions of sending tokens.
+
+ERROR NOTES: 
+1. If you try to send tokens to a wallet with no identity, 
+or an identity that has not been recorded in the identityRegistry
+or an identity without the right claim for the claim issuer you get the error: ERC-3643: Unverified identity'
+
+2. If there is an error with the parameters input to the claim or the signaturec, you get the error: invalid claim
+
+
+-----------MANUALLY TESTING-----------
+
+increaseAllowance
 
 
