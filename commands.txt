@@ -354,9 +354,33 @@ or an identity without the right claim for the claim issuer you get the error: E
 
 2. If there is an error with the parameters input to the claim or the signaturec, you get the error: invalid claim
 
+Deployer: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+Alice wallet: 0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc
+Bob Wallet:  0x976EA74026E726554dB657fA54763abd0C3a0aa9
+Charlie Wallet:  0x14dC79964da2C08b23698B3D3cc7Ca32193d9955
 
------------MANUALLY TESTING-----------
+-----------STANDARD TESTING NOTES-----------
 
-increaseAllowance
+The difference between increase allowance and approve is that approve fixes the value of the allowance it can even turn it to zero straigth away, while increaseAllowance can only increase it.
+
+Freezing the balance allows to stop making the transfer of funds, but not the approval or increaseAllowance of the funds.
+
+getRoleAdmin allows you to know what's the admin role (a hexa value) that controls the role you input as parameter.
+
+If a wallet is frozen, it's not possible to send NOR receive tokens. If there is a freeze of partial tokens, its possible to send and receive tokens while you don't try to send tokens currently freezed.
+
+Investors without conceded access control via a ROLE, can't partially freeze their own tokens nor setAddressFrozen.
+
+Investors without conceded access control via a ROLE, can't burn tokens, not even their own, nor force a transfer
+
+If the smart contract is paused, it's still possible to mint new tokens. 
+Its also possible to execute the functionality forceTransfer.
+You can also burn tokens.
+YOu can also freeze tokens from users and freeze their accounts.
+However, its not possible to make a transfer between addresses.
 
 
+CONTINUE HERE:
+Identify why recoveryAddress is throwing the error 
+
+Error: VM Exception while processing transaction: reverted with reason string 'ERC-3643: Recovery not possible'",
