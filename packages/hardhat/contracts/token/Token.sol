@@ -3,7 +3,7 @@ pragma solidity 0.8.17;
 
 import "./IToken.sol";
 import "@onchain-id/solidity/contracts/interface/IIdentity.sol";
-
+import "hardhat/console.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 
@@ -346,6 +346,7 @@ contract Token is IToken, AccessControl, Pausable {
 
         bool isLostWalletFrozen = _frozen[lostWallet];
         bytes32 _key = keccak256(abi.encode(newWallet));
+        
         require(
             identity.keyHasPurpose(_key, 1),
             "ERC-3643: Recovery not possible"

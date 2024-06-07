@@ -379,8 +379,19 @@ You can also burn tokens.
 YOu can also freeze tokens from users and freeze their accounts.
 However, its not possible to make a transfer between addresses.
 
+ERC 3643 leverages the usage of the standard ERC 734 in order to deal with keys for identity.
+Purpose: The purpose of the key, what is it used for? Management of other keys, signing and encrypting
+Type: The technical format of the key based on the algorithm that was used to create it. E.g. ECDSA or RSA. Stronger or weaker.
+
+Purpose 1: Management Keys 
+Purpose 2: Action Claim Signer Keys
+Purpose 3: Claim Signer Keys
+
+Type 1: ECDSA Keys 
+Type 2: RSA Keys 
+Type 3: Other Keys
+
 
 CONTINUE HERE:
-Identify why recoveryAddress is throwing the error 
 
-Error: VM Exception while processing transaction: reverted with reason string 'ERC-3643: Recovery not possible'",
+Create tests for setAddressFrozen

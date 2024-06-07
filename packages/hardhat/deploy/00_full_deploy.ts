@@ -300,6 +300,9 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   // Grant the AGENT_ROLE to the token agent in the token contract
   await token.grantRole(AGENT_ROLE, tokenAgent);
 
+  // Grant the AGENT_ROLE to the Token Smart Contract Address in the token contract
+  await identityRegistry.grantRole(AGENT_ROLE, token.address);
+
   // Bind the IdentityRegistryStorage contract to the IdentityRegistry contract
   await identityRegistryStorage.bindIdentityRegistry(identityRegistry.address);
 
@@ -804,10 +807,34 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
     console.log("Bob wallet balance before: ",(await token.balanceOf(bobWallet)).toNumber());
     console.log("Another wallet balance before: ",(await token.balanceOf(anotherWallet)).toNumber());
 
-    //await token.connect(provider.getSigner(deployer)).recoveryAddress(bobWallet, anotherWallet, bobIdentity.address);
+    // Add a the new wallet address to bob identity to be able to recover the previous one
+    await bobIdentity
+    .connect(provider.getSigner(bobWallet))
+    .addKey(
+      ethers.utils.keccak256(
+        ethers.utils.defaultAbiCoder.encode(
+          ["address"], // Key type
+          [anotherWallet] // Address of Alice's action key
+        )
+      ),
+      1, // Purpose of the key
+      1 // Type of the key
+    );
+
+    await token.connect(provider.getSigner(deployer)).recoveryAddress(bobWallet, anotherWallet, bobIdentity.address);
 
     console.log("Bob wallet balance after: ",(await token.balanceOf(bobWallet)).toNumber());
     console.log("Another wallet balance after: ",(await token.balanceOf(anotherWallet)).toNumber());
+    
+
+    //Testing setAddressFrozen
+    console.log("\n✅Testing setAddressFrozen");
+    console.log("Charlie wallet is frozen before: ",(await token.isFrozen(charlieWallet)));
+
+    await token.connect(provider.getSigner(deployer)).setAddressFrozen(charlieWallet,true);
+
+    console.log("Charlie wallet is frozen after: ",(await token.isFrozen(charlieWallet)));
+
     
  };
 

@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   31337: {
     BasicCompliance: {
-      address: "0x8999CaBc43E28202c5A2257f2a95A45b1F8A62BD",
+      address: "0x4ff1f64683785E0460c24A4EF78D582C2488704f",
       abi: [
         {
           inputs: [],
@@ -435,7 +435,7 @@ const deployedContracts = {
       },
     },
     ClaimIssuer: {
-      address: "0xDc631670204814fF6935E094b71F55C7BF98d321",
+      address: "0x01cf58e264d7578D4C67022c58A24CbC4C4a304E",
       abi: [
         {
           inputs: [
@@ -1279,7 +1279,7 @@ const deployedContracts = {
       },
     },
     ClaimIssuersRegistry: {
-      address: "0xBc1065371D4c6FD32C12f35241793557bd3D85B9",
+      address: "0x124dDf9BdD2DdaD012ef1D5bBd77c00F05C610DA",
       abi: [
         {
           anonymous: false,
@@ -1549,7 +1549,7 @@ const deployedContracts = {
       },
     },
     ClaimTopicsRegistry: {
-      address: "0x618aB3160c5bbBc5bFa034ACa8e37dF3Eea0316D",
+      address: "0xc3023a2c9f7B92d1dd19F488AF6Ee107a78Df9DB",
       abi: [
         {
           anonymous: false,
@@ -1680,7 +1680,7 @@ const deployedContracts = {
       },
     },
     IdentityRegistry: {
-      address: "0xCc66f9A3cA2670972938FAD91d0865c4a62DFB25",
+      address: "0xaB837301d12cDc4b97f1E910FC56C9179894d9cf",
       abi: [
         {
           inputs: [
@@ -2328,7 +2328,7 @@ const deployedContracts = {
       },
     },
     IdentityRegistryStorage: {
-      address: "0x82C9d5501a2C46125A82cc82D0881FA27751EA3E",
+      address: "0xe044814c9eD1e6442Af956a817c161192cBaE98F",
       abi: [
         {
           inputs: [],
@@ -2846,7 +2846,7 @@ const deployedContracts = {
       },
     },
     Token: {
-      address: "0x984f797d26d3da2E9b9f8Ae4eeFEACC60fCAA90C",
+      address: "0x1D3EDBa836caB11C26A186873abf0fFeB8bbaE63",
       abi: [
         {
           inputs: [
