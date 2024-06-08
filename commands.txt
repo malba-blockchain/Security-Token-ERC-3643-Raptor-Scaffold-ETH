@@ -392,6 +392,11 @@ Type 2: RSA Keys
 Type 3: Other Keys
 
 
+Its not possible to execute the function renounce role in behalf of other accounts, it only works for self execution.
+
+Its possible to execute the function revoke role from an account with super adming privileges or the same account for self execution.
+
+
 CONTINUE HERE:
 
-Create tests for setAddressFrozen
+Create tests for unfreezePartialTokens
