@@ -1,5 +1,5 @@
 // Import necessary modules and types from the ethers and hardhat libraries
-import { BigNumber, Contract, Signer, providers } from "ethers"; 
+import { BigNumber, Contract, Signer, providers } from "ethers";
 import { ethers } from "hardhat";
 import OnchainID from "@onchain-id/solidity";
 import { AGENT_ROLE, TOKEN_ROLE } from "../scripts/utils";
@@ -16,7 +16,7 @@ async function deployIdentityProxy(
   implementationAuthority: Contract["address"], // Address of the implementation authority contract
   managementKey: string, // Management key for the identity
   signer: Signer // Signer object to sign transactions
-  ) {
+) {
 
   const IdentityProxyFactory = new ethers.ContractFactory(
     OnchainID.contracts.IdentityProxy.abi, // ABI of the IdentityProxy contract
@@ -32,7 +32,7 @@ async function deployIdentityProxy(
   return Identity1;
 }
 
-const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
+const deployFullSuiteFixture: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   /*
     On localhost, the deployer account is the one that comes with Hardhat, which is already funded.
 
@@ -61,7 +61,7 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
     charlieWallet,
     davidWallet,
     anotherWallet,
-  ] = await provider.listAccounts( );
+  ] = await provider.listAccounts();
 
   // Generate random signing keys for claim issuer and action key for Alice
   const claimIssuerSigningKey = ethers.Wallet.createRandom();
@@ -98,11 +98,6 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   ).deploy(identityImplementation.address); // Deploy with the address of the Identity implementation
 
   // Deploy the ClaimTopicsRegistry contract
-  /*
-  const ClaimTopicsRegistry = await ethers.getContractFactory("ClaimTopicsRegistry", provider.getSigner(deployer));
-  const claimTopicsRegistry = await ClaimTopicsRegistry.deploy();
-  */
-
   await deploy("ClaimTopicsRegistry", {
     from: deployer,
     // Contract constructor arguments
@@ -114,18 +109,14 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   });
 
   const ClaimTopicsRegistry = await hre.deployments.get("ClaimTopicsRegistry");
-  
+
   const claimTopicsRegistry = new hre.ethers.Contract(
     ClaimTopicsRegistry.address,
     ClaimTopicsRegistry.abi,
     provider.getSigner(deployer)
   );
-  
+
   // Deploy the ClaimIssuersRegistry contract
-  /*
-  const ClaimIssuersRegistry = await ethers.getContractFactory("ClaimIssuersRegistry", provider.getSigner(deployer));
-  const claimIssuersRegistry = await ClaimIssuersRegistry.deploy();
-  */
 
   await deploy("ClaimIssuersRegistry", {
     from: deployer,
@@ -138,7 +129,7 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   });
 
   const ClaimIssuersRegistry = await hre.deployments.get("ClaimIssuersRegistry");
-  
+
   const claimIssuersRegistry = new hre.ethers.Contract(
     ClaimIssuersRegistry.address,
     ClaimIssuersRegistry.abi,
@@ -146,10 +137,6 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   );
 
   // Deploy the IdentityRegistryStorage contract
-  /*
-  const IdentityRegistryStorage = await ethers.getContractFactory("IdentityRegistryStorage", provider.getSigner(deployer));
-  const identityRegistryStorage = await IdentityRegistryStorage.deploy();
-  */
 
   await deploy("IdentityRegistryStorage", {
     from: deployer,
@@ -162,7 +149,7 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   });
 
   const IdentityRegistryStorage = await hre.deployments.get("IdentityRegistryStorage");
-  
+
   const identityRegistryStorage = new hre.ethers.Contract(
     IdentityRegistryStorage.address,
     IdentityRegistryStorage.abi,
@@ -177,15 +164,6 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   console.log("Identity Registry Storage: ", identityRegistryStorage.address);
 
   // Deploy the IdentityRegistry contract
-  /*
-  const IdentityRegistry = await ethers.getContractFactory("IdentityRegistry", provider.getSigner(deployer));
-  const identityRegistry = await IdentityRegistry.deploy(
-    claimIssuersRegistry.address, // Address of the ClaimIssuersRegistry contract
-    claimTopicsRegistry.address, // Address of the ClaimTopicsRegistry contract
-    identityRegistryStorage.address // Address of the IdentityRegistryStorage contract
-  );
-  console.log("Identity Registry: ", identityRegistry.address);
-  */
 
   await deploy("IdentityRegistry", {
     from: deployer,
@@ -202,7 +180,7 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   });
 
   const IdentityRegistry = await hre.deployments.get("IdentityRegistry");
-  
+
   const identityRegistry = new hre.ethers.Contract(
     IdentityRegistry.address,
     IdentityRegistry.abi,
@@ -212,12 +190,7 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   console.log("Identity Registry: ", identityRegistry.address);
 
   // Deploy the BasicCompliance contract
-  /*
-  const basicCompliance = await ethers.deployContract(
-    "BasicCompliance",
-    provider.getSigner(deployer) // Signer to deploy the contract
-  );
-  */
+
   await deploy("BasicCompliance", {
     from: deployer,
     // Contract constructor arguments
@@ -229,15 +202,14 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   });
 
   const BasicCompliance = await hre.deployments.get("BasicCompliance");
-  
+
   const basicCompliance = new hre.ethers.Contract(
     BasicCompliance.address,
     BasicCompliance.abi,
     provider.getSigner(deployer)
   );
-  
-  console.log("BasicCompliance: ", basicCompliance.address);
 
+  console.log("BasicCompliance: ", basicCompliance.address);
 
   const tokenOID = await deployIdentityProxy(
     identityImplementationAuthority.address, // Address of the ImplementationAuthority contract
@@ -253,19 +225,6 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   const tokenDecimals = BigNumber.from("6");
 
   // Deploy the Token contract
-  /*
-  const Token = await ethers.getContractFactory("Token", provider.getSigner(deployer));
-  const token = await Token.deploy(
-    identityRegistry.address, // Address of the IdentityRegistry contract
-    basicCompliance.address, // Address of the BasicCompliance contract
-    tokenName, // Name of the token
-    tokenSymbol, // Symbol of the token
-    tokenDecimals, // Decimals of the token
-    tokenOID.address // Address of the token's IdentityProxy contract
-  );
-
-   console.log("Token Address: ", token.address);
-  */
 
   await deploy("Token", {
     from: deployer,
@@ -285,7 +244,7 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   });
 
   const Token = await hre.deployments.get("Token");
-  
+
   const token = new hre.ethers.Contract(
     Token.address,
     Token.abi,
@@ -311,13 +270,8 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   await claimTopicsRegistry.connect(provider.getSigner(deployer)).addClaimTopic(claimTopics[0]);
 
   console.log("\n~~ Claims setup ~~");
-  
+
   // Deploy the ClaimIssuer contract and add a key
-  /*
-  const claimIssuerContractFactory = await ethers.getContractFactory("ClaimIssuer", provider.getSigner(deployer));
-  const claimIssuerContract = await claimIssuerContractFactory.deploy(claimIssuer);
-  console.log("Claim Issuer Contract: ", claimIssuerContract.address);
-  */
 
   await deploy("ClaimIssuer", {
     from: deployer,
@@ -330,7 +284,7 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   });
 
   const ClaimIssuerContract = await hre.deployments.get("ClaimIssuer");
-  
+
   const claimIssuerContract = new hre.ethers.Contract(
     ClaimIssuerContract.address,
     ClaimIssuerContract.abi,
@@ -355,8 +309,8 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
 
   // Add the ClaimIssuer contract to the ClaimIssuersRegistry
   await claimIssuersRegistry
-  .connect(provider.getSigner(deployer))
-  .addClaimIssuer(claimIssuerContract.address, claimTopics);
+    .connect(provider.getSigner(deployer))
+    .addClaimIssuer(claimIssuerContract.address, claimTopics);
 
   // Deploy IdentityProxy contract for the deployer to be able to do metatesting
   const deployerIdentity = await deployIdentityProxy(
@@ -408,7 +362,7 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
     provider.getSigner(deployer) // Signer to deploy the contract
   );
   console.log("David Identity Contract: ", davidIdentity.address);
-  
+
   // Grant the AGENT_ROLE to the token agent and token in the IdentityRegistry contract
   await identityRegistry.grantRole(AGENT_ROLE, tokenAgent);
   await identityRegistry.grantRole(TOKEN_ROLE, token.address);
@@ -422,52 +376,52 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
       [300, 42, 666, 304, 201] //Values associated with Alice and Bob in the identity registry
     );
 
-    // Define the claim data for the deployer
-    const claimForDeployer = {
-      data: ethers.utils.hexlify(
-       ethers.utils.toUtf8Bytes("Some claim public data.") // Public claim data for Deployer
-      ),
-      issuer: claimIssuerContract.address, // Address of the ClaimIssuer contract
-      topic: claimTopics[0], // Claim topic
-      scheme: 1, // Scheme of the claim
-      identity: deployerIdentity.address, // Address of Deployer's Identity contract
-      signature: "", // Placeholder for the claim signature
-   };
- 
-   // Sign the claim data for Deployer
-   claimForDeployer.signature = await claimIssuerSigningKey.signMessage(
-     ethers.utils.arrayify(
-       ethers.utils.keccak256(
-         ethers.utils.defaultAbiCoder.encode(
-           ["address", "uint256", "bytes"], // Types of the claim data
-           [claimForDeployer.identity, claimForDeployer.topic, claimForDeployer.data] // Claim data for Deployer
-         )
-       )
-     )
-   );
- 
-   // Add the claim to Deployer's Identity contract
-   await deployerIdentity
-     .connect(provider.getSigner(deployer))
-     .addClaim(
+  // Define the claim data for the deployer
+  const claimForDeployer = {
+    data: ethers.utils.hexlify(
+      ethers.utils.toUtf8Bytes("Some claim public data.") // Public claim data for Deployer
+    ),
+    issuer: claimIssuerContract.address, // Address of the ClaimIssuer contract
+    topic: claimTopics[0], // Claim topic
+    scheme: 1, // Scheme of the claim
+    identity: deployerIdentity.address, // Address of Deployer's Identity contract
+    signature: "", // Placeholder for the claim signature
+  };
+
+  // Sign the claim data for Deployer
+  claimForDeployer.signature = await claimIssuerSigningKey.signMessage(
+    ethers.utils.arrayify(
+      ethers.utils.keccak256(
+        ethers.utils.defaultAbiCoder.encode(
+          ["address", "uint256", "bytes"], // Types of the claim data
+          [claimForDeployer.identity, claimForDeployer.topic, claimForDeployer.data] // Claim data for Deployer
+        )
+      )
+    )
+  );
+
+  // Add the claim to Deployer's Identity contract
+  await deployerIdentity
+    .connect(provider.getSigner(deployer))
+    .addClaim(
       claimForDeployer.topic, // Claim topic
       claimForDeployer.scheme, // Claim scheme
       claimForDeployer.issuer, // Address of the ClaimIssuer contract
       claimForDeployer.signature, // Signed claim data
       claimForDeployer.data, // Public claim data
-       "" // Additional data (optional)
-     );
+      "" // Additional data (optional)
+    );
 
   // Define the claim data for Alice
   const claimForAlice = {
-     data: ethers.utils.hexlify(
+    data: ethers.utils.hexlify(
       ethers.utils.toUtf8Bytes("Some claim public data.") // Public claim data for Alice
-     ),
-     issuer: claimIssuerContract.address, // Address of the ClaimIssuer contract
-     topic: claimTopics[0], // Claim topic
-     scheme: 1, // Scheme of the claim
-     identity: aliceIdentity.address, // Address of Alice's Identity contract
-     signature: "", // Placeholder for the claim signature
+    ),
+    issuer: claimIssuerContract.address, // Address of the ClaimIssuer contract
+    topic: claimTopics[0], // Claim topic
+    scheme: 1, // Scheme of the claim
+    identity: aliceIdentity.address, // Address of Alice's Identity contract
+    signature: "", // Placeholder for the claim signature
   };
 
   // Sign the claim data for Alice
@@ -520,7 +474,7 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
 
   // Add the claim to Bob's Identity contract
   await bobIdentity
-    .connect(provider.getSigner(bobWallet)) 
+    .connect(provider.getSigner(bobWallet))
     .addClaim(
       claimForBob.topic, // Claim topic
       claimForBob.scheme, // Claim scheme
@@ -556,7 +510,7 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
 
   // Add the claim to Charlie's Identity contract
   await charlieIdentity
-    .connect(provider.getSigner(charlieWallet)) 
+    .connect(provider.getSigner(charlieWallet))
     .addClaim(
       claimForCharlie.topic, // Claim topic
       claimForCharlie.scheme, // Claim scheme
@@ -592,7 +546,7 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
 
   // Add the claim to David's Identity contract
   await davidIdentity
-    .connect(provider.getSigner(davidWallet)) 
+    .connect(provider.getSigner(davidWallet))
     .addClaim(
       claimForDavid.topic, // Claim topic
       claimForDavid.scheme, // Claim scheme
@@ -607,7 +561,7 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
 
   // Grant the AGENT_ROLE to the token agent in the IdentityRegistry contract
   await identityRegistry.grantRole(AGENT_ROLE, tokenAgent);
-  
+
   // Mint tokens to stakeholders wallets
   await token.connect(provider.getSigner(tokenAgent)).mint(aliceWallet, 1000); // Mint 1000 tokens to Alice
   await token.connect(provider.getSigner(tokenAgent)).mint(bobWallet, 2000); // Mint 500 tokens to Bob
@@ -615,10 +569,9 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   await token.connect(provider.getSigner(tokenAgent)).mint(davidWallet, 2000); // Mint 2000 tokens to David
   await token.connect(provider.getSigner(tokenAgent)).mint(deployer, 100000); // Mint 100000 tokens to Deployer
 
-
   /////////////TESTING LINES/////////////
   console.log("\n~~ TESTING LINES ~~");
-  
+
   //Testing increaseAllowance
   console.log("\n✅Testing increaseAllowance");
 
@@ -628,10 +581,10 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   await token.connect(provider.getSigner(deployer)).increaseAllowance(bobWallet, 3000); // Increase allowance in 2000 to Bob wallet
   console.log("Alice wallet allowance after: ", (await token.allowance(deployer, aliceWallet)).toNumber());
   console.log("Bob wallet allowance after: ", (await token.allowance(deployer, aliceWallet)).toNumber());
-  
+
   //Testing decreaseAllowance
   console.log("\n✅Testing decreaseAllowance");
-  
+
   console.log("Alice wallet allowance before: ", (await token.allowance(deployer, aliceWallet)).toNumber());
   await token.connect(provider.getSigner(deployer)).decreaseAllowance(aliceWallet, 1000); // Decrease allowance in 1000 to Alice wallet
   console.log("Alice wallet allowance after: ", (await token.allowance(deployer, aliceWallet)).toNumber());
@@ -640,14 +593,14 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   //Testing batchTransferFrom
   console.log("\n✅Testing batchTransferFrom");
 
-  console.log("Alice wallet balance before: ",(await token.balanceOf(aliceWallet)).toNumber());
-  console.log("Bob wallet balance before: ",(await token.balanceOf(bobWallet)).toNumber());
-  console.log("Charlie wallet balance before: ",(await token.balanceOf(charlieWallet)).toNumber());
+  console.log("Alice wallet balance before: ", (await token.balanceOf(aliceWallet)).toNumber());
+  console.log("Bob wallet balance before: ", (await token.balanceOf(bobWallet)).toNumber());
+  console.log("Charlie wallet balance before: ", (await token.balanceOf(charlieWallet)).toNumber());
   await token.connect(provider.getSigner(aliceWallet)).batchTransferFrom([deployer, deployer, deployer], [aliceWallet, bobWallet, charlieWallet], [500, 500, 500]); // Batch transfer to wallets
 
-  console.log("\nAlice wallet balance after: ",(await token.balanceOf(aliceWallet)).toNumber());
-  console.log("Bob wallet balance after: ",(await token.balanceOf(bobWallet)).toNumber());
-  console.log("Charlie wallet balance after: ",(await token.balanceOf(charlieWallet)).toNumber());
+  console.log("\nAlice wallet balance after: ", (await token.balanceOf(aliceWallet)).toNumber());
+  console.log("Bob wallet balance after: ", (await token.balanceOf(bobWallet)).toNumber());
+  console.log("Charlie wallet balance after: ", (await token.balanceOf(charlieWallet)).toNumber());
 
   //Testing approve
   console.log("\n✅Testing approve");
@@ -657,158 +610,158 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
 
   //Testing batchBurn
   console.log("\n✅Testing batchBurn");
-  console.log("Alice wallet balance before: ",(await token.balanceOf(aliceWallet)).toNumber());
-  console.log("Bob wallet balance before: ",(await token.balanceOf(bobWallet)).toNumber());
-  console.log("Charlie wallet balance before: ",(await token.balanceOf(charlieWallet)).toNumber());
+  console.log("Alice wallet balance before: ", (await token.balanceOf(aliceWallet)).toNumber());
+  console.log("Bob wallet balance before: ", (await token.balanceOf(bobWallet)).toNumber());
+  console.log("Charlie wallet balance before: ", (await token.balanceOf(charlieWallet)).toNumber());
 
-  await token.connect(provider.getSigner(deployer)).batchBurn([aliceWallet,bobWallet,charlieWallet], [500,500,500]);
-  
-  console.log("\nAlice wallet balance after: ",(await token.balanceOf(aliceWallet)).toNumber());
-  console.log("Bob wallet balance after: ",(await token.balanceOf(bobWallet)).toNumber());
-  console.log("Charlie wallet balance after: ",(await token.balanceOf(charlieWallet)).toNumber());
+  await token.connect(provider.getSigner(deployer)).batchBurn([aliceWallet, bobWallet, charlieWallet], [500, 500, 500]);
+
+  console.log("\nAlice wallet balance after: ", (await token.balanceOf(aliceWallet)).toNumber());
+  console.log("Bob wallet balance after: ", (await token.balanceOf(bobWallet)).toNumber());
+  console.log("Charlie wallet balance after: ", (await token.balanceOf(charlieWallet)).toNumber());
 
   //Testing batchForcedTransfer
   console.log("\n✅Testing batchForcedTransfer");
-  console.log("Alice wallet balance before: ",(await token.balanceOf(aliceWallet)).toNumber());
-  console.log("Bob wallet balance before: ",(await token.balanceOf(bobWallet)).toNumber());
-  console.log("Charlie wallet balance before: ",(await token.balanceOf(charlieWallet)).toNumber());
-  console.log("David wallet balance after: ",(await token.balanceOf(davidWallet)).toNumber());
+  console.log("Alice wallet balance before: ", (await token.balanceOf(aliceWallet)).toNumber());
+  console.log("Bob wallet balance before: ", (await token.balanceOf(bobWallet)).toNumber());
+  console.log("Charlie wallet balance before: ", (await token.balanceOf(charlieWallet)).toNumber());
+  console.log("David wallet balance after: ", (await token.balanceOf(davidWallet)).toNumber());
 
-  await token.connect(provider.getSigner(deployer)).batchForcedTransfer([aliceWallet,bobWallet,charlieWallet], [davidWallet, davidWallet, davidWallet],  [500,500,500]);
-  
-  console.log("\nAlice wallet balance after: ",(await token.balanceOf(aliceWallet)).toNumber());
-  console.log("Bob wallet balance after: ",(await token.balanceOf(bobWallet)).toNumber());
-  console.log("Charlie wallet balance after: ",(await token.balanceOf(charlieWallet)).toNumber());
-  console.log("David wallet balance after: ",(await token.balanceOf(davidWallet)).toNumber());
+  await token.connect(provider.getSigner(deployer)).batchForcedTransfer([aliceWallet, bobWallet, charlieWallet], [davidWallet, davidWallet, davidWallet], [500, 500, 500]);
+
+  console.log("\nAlice wallet balance after: ", (await token.balanceOf(aliceWallet)).toNumber());
+  console.log("Bob wallet balance after: ", (await token.balanceOf(bobWallet)).toNumber());
+  console.log("Charlie wallet balance after: ", (await token.balanceOf(charlieWallet)).toNumber());
+  console.log("David wallet balance after: ", (await token.balanceOf(davidWallet)).toNumber());
 
   //Testing batchFreezePartialTokens
   console.log("\n✅Testing batchFreezePartialTokens");
-  console.log("Alice wallet balance before: ",(await token.balanceOf(aliceWallet)).toNumber());
-  console.log("Bob wallet balance before: ",(await token.balanceOf(bobWallet)).toNumber());
-  console.log("Charlie wallet balance before: ",(await token.balanceOf(charlieWallet)).toNumber());
+  console.log("Alice wallet balance before: ", (await token.balanceOf(aliceWallet)).toNumber());
+  console.log("Bob wallet balance before: ", (await token.balanceOf(bobWallet)).toNumber());
+  console.log("Charlie wallet balance before: ", (await token.balanceOf(charlieWallet)).toNumber());
 
-  await token.connect(provider.getSigner(deployer)).batchFreezePartialTokens([aliceWallet,bobWallet,charlieWallet], [500,500,500]);
-  
-  console.log("\nAlice wallet frozen tokens amount: ",(await token.getFrozenTokens(aliceWallet)).toNumber());
-  console.log("Bob wallet frozen tokens amount: ",(await token.getFrozenTokens(bobWallet)).toNumber());
-  console.log("Charlie wallet frozen tokens amount: ",(await token.getFrozenTokens(charlieWallet)).toNumber());
+  await token.connect(provider.getSigner(deployer)).batchFreezePartialTokens([aliceWallet, bobWallet, charlieWallet], [500, 500, 500]);
+
+  console.log("\nAlice wallet frozen tokens amount: ", (await token.getFrozenTokens(aliceWallet)).toNumber());
+  console.log("Bob wallet frozen tokens amount: ", (await token.getFrozenTokens(bobWallet)).toNumber());
+  console.log("Charlie wallet frozen tokens amount: ", (await token.getFrozenTokens(charlieWallet)).toNumber());
 
   //Testing batchMint
   console.log("\n✅Testing batchMint");
-  console.log("Alice wallet balance before: ",(await token.balanceOf(aliceWallet)).toNumber());
-  console.log("Bob wallet balance before: ",(await token.balanceOf(bobWallet)).toNumber());
-  console.log("Charlie wallet balance before: ",(await token.balanceOf(charlieWallet)).toNumber());
+  console.log("Alice wallet balance before: ", (await token.balanceOf(aliceWallet)).toNumber());
+  console.log("Bob wallet balance before: ", (await token.balanceOf(bobWallet)).toNumber());
+  console.log("Charlie wallet balance before: ", (await token.balanceOf(charlieWallet)).toNumber());
 
-  await token.connect(provider.getSigner(deployer)).batchMint([aliceWallet,bobWallet,charlieWallet], [1000,1000,1000]);
-  
-  console.log("\nAlice wallet balance after: ",(await token.balanceOf(aliceWallet)).toNumber());
-  console.log("Bob wallet balance after: ",(await token.balanceOf(bobWallet)).toNumber());
-  console.log("Charlie wallet balance after: ",(await token.balanceOf(charlieWallet)).toNumber());
+  await token.connect(provider.getSigner(deployer)).batchMint([aliceWallet, bobWallet, charlieWallet], [1000, 1000, 1000]);
+
+  console.log("\nAlice wallet balance after: ", (await token.balanceOf(aliceWallet)).toNumber());
+  console.log("Bob wallet balance after: ", (await token.balanceOf(bobWallet)).toNumber());
+  console.log("Charlie wallet balance after: ", (await token.balanceOf(charlieWallet)).toNumber());
 
   //Testing batchSetAddressFrozen
   console.log("\n✅Testing batchSetAddressFrozen");
-  console.log("Alice wallet balance before: ",(await token.balanceOf(aliceWallet)).toNumber());
-  console.log("Bob wallet balance before: ",(await token.balanceOf(bobWallet)).toNumber());
-  console.log("Charlie wallet balance before: ",(await token.balanceOf(charlieWallet)).toNumber());
+  console.log("Alice wallet balance before: ", (await token.balanceOf(aliceWallet)).toNumber());
+  console.log("Bob wallet balance before: ", (await token.balanceOf(bobWallet)).toNumber());
+  console.log("Charlie wallet balance before: ", (await token.balanceOf(charlieWallet)).toNumber());
 
-  await token.connect(provider.getSigner(deployer)).batchSetAddressFrozen([aliceWallet,bobWallet,charlieWallet], [false,false,false]);
-  
-  console.log("\nAlice wallet is frozen: ",(await token.isFrozen(aliceWallet)));
-  console.log("Bob wallet is frozen: ",(await token.isFrozen(bobWallet)));
-  console.log("Charlie wallet is frozen: ",(await token.isFrozen(charlieWallet)));
+  await token.connect(provider.getSigner(deployer)).batchSetAddressFrozen([aliceWallet, bobWallet, charlieWallet], [false, false, false]);
+
+  console.log("\nAlice wallet is frozen: ", (await token.isFrozen(aliceWallet)));
+  console.log("Bob wallet is frozen: ", (await token.isFrozen(bobWallet)));
+  console.log("Charlie wallet is frozen: ", (await token.isFrozen(charlieWallet)));
 
   //Testing batchTransfer
   console.log("\n✅Testing batchTransfer");
-  console.log("Deployer wallet balance before: ",(await token.balanceOf(deployer)).toNumber());
-  console.log("Alice wallet balance before: ",(await token.balanceOf(aliceWallet)).toNumber());
-  console.log("Bob wallet balance before: ",(await token.balanceOf(bobWallet)).toNumber());
-  console.log("Charlie wallet balance before: ",(await token.balanceOf(charlieWallet)).toNumber());
+  console.log("Deployer wallet balance before: ", (await token.balanceOf(deployer)).toNumber());
+  console.log("Alice wallet balance before: ", (await token.balanceOf(aliceWallet)).toNumber());
+  console.log("Bob wallet balance before: ", (await token.balanceOf(bobWallet)).toNumber());
+  console.log("Charlie wallet balance before: ", (await token.balanceOf(charlieWallet)).toNumber());
 
-  await token.connect(provider.getSigner(deployer)).batchTransfer([aliceWallet,bobWallet,charlieWallet], [1000,1000,1000]);
-  
-  console.log("\nDeployer wallet balance after: ",(await token.balanceOf(deployer)).toNumber());
-  console.log("Alice wallet balance after: ",(await token.balanceOf(aliceWallet)).toNumber());
-  console.log("Bob wallet balance after: ",(await token.balanceOf(bobWallet)).toNumber());
-  console.log("Charlie wallet balance after: ",(await token.balanceOf(charlieWallet)).toNumber());
+  await token.connect(provider.getSigner(deployer)).batchTransfer([aliceWallet, bobWallet, charlieWallet], [1000, 1000, 1000]);
+
+  console.log("\nDeployer wallet balance after: ", (await token.balanceOf(deployer)).toNumber());
+  console.log("Alice wallet balance after: ", (await token.balanceOf(aliceWallet)).toNumber());
+  console.log("Bob wallet balance after: ", (await token.balanceOf(bobWallet)).toNumber());
+  console.log("Charlie wallet balance after: ", (await token.balanceOf(charlieWallet)).toNumber());
 
   //Testing batchUnfreezePartialTokens
   console.log("\n✅Testing batchUnfreezePartialTokens");
-  console.log("\nAlice wallet frozen tokens amount before: ",(await token.getFrozenTokens(aliceWallet)).toNumber());
-  console.log("Bob wallet frozen tokens amount before: ",(await token.getFrozenTokens(bobWallet)).toNumber());
-  console.log("Charlie wallet frozen tokens amount : ",(await token.getFrozenTokens(charlieWallet)).toNumber());
+  console.log("\nAlice wallet frozen tokens amount before: ", (await token.getFrozenTokens(aliceWallet)).toNumber());
+  console.log("Bob wallet frozen tokens amount before: ", (await token.getFrozenTokens(bobWallet)).toNumber());
+  console.log("Charlie wallet frozen tokens amount : ", (await token.getFrozenTokens(charlieWallet)).toNumber());
 
-  await token.connect(provider.getSigner(deployer)).batchUnfreezePartialTokens([aliceWallet,bobWallet,charlieWallet], [500,500,500]);
-  
-  console.log("\nAlice wallet frozen tokens amount after: ",(await token.getFrozenTokens(aliceWallet)).toNumber());
-  console.log("Bob wallet frozen tokens amount after: ",(await token.getFrozenTokens(bobWallet)).toNumber());
-  console.log("Charlie wallet frozen tokens amount after: ",(await token.getFrozenTokens(charlieWallet)).toNumber());
+  await token.connect(provider.getSigner(deployer)).batchUnfreezePartialTokens([aliceWallet, bobWallet, charlieWallet], [500, 500, 500]);
+
+  console.log("\nAlice wallet frozen tokens amount after: ", (await token.getFrozenTokens(aliceWallet)).toNumber());
+  console.log("Bob wallet frozen tokens amount after: ", (await token.getFrozenTokens(bobWallet)).toNumber());
+  console.log("Charlie wallet frozen tokens amount after: ", (await token.getFrozenTokens(charlieWallet)).toNumber());
 
   //Testing burn
   console.log("\n✅Testing burn");
-  console.log("Total tokens amount before: ",(await token.totalSupply()).toNumber());
-  console.log("Alice tokens amount before: ",(await token.balanceOf(aliceWallet)).toNumber());
+  console.log("Total tokens amount before: ", (await token.totalSupply()).toNumber());
+  console.log("Alice tokens amount before: ", (await token.balanceOf(aliceWallet)).toNumber());
 
   await token.connect(provider.getSigner(deployer)).burn(aliceWallet, 500);
 
-  console.log("\nTotal tokens amount after: ",(await token.totalSupply()).toNumber());
-  console.log("Alice tokens amount after: ",(await token.balanceOf(aliceWallet)).toNumber());
+  console.log("\nTotal tokens amount after: ", (await token.totalSupply()).toNumber());
+  console.log("Alice tokens amount after: ", (await token.balanceOf(aliceWallet)).toNumber());
 
-    //Testing forcedTransfer
-    console.log("\n✅Testing forcedTransfer");
-    console.log("Alice tokens amount before: ",(await token.balanceOf(aliceWallet)).toNumber());
-    console.log("Bob tokens amount before: ",(await token.balanceOf(bobWallet)).toNumber());
+  //Testing forcedTransfer
+  console.log("\n✅Testing forcedTransfer");
+  console.log("Alice tokens amount before: ", (await token.balanceOf(aliceWallet)).toNumber());
+  console.log("Bob tokens amount before: ", (await token.balanceOf(bobWallet)).toNumber());
 
-    await token.connect(provider.getSigner(deployer)).forcedTransfer(aliceWallet, bobWallet, 1000);
-    
-    console.log("Alice tokens amount after: ",(await token.balanceOf(aliceWallet)).toNumber());
-    console.log("Bob tokens amount after: ",(await token.balanceOf(bobWallet)).toNumber());
+  await token.connect(provider.getSigner(deployer)).forcedTransfer(aliceWallet, bobWallet, 1000);
 
-    //Testing freezePartialTokens
-    console.log("\n✅Testing freezePartialTokens");
-    console.log("Alice wallet frozen tokens amount before: ",(await token.getFrozenTokens(aliceWallet)).toNumber());
+  console.log("Alice tokens amount after: ", (await token.balanceOf(aliceWallet)).toNumber());
+  console.log("Bob tokens amount after: ", (await token.balanceOf(bobWallet)).toNumber());
 
-    await token.connect(provider.getSigner(deployer)).freezePartialTokens(aliceWallet, 500);
-    
-    console.log("Alice wallet frozen tokens amount after: ",(await token.getFrozenTokens(aliceWallet)).toNumber());
-    
-    
-    //Testing mint
-    console.log("\n✅Testing mint");
-    console.log("Alice wallet balance before: ",(await token.balanceOf(aliceWallet)).toNumber());
+  //Testing freezePartialTokens
+  console.log("\n✅Testing freezePartialTokens");
+  console.log("Alice wallet frozen tokens amount before: ", (await token.getFrozenTokens(aliceWallet)).toNumber());
 
-    await token.connect(provider.getSigner(deployer)).mint(aliceWallet, 500);
-    
-    console.log("Alice wallet balance after: ",(await token.balanceOf(aliceWallet)).toNumber());
+  await token.connect(provider.getSigner(deployer)).freezePartialTokens(aliceWallet, 500);
+
+  console.log("Alice wallet frozen tokens amount after: ", (await token.getFrozenTokens(aliceWallet)).toNumber());
 
 
-    //Testing pausing
-    console.log("\n✅Testing pausing");
+  //Testing mint
+  console.log("\n✅Testing mint");
+  console.log("Alice wallet balance before: ", (await token.balanceOf(aliceWallet)).toNumber());
 
-    console.log("Alice wallet balance before: ",(await token.balanceOf(aliceWallet)).toNumber());
-    console.log("Alice wallet frozen tokens amount: ",(await token.getFrozenTokens(aliceWallet)).toNumber());
+  await token.connect(provider.getSigner(deployer)).mint(aliceWallet, 500);
 
-
-    await token.connect(provider.getSigner(deployer)).pause();
-    await token.connect(provider.getSigner(deployer)).mint(aliceWallet, 500);
-
-    await token.connect(provider.getSigner(deployer)).forcedTransfer(deployer, aliceWallet, 500);
-
-    await token.connect(provider.getSigner(deployer)).burn(aliceWallet, 500);
-    await token.connect(provider.getSigner(deployer)).freezePartialTokens(aliceWallet, 500);
-
-    console.log("Alice wallet balance after: ",(await token.balanceOf(aliceWallet)).toNumber());
-
-    console.log("Alice wallet frozen tokens amount: ",(await token.getFrozenTokens(aliceWallet)).toNumber());
+  console.log("Alice wallet balance after: ", (await token.balanceOf(aliceWallet)).toNumber());
 
 
-    //Testing recovery
-    console.log("\n✅Testing recovery");
-    
-    console.log("Bob wallet balance before: ",(await token.balanceOf(bobWallet)).toNumber());
-    console.log("Another wallet balance before: ",(await token.balanceOf(anotherWallet)).toNumber());
+  //Testing pausing
+  console.log("\n✅Testing pausing");
 
-    // Add a the new wallet address to bob identity to be able to recover the previous one
-    await bobIdentity
+  console.log("Alice wallet balance before: ", (await token.balanceOf(aliceWallet)).toNumber());
+  console.log("Alice wallet frozen tokens amount: ", (await token.getFrozenTokens(aliceWallet)).toNumber());
+
+
+  await token.connect(provider.getSigner(deployer)).pause();
+  await token.connect(provider.getSigner(deployer)).mint(aliceWallet, 500);
+
+  await token.connect(provider.getSigner(deployer)).forcedTransfer(deployer, aliceWallet, 500);
+
+  await token.connect(provider.getSigner(deployer)).burn(aliceWallet, 500);
+  await token.connect(provider.getSigner(deployer)).freezePartialTokens(aliceWallet, 500);
+
+  console.log("Alice wallet balance after: ", (await token.balanceOf(aliceWallet)).toNumber());
+
+  console.log("Alice wallet frozen tokens amount: ", (await token.getFrozenTokens(aliceWallet)).toNumber());
+
+
+  //Testing recovery
+  console.log("\n✅Testing recovery");
+
+  console.log("Bob wallet balance before: ", (await token.balanceOf(bobWallet)).toNumber());
+  console.log("Another wallet balance before: ", (await token.balanceOf(anotherWallet)).toNumber());
+
+  // Add a the new wallet address to bob identity to be able to recover the previous one
+  await bobIdentity
     .connect(provider.getSigner(bobWallet))
     .addKey(
       ethers.utils.keccak256(
@@ -821,131 +774,129 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
       1 // Type of the key
     );
 
-    await token.connect(provider.getSigner(deployer)).recoveryAddress(bobWallet, anotherWallet, bobIdentity.address);
+  await token.connect(provider.getSigner(deployer)).recoveryAddress(bobWallet, anotherWallet, bobIdentity.address);
 
-    console.log("Bob wallet balance after: ",(await token.balanceOf(bobWallet)).toNumber());
-    console.log("Another wallet balance after: ",(await token.balanceOf(anotherWallet)).toNumber());
-    
+  console.log("Bob wallet balance after: ", (await token.balanceOf(bobWallet)).toNumber());
+  console.log("Another wallet balance after: ", (await token.balanceOf(anotherWallet)).toNumber());
 
-    //Testing setAddressFrozen
-    console.log("\n✅Testing setAddressFrozen");
-    console.log("David wallet is frozen before: ",(await token.isFrozen(davidWallet)));
+  //Testing setAddressFrozen
+  console.log("\n✅Testing setAddressFrozen");
+  console.log("David wallet is frozen before: ", (await token.isFrozen(davidWallet)));
 
-    await token.connect(provider.getSigner(deployer)).setAddressFrozen(davidWallet,true);
+  await token.connect(provider.getSigner(deployer)).setAddressFrozen(davidWallet, true);
 
-    console.log("David wallet is frozen after: ",(await token.isFrozen(davidWallet)));
-
-
-    //Testing setCompliance
-    console.log("\n✅Testing setCompliance");
-    console.log("Compliance address before: ",(await token.compliance()));
-
-    //New compliance deployment
-    const newBasicCompliance = new hre.ethers.Contract(
-      BasicCompliance.address,
-      BasicCompliance.abi,
-      provider.getSigner(aliceWallet)
-    );
-    
-    console.log("New Basic Compliance: ", newBasicCompliance.address);
-    await token.connect(provider.getSigner(deployer)).setCompliance(newBasicCompliance.address);
-    console.log("Compliance address after: ",(await token.compliance()));
+  console.log("David wallet is frozen after: ", (await token.isFrozen(davidWallet)));
 
 
-    //Testing setIdentityRegistry
-    console.log("\n✅Testing setIdentityRegistry");
-    console.log("Identity registry address before: ", (await token.identityRegistry()));
-  
-    //New identity registry deployment
-    const newIdentityRegistry = new hre.ethers.Contract(
-      IdentityRegistry.address,
-      IdentityRegistry.abi,
-      provider.getSigner(aliceWallet)
-    );
-    
-    console.log("New Identity Registry: ", newIdentityRegistry.address);
-    await token.connect(provider.getSigner(deployer)).setIdentityRegistry(newIdentityRegistry.address);
-    console.log("Identity registry address after: ",(await token.identityRegistry()));
+  //Testing setCompliance
+  console.log("\n✅Testing setCompliance");
+  console.log("Compliance address before: ", (await token.compliance()));
+
+  //New compliance deployment
+  const newBasicCompliance = new hre.ethers.Contract(
+    BasicCompliance.address,
+    BasicCompliance.abi,
+    provider.getSigner(aliceWallet)
+  );
+
+  console.log("New Basic Compliance: ", newBasicCompliance.address);
+  await token.connect(provider.getSigner(deployer)).setCompliance(newBasicCompliance.address);
+  console.log("Compliance address after: ", (await token.compliance()));
 
 
-    //Testing setOnchainID
-    console.log("\n✅Testing setOnchainID");
-    console.log("Token Onchain ID address before: ", (await token.onchainID()));
-    
-    //New token onchain ID
-    const newTokenOID = await deployIdentityProxy(
-      identityImplementationAuthority.address, 
-      tokenIssuer, 
-      provider.getSigner(aliceWallet)
-    );
-    
-    console.log("New Token ID: ", newTokenOID.address);
-    await token.connect(provider.getSigner(deployer)).setOnchainID(newTokenOID.address);
-    console.log("Token Onchain ID address after: ",(await token.onchainID()));
+  //Testing setIdentityRegistry
+  console.log("\n✅Testing setIdentityRegistry");
+  console.log("Identity registry address before: ", (await token.identityRegistry()));
 
-    
-    //Testing transfer
-    console.log("\n✅Testing transfer");
-    await token.connect(provider.getSigner(deployer)).unpause();
-    console.log("Deployer wallet balance before: ",(await token.balanceOf(deployer)).toNumber());
-    console.log("Alice wallet balance before: ",(await token.balanceOf(aliceWallet)).toNumber());
+  //New identity registry deployment
+  const newIdentityRegistry = new hre.ethers.Contract(
+    IdentityRegistry.address,
+    IdentityRegistry.abi,
+    provider.getSigner(aliceWallet)
+  );
 
-    await token.connect(provider.getSigner(deployer)).transfer(aliceWallet, 1000);
-    
-    console.log("\nDeployer wallet balance after: ",(await token.balanceOf(deployer)).toNumber());
-    console.log("Alice wallet balance after: ",(await token.balanceOf(aliceWallet)).toNumber());
+  console.log("New Identity Registry: ", newIdentityRegistry.address);
+  await token.connect(provider.getSigner(deployer)).setIdentityRegistry(newIdentityRegistry.address);
+  console.log("Identity registry address after: ", (await token.identityRegistry()));
 
-    //Testing transferFrom
-    console.log("\n✅Testing transferFrom");
 
-    console.log("Alice wallet balance before: ",(await token.balanceOf(aliceWallet)).toNumber());
-    console.log("Charlie wallet balance before: ",(await token.balanceOf(charlieWallet)).toNumber());
+  //Testing setOnchainID
+  console.log("\n✅Testing setOnchainID");
+  console.log("Token Onchain ID address before: ", (await token.onchainID()));
 
-    await token.connect(provider.getSigner(aliceWallet)).approve(bobWallet, 1000);
-    await token.connect(provider.getSigner(bobWallet)).transferFrom(aliceWallet, charlieWallet, 1000);
-    
-    console.log("\nAlice wallet balance after: ",(await token.balanceOf(aliceWallet)).toNumber());
-    console.log("Charlie wallet balance after: ",(await token.balanceOf(charlieWallet)).toNumber());
+  //New token onchain ID
+  const newTokenOID = await deployIdentityProxy(
+    identityImplementationAuthority.address,
+    tokenIssuer,
+    provider.getSigner(aliceWallet)
+  );
 
-    //Testing unfreezePartialTokens
-    console.log("\n✅Testing unfreezePartialTokens");
-    console.log("Alice wallet frozen tokens amount before: ",(await token.getFrozenTokens(aliceWallet)).toNumber());
+  console.log("New Token ID: ", newTokenOID.address);
+  await token.connect(provider.getSigner(deployer)).setOnchainID(newTokenOID.address);
+  console.log("Token Onchain ID address after: ", (await token.onchainID()));
 
-    await token.connect(provider.getSigner(deployer)).unfreezePartialTokens(aliceWallet, 1000);
-    
-    console.log("Alice wallet frozen tokens amount after: ",(await token.getFrozenTokens(aliceWallet)).toNumber());
-    
-    //Testing grantRole
-    console.log("\n✅Testing grantRole");
-    console.log("Alice has role before: ",(await token.hasRole("0x0000000000000000000000000000000000000000000000000000000000000000", aliceWallet)));
 
-    await token.connect(provider.getSigner(deployer)).grantRole("0x0000000000000000000000000000000000000000000000000000000000000000", aliceWallet);
+  //Testing transfer
+  console.log("\n✅Testing transfer");
+  await token.connect(provider.getSigner(deployer)).unpause();
+  console.log("Deployer wallet balance before: ", (await token.balanceOf(deployer)).toNumber());
+  console.log("Alice wallet balance before: ", (await token.balanceOf(aliceWallet)).toNumber());
 
-    console.log("Alice has role after: ",(await token.hasRole("0x0000000000000000000000000000000000000000000000000000000000000000", aliceWallet)));
- 
-    //Testing renounceRole
-    console.log("\n✅Testing renounceRole");
-    console.log("Alice has role before: ",(await token.hasRole("0x0000000000000000000000000000000000000000000000000000000000000000", aliceWallet)));
+  await token.connect(provider.getSigner(deployer)).transfer(aliceWallet, 1000);
 
-    await token.connect(provider.getSigner(aliceWallet)).renounceRole("0x0000000000000000000000000000000000000000000000000000000000000000", aliceWallet);
+  console.log("\nDeployer wallet balance after: ", (await token.balanceOf(deployer)).toNumber());
+  console.log("Alice wallet balance after: ", (await token.balanceOf(aliceWallet)).toNumber());
 
-    console.log("Alice has role after: ",(await token.hasRole("0x0000000000000000000000000000000000000000000000000000000000000000", aliceWallet)));
- 
-     //Testing revokeRole
-     console.log("\n✅Testing revokeRole");
-     await token.connect(provider.getSigner(deployer)).grantRole("0x0000000000000000000000000000000000000000000000000000000000000000", aliceWallet);
+  //Testing transferFrom
+  console.log("\n✅Testing transferFrom");
 
-     console.log("Alice has role before: ",(await token.hasRole("0x0000000000000000000000000000000000000000000000000000000000000000", aliceWallet)));
- 
-     await token.connect(provider.getSigner(deployer)).revokeRole("0x0000000000000000000000000000000000000000000000000000000000000000", aliceWallet);
- 
-     console.log("Alice has role after: ",(await token.hasRole("0x0000000000000000000000000000000000000000000000000000000000000000", aliceWallet)));
-  
- 
-  };
+  console.log("Alice wallet balance before: ", (await token.balanceOf(aliceWallet)).toNumber());
+  console.log("Charlie wallet balance before: ", (await token.balanceOf(charlieWallet)).toNumber());
 
-export default deployYourContract;
+  await token.connect(provider.getSigner(aliceWallet)).approve(bobWallet, 1000);
+  await token.connect(provider.getSigner(bobWallet)).transferFrom(aliceWallet, charlieWallet, 1000);
+
+  console.log("\nAlice wallet balance after: ", (await token.balanceOf(aliceWallet)).toNumber());
+  console.log("Charlie wallet balance after: ", (await token.balanceOf(charlieWallet)).toNumber());
+
+  //Testing unfreezePartialTokens
+  console.log("\n✅Testing unfreezePartialTokens");
+  console.log("Alice wallet frozen tokens amount before: ", (await token.getFrozenTokens(aliceWallet)).toNumber());
+
+  await token.connect(provider.getSigner(deployer)).unfreezePartialTokens(aliceWallet, 1000);
+
+  console.log("Alice wallet frozen tokens amount after: ", (await token.getFrozenTokens(aliceWallet)).toNumber());
+
+  //Testing grantRole
+  console.log("\n✅Testing grantRole");
+  console.log("Alice has role before: ", (await token.hasRole("0x0000000000000000000000000000000000000000000000000000000000000000", aliceWallet)));
+
+  await token.connect(provider.getSigner(deployer)).grantRole("0x0000000000000000000000000000000000000000000000000000000000000000", aliceWallet);
+
+  console.log("Alice has role after: ", (await token.hasRole("0x0000000000000000000000000000000000000000000000000000000000000000", aliceWallet)));
+
+  //Testing renounceRole
+  console.log("\n✅Testing renounceRole");
+  console.log("Alice has role before: ", (await token.hasRole("0x0000000000000000000000000000000000000000000000000000000000000000", aliceWallet)));
+
+  await token.connect(provider.getSigner(aliceWallet)).renounceRole("0x0000000000000000000000000000000000000000000000000000000000000000", aliceWallet);
+
+  console.log("Alice has role after: ", (await token.hasRole("0x0000000000000000000000000000000000000000000000000000000000000000", aliceWallet)));
+
+  //Testing revokeRole
+  console.log("\n✅Testing revokeRole");
+  await token.connect(provider.getSigner(deployer)).grantRole("0x0000000000000000000000000000000000000000000000000000000000000000", aliceWallet);
+
+  console.log("Alice has role before: ", (await token.hasRole("0x0000000000000000000000000000000000000000000000000000000000000000", aliceWallet)));
+
+  await token.connect(provider.getSigner(deployer)).revokeRole("0x0000000000000000000000000000000000000000000000000000000000000000", aliceWallet);
+
+  console.log("Alice has role after: ", (await token.hasRole("0x0000000000000000000000000000000000000000000000000000000000000000", aliceWallet)));
+
+};
+
+export default deployFullSuiteFixture;
 
 // Tags are useful if you have multiple deploy files and only want to run one of them.
 // e.g. yarn deploy --tags YourContract
-deployYourContract.tags = ["ClaimTopicsRegistry", "ClaimIssuersRegistry", "IdentityRegistryStorage", "IdentityRegistry", "Token", "ClaimIssuer"];
+deployFullSuiteFixture.tags = ["ClaimTopicsRegistry", "ClaimIssuersRegistry", "IdentityRegistryStorage", "IdentityRegistry", "Token", "ClaimIssuer"];

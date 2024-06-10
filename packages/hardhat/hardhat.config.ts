@@ -32,6 +32,16 @@ const config: HardhatUserConfig = {
       },
     },
   },
+  paths: {
+    sources: "./contracts",
+    tests: "./test",
+    cache: "./cache",
+    artifacts: "./artifacts",
+  },
+  typechain: {
+    outDir: "typechain",
+    target: "ethers-v5",
+  },
   dodoc: {
     runOnCompile: false,
     debugMode: true,
