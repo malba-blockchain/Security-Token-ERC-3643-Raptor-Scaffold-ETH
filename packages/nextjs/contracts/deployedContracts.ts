@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   31337: {
     BasicCompliance: {
-      address: "0x922D6956C99E12DFeB3224DEA977D0939758A1Fe",
+      address: "0x8ac87219a0F5639BC01b470F87BA2b26356CB2B9",
       abi: [
         {
           inputs: [],
@@ -435,7 +435,7 @@ const deployedContracts = {
       },
     },
     ClaimIssuer: {
-      address: "0xD8a5a9b31c3C0232E196d518E89Fd8bF83AcAd43",
+      address: "0x742489F22807ebB4C36ca6cD95c3e1C044B7B6c8",
       abi: [
         {
           inputs: [
@@ -1279,7 +1279,7 @@ const deployedContracts = {
       },
     },
     ClaimIssuersRegistry: {
-      address: "0x1429859428C0aBc9C2C47C8Ee9FBaf82cFA0F20f",
+      address: "0x975Ab64F4901Af5f0C96636deA0b9de3419D0c2F",
       abi: [
         {
           anonymous: false,
@@ -1549,7 +1549,7 @@ const deployedContracts = {
       },
     },
     ClaimTopicsRegistry: {
-      address: "0xcbEAF3BDe82155F56486Fb5a1072cb8baAf547cc",
+      address: "0x572316aC11CB4bc5daf6BDae68f43EA3CCE3aE0e",
       abi: [
         {
           anonymous: false,
@@ -1680,7 +1680,7 @@ const deployedContracts = {
       },
     },
     IdentityRegistry: {
-      address: "0x162A433068F51e18b7d13932F27e66a3f99E6890",
+      address: "0xCd7c00Ac6dc51e8dCc773971Ac9221cC582F3b1b",
       abi: [
         {
           inputs: [
@@ -2328,7 +2328,7 @@ const deployedContracts = {
       },
     },
     IdentityRegistryStorage: {
-      address: "0xB0D4afd8879eD9F52b28595d31B441D079B2Ca07",
+      address: "0x4593ed9CbE6003e687e5e77368534bb04b162503",
       abi: [
         {
           inputs: [],
@@ -2846,7 +2846,7 @@ const deployedContracts = {
       },
     },
     Token: {
-      address: "0x1fA02b2d6A771842690194Cf62D91bdd92BfE28d",
+      address: "0xCa1D199b6F53Af7387ac543Af8e8a34455BBe5E0",
       abi: [
         {
           inputs: [
@@ -4040,149 +4040,6 @@ const deployedContracts = {
         supportsInterface: "@openzeppelin/contracts/access/AccessControl.sol",
         paused: "@openzeppelin/contracts/security/Pausable.sol",
       },
-    },
-    YourContract: {
-      address: "0x7bc06c482DEAd17c0e297aFbC32f6e63d3846650",
-      abi: [
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "_owner",
-              type: "address",
-            },
-          ],
-          stateMutability: "nonpayable",
-          type: "constructor",
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: true,
-              internalType: "address",
-              name: "greetingSetter",
-              type: "address",
-            },
-            {
-              indexed: false,
-              internalType: "string",
-              name: "newGreeting",
-              type: "string",
-            },
-            {
-              indexed: false,
-              internalType: "bool",
-              name: "premium",
-              type: "bool",
-            },
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "value",
-              type: "uint256",
-            },
-          ],
-          name: "GreetingChange",
-          type: "event",
-        },
-        {
-          inputs: [],
-          name: "greeting",
-          outputs: [
-            {
-              internalType: "string",
-              name: "",
-              type: "string",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "owner",
-          outputs: [
-            {
-              internalType: "address",
-              name: "",
-              type: "address",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "premium",
-          outputs: [
-            {
-              internalType: "bool",
-              name: "",
-              type: "bool",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "string",
-              name: "_newGreeting",
-              type: "string",
-            },
-          ],
-          name: "setGreeting",
-          outputs: [],
-          stateMutability: "payable",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "totalCounter",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "",
-              type: "address",
-            },
-          ],
-          name: "userGreetingCounter",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "withdraw",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          stateMutability: "payable",
-          type: "receive",
-        },
-      ],
-      inheritedFunctions: {},
     },
   },
 } as const;
