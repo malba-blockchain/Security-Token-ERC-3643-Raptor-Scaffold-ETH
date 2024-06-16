@@ -1,0 +1,492 @@
+{
+  "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "contract IClaimIssuer",
+          "name": "claimIssuer",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256[]",
+          "name": "claimTopics",
+          "type": "uint256[]"
+        }
+      ],
+      "name": "ClaimIssuerAdded",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "contract IClaimIssuer",
+          "name": "claimIssuer",
+          "type": "address"
+        }
+      ],
+      "name": "ClaimIssuerRemoved",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "contract IClaimIssuer",
+          "name": "claimIssuer",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256[]",
+          "name": "claimTopics",
+          "type": "uint256[]"
+        }
+      ],
+      "name": "ClaimTopicsUpdated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "contract IClaimIssuer",
+          "name": "_claimIssuer",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "_claimTopics",
+          "type": "uint256[]"
+        }
+      ],
+      "name": "addClaimIssuer",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "contract IClaimIssuer",
+          "name": "_claimIssuer",
+          "type": "address"
+        }
+      ],
+      "name": "getClaimIssuerClaimTopics",
+      "outputs": [
+        {
+          "internalType": "uint256[]",
+          "name": "",
+          "type": "uint256[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getClaimIssuers",
+      "outputs": [
+        {
+          "internalType": "contract IClaimIssuer[]",
+          "name": "",
+          "type": "address[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "claimTopic",
+          "type": "uint256"
+        }
+      ],
+      "name": "getClaimIssuersForClaimTopic",
+      "outputs": [
+        {
+          "internalType": "contract IClaimIssuer[]",
+          "name": "",
+          "type": "address[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "contract IClaimIssuer",
+          "name": "_issuer",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_claimTopic",
+          "type": "uint256"
+        }
+      ],
+      "name": "hasClaimTopic",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "contract IClaimIssuer",
+          "name": "_issuer",
+          "type": "address"
+        }
+      ],
+      "name": "isClaimIssuer",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "contract IClaimIssuer",
+          "name": "_claimIssuer",
+          "type": "address"
+        }
+      ],
+      "name": "removeClaimIssuer",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "contract IClaimIssuer",
+          "name": "_claimIssuer",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "_claimTopics",
+          "type": "uint256[]"
+        }
+      ],
+      "name": "updateIssuerClaimTopics",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x6569c5d537a7ff5e85a99d5c9730dccf0d2a9dc96ec15f0d99b08b688aa57b57",
+  "receipt": {
+    "to": null,
+    "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    "contractAddress": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+    "transactionIndex": 0,
+    "gasUsed": "969939",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000020000000000000100000800000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200000000000001000000000002000000000000000000020000000000000000000000000000000000000000000000000800000000000000000",
+    "blockHash": "0x15d80d5b1a0fc57d4058b3d40f4166e7cbf7ed6b662dae85b2a02eb0d0496eb9",
+    "transactionHash": "0x6569c5d537a7ff5e85a99d5c9730dccf0d2a9dc96ec15f0d99b08b688aa57b57",
+    "logs": [
+      {
+        "transactionIndex": 0,
+        "blockNumber": 3,
+        "transactionHash": "0x6569c5d537a7ff5e85a99d5c9730dccf0d2a9dc96ec15f0d99b08b688aa57b57",
+        "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+        "topics": [
+          "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0",
+          "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+        ],
+        "data": "0x",
+        "logIndex": 0,
+        "blockHash": "0x15d80d5b1a0fc57d4058b3d40f4166e7cbf7ed6b662dae85b2a02eb0d0496eb9"
+      }
+    ],
+    "blockNumber": 3,
+    "cumulativeGasUsed": "969939",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "numDeployments": 1,
+  "solcInputHash": "a73a49d3777bfb81fa78a85830817825",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"contract IClaimIssuer\",\"name\":\"claimIssuer\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256[]\",\"name\":\"claimTopics\",\"type\":\"uint256[]\"}],\"name\":\"ClaimIssuerAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"contract IClaimIssuer\",\"name\":\"claimIssuer\",\"type\":\"address\"}],\"name\":\"ClaimIssuerRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"contract IClaimIssuer\",\"name\":\"claimIssuer\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256[]\",\"name\":\"claimTopics\",\"type\":\"uint256[]\"}],\"name\":\"ClaimTopicsUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"contract IClaimIssuer\",\"name\":\"_claimIssuer\",\"type\":\"address\"},{\"internalType\":\"uint256[]\",\"name\":\"_claimTopics\",\"type\":\"uint256[]\"}],\"name\":\"addClaimIssuer\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"contract IClaimIssuer\",\"name\":\"_claimIssuer\",\"type\":\"address\"}],\"name\":\"getClaimIssuerClaimTopics\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getClaimIssuers\",\"outputs\":[{\"internalType\":\"contract IClaimIssuer[]\",\"name\":\"\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"claimTopic\",\"type\":\"uint256\"}],\"name\":\"getClaimIssuersForClaimTopic\",\"outputs\":[{\"internalType\":\"contract IClaimIssuer[]\",\"name\":\"\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"contract IClaimIssuer\",\"name\":\"_issuer\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_claimTopic\",\"type\":\"uint256\"}],\"name\":\"hasClaimTopic\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"contract IClaimIssuer\",\"name\":\"_issuer\",\"type\":\"address\"}],\"name\":\"isClaimIssuer\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"contract IClaimIssuer\",\"name\":\"_claimIssuer\",\"type\":\"address\"}],\"name\":\"removeClaimIssuer\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"contract IClaimIssuer\",\"name\":\"_claimIssuer\",\"type\":\"address\"},{\"internalType\":\"uint256[]\",\"name\":\"_claimTopics\",\"type\":\"uint256[]\"}],\"name\":\"updateIssuerClaimTopics\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"details\":\"This contract maintains a registry of claim issuers and their associated claim topics for the ERC-3643 standard.\",\"kind\":\"dev\",\"methods\":{\"addClaimIssuer(address,uint256[])\":{\"params\":{\"_claimIssuer\":\"The address of the claim issuer.\",\"_claimTopics\":\"An array of claim topics associated with the claim issuer. Requirements: - The caller must be the owner of the contract. - The claim issuer address must not be zero. - The claim issuer must not already exist in the registry. - The claim topics array must not be empty. - It is recommended to add a reasonable number of claim issuers at once. Emits a ClaimIssuerAdded event.\"}},\"getClaimIssuerClaimTopics(address)\":{\"params\":{\"_claimIssuer\":\"The claim issuer to find associated claim topics for.\"},\"returns\":{\"_0\":\"A memory array of claim topics.\"}},\"getClaimIssuers()\":{\"returns\":{\"_0\":\"A memory array of claim issuers.\"}},\"getClaimIssuersForClaimTopic(uint256)\":{\"params\":{\"claimTopic\":\"The claim topic to find associated claim issuers for.\"},\"returns\":{\"_0\":\"A memory array of claim issuers.\"}},\"hasClaimTopic(address,uint256)\":{\"details\":\"This function checks if a specific claim topic is associated with a claim issuer.\",\"params\":{\"_claimTopic\":\"The claim topic to check.\",\"_issuer\":\"The claim issuer to check.\"},\"returns\":{\"_0\":\"bool True if the claim issuer has the claim topic, otherwise false.\"}},\"isClaimIssuer(address)\":{\"params\":{\"_issuer\":\"The address to check.\"},\"returns\":{\"_0\":\"True if the address is a claim issuer, false otherwise.\"}},\"owner()\":{\"details\":\"Returns the address of the current owner.\"},\"removeClaimIssuer(address)\":{\"params\":{\"_claimIssuer\":\"The address of the claim issuer to be removed. Requirements: - The caller must be the owner of the contract. - The claim issuer must exist in the registry. Emits a ClaimIssuerRemoved event.\"}},\"renounceOwnership()\":{\"details\":\"Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner.\"},\"transferOwnership(address)\":{\"details\":\"Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.\"},\"updateIssuerClaimTopics(address,uint256[])\":{\"params\":{\"_claimIssuer\":\"The address of the claim issuer.\",\"_claimTopics\":\"An array of claim topics to be associated with the claim issuer. Requirements: - The caller must be the owner of the contract. - The claim issuer must exist in the registry. - The claim topics array must not be empty. Emits a ClaimTopicsUpdated event.\"}}},\"stateVariables\":{\"_claimIssuerClaimTopics\":{\"details\":\"Mapping between a claim issuer address and its corresponding claimTopics.\"},\"_claimIssuers\":{\"details\":\"Array containing all ClaimIssuers identity contract address.\"},\"_claimTopicToClaimIssuers\":{\"details\":\"Mapping between a claim topic and the allowed claim issuers for it.\"}},\"title\":\"ERC-3643 - ClaimIssuersRegistry\",\"version\":1},\"userdoc\":{\"events\":{\"ClaimIssuerAdded(address,uint256[])\":{\"notice\":\"this event is emitted when a claim issuer is added in the registry.  the event is emitted by the addClaimIssuer function  `claimIssuer` is the address of the claim issuer's ClaimIssuer contract  `claimTopics` is the set of claims that the claim issuer is allowed to emit\"},\"ClaimIssuerRemoved(address)\":{\"notice\":\"this event is emitted when a claim issuer is removed from the registry.  the event is emitted by the removeClaimIssuer function  `claimIssuer` is the address of the claim issuer's ClaimIssuer contract\"},\"ClaimTopicsUpdated(address,uint256[])\":{\"notice\":\"this event is emitted when the set of claim topics is changed for a given claim issuer.  the event is emitted by the updateIssuerClaimTopics function  `claimIssuer` is the address of the claim issuer's ClaimIssuer contract  `claimTopics` is the set of claims that the claim issuer is allowed to emit\"}},\"kind\":\"user\",\"methods\":{\"addClaimIssuer(address,uint256[])\":{\"notice\":\"Adds a claim issuer to the Claim Issuers Registry.\"},\"getClaimIssuerClaimTopics(address)\":{\"notice\":\"Returns an array of claim topics associated with a specific claim issuer.\"},\"getClaimIssuers()\":{\"notice\":\"Returns an array of all claim issuers in the registry.\"},\"getClaimIssuersForClaimTopic(uint256)\":{\"notice\":\"Returns an array of all claim issuers associated with a specific claim topic.\"},\"hasClaimTopic(address,uint256)\":{\"notice\":\"Checks if a claim issuer has a specific claim topic.\"},\"isClaimIssuer(address)\":{\"notice\":\"Checks if an address is a claim issuer in the registry.\"},\"removeClaimIssuer(address)\":{\"notice\":\"Removes a claim issuer from the Claim Issuers Registry.\"},\"updateIssuerClaimTopics(address,uint256[])\":{\"notice\":\"Updates the claim topics associated with a claim issuer.\"}},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/registry/ClaimIssuersRegistry.sol\":\"ClaimIssuersRegistry\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"@onchain-id/solidity/contracts/interface/IClaimIssuer.sol\":{\"content\":\"// SPDX-License-Identifier: GPL-3.0\\npragma solidity 0.8.17;\\n\\nimport \\\"./IIdentity.sol\\\";\\n\\ninterface IClaimIssuer is IIdentity {\\n\\n    /**\\n     * @dev Emitted when a claim is revoked.\\n     *\\n     * Specification: MUST be triggered when revoking a claim.\\n     */\\n    event ClaimRevoked(bytes indexed signature);\\n\\n    /**\\n     * @dev Revoke a claim previously issued, the claim is no longer considered as valid after revocation.\\n     * @notice will fetch the claim from the identity contract (unsafe).\\n     * @param _claimId the id of the claim\\n     * @param _identity the address of the identity contract\\n     * @return isRevoked true when the claim is revoked\\n     */\\n    function revokeClaim(bytes32 _claimId, address _identity) external returns(bool);\\n\\n    /**\\n     * @dev Revoke a claim previously issued, the claim is no longer considered as valid after revocation.\\n     * @param signature the signature of the claim\\n     */\\n    function revokeClaimBySignature(bytes calldata signature) external;\\n\\n    /**\\n     * @dev Returns revocation status of a claim.\\n     * @param _sig the signature of the claim\\n     * @return isRevoked true if the claim is revoked and false otherwise\\n     */\\n    function isClaimRevoked(bytes calldata _sig) external view returns (bool);\\n\\n    /**\\n     * @dev Checks if a claim is valid.\\n     * @param _identity the identity contract related to the claim\\n     * @param claimTopic the claim topic of the claim\\n     * @param sig the signature of the claim\\n     * @param data the data field of the claim\\n     * @return claimValid true if the claim is valid, false otherwise\\n     */\\n    function isClaimValid(\\n        IIdentity _identity,\\n        uint256 claimTopic,\\n        bytes calldata sig,\\n        bytes calldata data)\\n    external view returns (bool);\\n}\\n\",\"keccak256\":\"0x3a12f842236b7ff3579bbd245fb0b243f77e98cd721ea165d679324a099af20d\",\"license\":\"GPL-3.0\"},\"@onchain-id/solidity/contracts/interface/IERC734.sol\":{\"content\":\"// SPDX-License-Identifier: GPL-3.0\\npragma solidity 0.8.17;\\n\\n/**\\n * @dev interface of the ERC734 (Key Holder) standard as defined in the EIP.\\n */\\ninterface IERC734 {\\n\\n    /**\\n     * @dev Emitted when an execution request was approved.\\n     *\\n     * Specification: MUST be triggered when approve was successfully called.\\n     */\\n    event Approved(uint256 indexed executionId, bool approved);\\n\\n    /**\\n     * @dev Emitted when an execute operation was approved and successfully performed.\\n     *\\n     * Specification: MUST be triggered when approve was called and the execution was successfully approved.\\n     */\\n    event Executed(uint256 indexed executionId, address indexed to, uint256 indexed value, bytes data);\\n\\n    /**\\n     * @dev Emitted when an execution request was performed via `execute`.\\n     *\\n     * Specification: MUST be triggered when execute was successfully called.\\n     */\\n    event ExecutionRequested(uint256 indexed executionId, address indexed to, uint256 indexed value, bytes data);\\n\\n    /**\\n     * @dev Emitted when an execute operation was called and failed\\n     *\\n     * Specification: MUST be triggered when execute call failed\\n     */\\n    event ExecutionFailed(uint256 indexed executionId, address indexed to, uint256 indexed value, bytes data);\\n\\n    /**\\n     * @dev Emitted when a key was added to the Identity.\\n     *\\n     * Specification: MUST be triggered when addKey was successfully called.\\n     */\\n    event KeyAdded(bytes32 indexed key, uint256 indexed purpose, uint256 indexed keyType);\\n\\n    /**\\n     * @dev Emitted when a key was removed from the Identity.\\n     *\\n     * Specification: MUST be triggered when removeKey was successfully called.\\n     */\\n    event KeyRemoved(bytes32 indexed key, uint256 indexed purpose, uint256 indexed keyType);\\n\\n    /**\\n     * @dev Adds a _key to the identity. The _purpose specifies the purpose of the key.\\n     *\\n     * Triggers Event: `KeyAdded`\\n     *\\n     * Specification: MUST only be done by keys of purpose 1, or the identity\\n     * itself. If it's the identity itself, the approval process will determine its approval.\\n     */\\n    function addKey(bytes32 _key, uint256 _purpose, uint256 _keyType) external returns (bool success);\\n\\n    /**\\n    * @dev Approves an execution.\\n    *\\n    * Triggers Event: `Approved`\\n    * Triggers on execution successful Event: `Executed`\\n    * Triggers on execution failure Event: `ExecutionFailed`\\n    */\\n    function approve(uint256 _id, bool _approve) external returns (bool success);\\n\\n    /**\\n     * @dev Removes _purpose for _key from the identity.\\n     *\\n     * Triggers Event: `KeyRemoved`\\n     *\\n     * Specification: MUST only be done by keys of purpose 1, or the identity itself.\\n     * If it's the identity itself, the approval process will determine its approval.\\n     */\\n    function removeKey(bytes32 _key, uint256 _purpose) external returns (bool success);\\n\\n    /**\\n     * @dev Passes an execution instruction to an ERC734 identity.\\n     * How the execution is handled is up to the identity implementation:\\n     * An execution COULD be requested and require `approve` to be called with one or more keys of purpose 1 or 2 to\\n     * approve this execution.\\n     * Execute COULD be used as the only accessor for `addKey` and `removeKey`.\\n     *\\n     * Triggers Event: ExecutionRequested\\n     * Triggers on direct execution Event: Executed\\n     */\\n    function execute(address _to, uint256 _value, bytes calldata _data) external payable returns (uint256 executionId);\\n\\n    /**\\n     * @dev Returns the full key data, if present in the identity.\\n     */\\n    function getKey(bytes32 _key) external view returns (uint256[] memory purposes, uint256 keyType, bytes32 key);\\n\\n    /**\\n     * @dev Returns the list of purposes associated with a key.\\n     */\\n    function getKeyPurposes(bytes32 _key) external view returns(uint256[] memory _purposes);\\n\\n    /**\\n     * @dev Returns an array of public key bytes32 held by this identity.\\n     */\\n    function getKeysByPurpose(uint256 _purpose) external view returns (bytes32[] memory keys);\\n\\n    /**\\n     * @dev Returns TRUE if a key is present and has the given purpose. If the key is not present it returns FALSE.\\n     */\\n    function keyHasPurpose(bytes32 _key, uint256 _purpose) external view returns (bool exists);\\n}\\n\",\"keccak256\":\"0x8c8a5a7951ee25569288c0c6662b59599deec7d0f2fcb74c8f80a8fd9354e8af\",\"license\":\"GPL-3.0\"},\"@onchain-id/solidity/contracts/interface/IERC735.sol\":{\"content\":\"// SPDX-License-Identifier: GPL-3.0\\npragma solidity 0.8.17;\\n\\n/**\\n * @dev interface of the ERC735 (Claim Holder) standard as defined in the EIP.\\n */\\ninterface IERC735 {\\n\\n    /**\\n     * @dev Emitted when a claim was added.\\n     *\\n     * Specification: MUST be triggered when a claim was successfully added.\\n     */\\n    event ClaimAdded(\\n        bytes32 indexed claimId,\\n        uint256 indexed topic,\\n        uint256 scheme,\\n        address indexed issuer,\\n        bytes signature,\\n        bytes data,\\n        string uri);\\n\\n    /**\\n     * @dev Emitted when a claim was removed.\\n     *\\n     * Specification: MUST be triggered when removeClaim was successfully called.\\n     */\\n    event ClaimRemoved(\\n        bytes32 indexed claimId,\\n        uint256 indexed topic,\\n        uint256 scheme,\\n        address indexed issuer,\\n        bytes signature,\\n        bytes data,\\n        string uri);\\n\\n    /**\\n     * @dev Emitted when a claim was changed.\\n     *\\n     * Specification: MUST be triggered when addClaim was successfully called on an existing claimId.\\n     */\\n    event ClaimChanged(\\n        bytes32 indexed claimId,\\n        uint256 indexed topic,\\n        uint256 scheme,\\n        address indexed issuer,\\n        bytes signature,\\n        bytes data,\\n        string uri);\\n\\n    /**\\n     * @dev Add or update a claim.\\n     *\\n     * Triggers Event: `ClaimAdded`, `ClaimChanged`\\n     *\\n     * Specification: Add or update a claim from an issuer.\\n     *\\n     * _signature is a signed message of the following structure:\\n     * `keccak256(abi.encode(address identityHolder_address, uint256 topic, bytes data))`.\\n     * Claim IDs are generated using `keccak256(abi.encode(address issuer_address + uint256 topic))`.\\n     */\\n    function addClaim(\\n        uint256 _topic,\\n        uint256 _scheme,\\n        address issuer,\\n        bytes calldata _signature,\\n        bytes calldata _data,\\n        string calldata _uri)\\n    external returns (bytes32 claimRequestId);\\n\\n    /**\\n     * @dev Removes a claim.\\n     *\\n     * Triggers Event: `ClaimRemoved`\\n     *\\n     * Claim IDs are generated using `keccak256(abi.encode(address issuer_address, uint256 topic))`.\\n     */\\n    function removeClaim(bytes32 _claimId) external returns (bool success);\\n\\n    /**\\n     * @dev Get a claim by its ID.\\n     *\\n     * Claim IDs are generated using `keccak256(abi.encode(address issuer_address, uint256 topic))`.\\n     */\\n    function getClaim(bytes32 _claimId)\\n    external view returns(\\n        uint256 topic,\\n        uint256 scheme,\\n        address issuer,\\n        bytes memory signature,\\n        bytes memory data,\\n        string memory uri);\\n\\n    /**\\n     * @dev Returns an array of claim IDs by topic.\\n     */\\n    function getClaimIdsByTopic(uint256 _topic) external view returns(bytes32[] memory claimIds);\\n}\\n\",\"keccak256\":\"0xaaea6f3ecdc5f30e795e07aacdfc1b177741ef174910e943e96f6de7a8db6efb\",\"license\":\"GPL-3.0\"},\"@onchain-id/solidity/contracts/interface/IIdentity.sol\":{\"content\":\"// SPDX-License-Identifier: GPL-3.0\\npragma solidity 0.8.17;\\n\\nimport \\\"./IERC734.sol\\\";\\nimport \\\"./IERC735.sol\\\";\\n\\n// solhint-disable-next-line no-empty-blocks\\ninterface IIdentity is IERC734, IERC735 {\\n    /**\\n     * @dev Checks if a claim is valid.\\n     * @param _identity the identity contract related to the claim\\n     * @param claimTopic the claim topic of the claim\\n     * @param sig the signature of the claim\\n     * @param data the data field of the claim\\n     * @return claimValid true if the claim is valid, false otherwise\\n     */\\n    function isClaimValid(\\n        IIdentity _identity,\\n        uint256 claimTopic,\\n        bytes calldata sig,\\n        bytes calldata data)\\n    external view returns (bool);\\n}\\n\",\"keccak256\":\"0x206c93ed62a48802edcad87e229f53c74817349a49f5ef21ea4780ab27b39cdf\",\"license\":\"GPL-3.0\"},\"@openzeppelin/contracts/access/Ownable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v4.9.0) (access/Ownable.sol)\\n\\npragma solidity ^0.8.0;\\n\\nimport \\\"../utils/Context.sol\\\";\\n\\n/**\\n * @dev Contract module which provides a basic access control mechanism, where\\n * there is an account (an owner) that can be granted exclusive access to\\n * specific functions.\\n *\\n * By default, the owner account will be the one that deploys the contract. This\\n * can later be changed with {transferOwnership}.\\n *\\n * This module is used through inheritance. It will make available the modifier\\n * `onlyOwner`, which can be applied to your functions to restrict their use to\\n * the owner.\\n */\\nabstract contract Ownable is Context {\\n    address private _owner;\\n\\n    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);\\n\\n    /**\\n     * @dev Initializes the contract setting the deployer as the initial owner.\\n     */\\n    constructor() {\\n        _transferOwnership(_msgSender());\\n    }\\n\\n    /**\\n     * @dev Throws if called by any account other than the owner.\\n     */\\n    modifier onlyOwner() {\\n        _checkOwner();\\n        _;\\n    }\\n\\n    /**\\n     * @dev Returns the address of the current owner.\\n     */\\n    function owner() public view virtual returns (address) {\\n        return _owner;\\n    }\\n\\n    /**\\n     * @dev Throws if the sender is not the owner.\\n     */\\n    function _checkOwner() internal view virtual {\\n        require(owner() == _msgSender(), \\\"Ownable: caller is not the owner\\\");\\n    }\\n\\n    /**\\n     * @dev Leaves the contract without owner. It will not be possible to call\\n     * `onlyOwner` functions. Can only be called by the current owner.\\n     *\\n     * NOTE: Renouncing ownership will leave the contract without an owner,\\n     * thereby disabling any functionality that is only available to the owner.\\n     */\\n    function renounceOwnership() public virtual onlyOwner {\\n        _transferOwnership(address(0));\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Can only be called by the current owner.\\n     */\\n    function transferOwnership(address newOwner) public virtual onlyOwner {\\n        require(newOwner != address(0), \\\"Ownable: new owner is the zero address\\\");\\n        _transferOwnership(newOwner);\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Internal function without access restriction.\\n     */\\n    function _transferOwnership(address newOwner) internal virtual {\\n        address oldOwner = _owner;\\n        _owner = newOwner;\\n        emit OwnershipTransferred(oldOwner, newOwner);\\n    }\\n}\\n\",\"keccak256\":\"0xba43b97fba0d32eb4254f6a5a297b39a19a247082a02d6e69349e071e2946218\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/Context.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts v4.4.1 (utils/Context.sol)\\n\\npragma solidity ^0.8.0;\\n\\n/**\\n * @dev Provides information about the current execution context, including the\\n * sender of the transaction and its data. While these are generally available\\n * via msg.sender and msg.data, they should not be accessed in such a direct\\n * manner, since when dealing with meta-transactions the account sending and\\n * paying for execution may not be the actual sender (as far as an application\\n * is concerned).\\n *\\n * This contract is only required for intermediate, library-like contracts.\\n */\\nabstract contract Context {\\n    function _msgSender() internal view virtual returns (address) {\\n        return msg.sender;\\n    }\\n\\n    function _msgData() internal view virtual returns (bytes calldata) {\\n        return msg.data;\\n    }\\n}\\n\",\"keccak256\":\"0xe2e337e6dde9ef6b680e07338c493ebea1b5fd09b43424112868e9cc1706bca7\",\"license\":\"MIT\"},\"contracts/registry/ClaimIssuersRegistry.sol\":{\"content\":\"// SPDX-License-Identifier: GPL-3.0\\r\\npragma solidity 0.8.17;\\r\\n\\r\\nimport \\\"@onchain-id/solidity/contracts/interface/IClaimIssuer.sol\\\";\\r\\nimport \\\"@openzeppelin/contracts/access/Ownable.sol\\\";\\r\\nimport \\\"./interface/IClaimIssuersRegistry.sol\\\";\\r\\n\\r\\n/// @title ERC-3643 - ClaimIssuersRegistry\\r\\n/// @dev This contract maintains a registry of claim issuers and their associated claim topics for the ERC-3643 standard.\\r\\ncontract ClaimIssuersRegistry is IClaimIssuersRegistry, Ownable {\\r\\n    /// @dev Array containing all ClaimIssuers identity contract address.\\r\\n    IClaimIssuer[] private _claimIssuers;\\r\\n\\r\\n    /// @dev Mapping between a claim issuer address and its corresponding claimTopics.\\r\\n    mapping(IClaimIssuer => uint256[]) private _claimIssuerClaimTopics;\\r\\n\\r\\n    /// @dev Mapping between a claim topic and the allowed claim issuers for it.\\r\\n    mapping(uint256 => IClaimIssuer[]) private _claimTopicToClaimIssuers;\\r\\n\\r\\n    /// @notice Adds a claim issuer to the Claim Issuers Registry.\\r\\n    /// @param _claimIssuer The address of the claim issuer.\\r\\n    /// @param _claimTopics An array of claim topics associated with the claim issuer.\\r\\n    /// Requirements:\\r\\n    /// - The caller must be the owner of the contract.\\r\\n    /// - The claim issuer address must not be zero.\\r\\n    /// - The claim issuer must not already exist in the registry.\\r\\n    /// - The claim topics array must not be empty.\\r\\n    /// - It is recommended to add a reasonable number of claim issuers at once.\\r\\n    /// Emits a ClaimIssuerAdded event.\\r\\n    function addClaimIssuer(\\r\\n        IClaimIssuer _claimIssuer,\\r\\n        uint256[] calldata _claimTopics\\r\\n    ) external onlyOwner {\\r\\n        require(\\r\\n            address(_claimIssuer) != address(0),\\r\\n            \\\"ERC-3643: Invalid zero address\\\"\\r\\n        );\\r\\n        require(\\r\\n            _claimIssuerClaimTopics[_claimIssuer].length == 0,\\r\\n            \\\"ERC-3643: Issuer already exists\\\"\\r\\n        );\\r\\n        uint length = _claimTopics.length;\\r\\n        require(length != 0, \\\"ERC-3643: Empty claim topics\\\");\\r\\n\\r\\n        _claimIssuers.push(_claimIssuer);\\r\\n        _claimIssuerClaimTopics[_claimIssuer] = _claimTopics;\\r\\n\\r\\n        for (uint256 i = 0; i < length; ) {\\r\\n            _claimTopicToClaimIssuers[_claimTopics[i]].push(_claimIssuer);\\r\\n            unchecked {\\r\\n                ++i;\\r\\n            }\\r\\n        }\\r\\n\\r\\n        emit ClaimIssuerAdded(_claimIssuer, _claimTopics);\\r\\n    }\\r\\n\\r\\n    /// @notice Removes a claim issuer from the Claim Issuers Registry.\\r\\n    /// @param _claimIssuer The address of the claim issuer to be removed.\\r\\n    /// Requirements:\\r\\n    /// - The caller must be the owner of the contract.\\r\\n    /// - The claim issuer must exist in the registry.\\r\\n    /// Emits a ClaimIssuerRemoved event.\\r\\n    function removeClaimIssuer(IClaimIssuer _claimIssuer) external onlyOwner {\\r\\n        uint claimIssuerTopicsLength = _claimIssuerClaimTopics[_claimIssuer]\\r\\n            .length;\\r\\n        require(claimIssuerTopicsLength != 0, \\\"ERC-3643: Not a claim issuer\\\");\\r\\n        uint256 claimIssuerlength = _claimIssuers.length;\\r\\n        for (uint256 i = 0; i < claimIssuerlength; ) {\\r\\n            if (_claimIssuers[i] == _claimIssuer) {\\r\\n                _claimIssuers[i] = _claimIssuers[claimIssuerlength - 1];\\r\\n                _claimIssuers.pop();\\r\\n                break;\\r\\n            }\\r\\n            unchecked {\\r\\n                ++i;\\r\\n            }\\r\\n        }\\r\\n\\r\\n        _removeClaimIssuerFromAllClaimTopics(\\r\\n            _claimIssuer,\\r\\n            claimIssuerTopicsLength\\r\\n        );\\r\\n\\r\\n        delete _claimIssuerClaimTopics[_claimIssuer];\\r\\n        emit ClaimIssuerRemoved(_claimIssuer);\\r\\n    }\\r\\n\\r\\n    /// @notice Updates the claim topics associated with a claim issuer.\\r\\n    /// @param _claimIssuer The address of the claim issuer.\\r\\n    /// @param _claimTopics An array of claim topics to be associated with the claim issuer.\\r\\n    /// Requirements:\\r\\n    /// - The caller must be the owner of the contract.\\r\\n    /// - The claim issuer must exist in the registry.\\r\\n    /// - The claim topics array must not be empty.\\r\\n    /// Emits a ClaimTopicsUpdated event.\\r\\n    function updateIssuerClaimTopics(\\r\\n        IClaimIssuer _claimIssuer,\\r\\n        uint256[] calldata _claimTopics\\r\\n    ) external onlyOwner {\\r\\n        require(_claimTopics.length != 0, \\\"ERC-3643: No claim topics\\\");\\r\\n        uint claimIssuerTopicsLength = _claimIssuerClaimTopics[_claimIssuer]\\r\\n            .length;\\r\\n        require(claimIssuerTopicsLength != 0, \\\"ERC-3643: Not a claim issuer\\\");\\r\\n\\r\\n        _updateIssuerAcrossAllTopics(_claimIssuer);\\r\\n\\r\\n        _claimIssuerClaimTopics[_claimIssuer] = _claimTopics;\\r\\n\\r\\n        emit ClaimTopicsUpdated(_claimIssuer, _claimTopics);\\r\\n    }\\r\\n\\r\\n    /// @notice Returns an array of all claim issuers in the registry.\\r\\n    /// @return A memory array of claim issuers.\\r\\n    function getClaimIssuers() external view returns (IClaimIssuer[] memory) {\\r\\n        return _claimIssuers;\\r\\n    }\\r\\n\\r\\n    /// @notice Returns an array of all claim issuers associated with a specific claim topic.\\r\\n    /// @param claimTopic The claim topic to find associated claim issuers for.\\r\\n    /// @return A memory array of claim issuers.\\r\\n    function getClaimIssuersForClaimTopic(\\r\\n        uint256 claimTopic\\r\\n    ) external view returns (IClaimIssuer[] memory) {\\r\\n        return _claimTopicToClaimIssuers[claimTopic];\\r\\n    }\\r\\n\\r\\n    /// @notice Checks if an address is a claim issuer in the registry.\\r\\n    /// @param _issuer The address to check.\\r\\n    /// @return True if the address is a claim issuer, false otherwise.\\r\\n    function isClaimIssuer(IClaimIssuer _issuer) external view returns (bool) {\\r\\n        return _isClaimIssuer(_issuer);\\r\\n    }\\r\\n\\r\\n    /// @notice Returns an array of claim topics associated with a specific claim issuer.\\r\\n    /// @param _claimIssuer The claim issuer to find associated claim topics for.\\r\\n    /// @return A memory array of claim topics.\\r\\n    function getClaimIssuerClaimTopics(\\r\\n        IClaimIssuer _claimIssuer\\r\\n    ) external view returns (uint256[] memory) {\\r\\n        require(_isClaimIssuer(_claimIssuer), \\\"ERC-3643: Issuer doesn't exist\\\");\\r\\n        return _claimIssuerClaimTopics[_claimIssuer];\\r\\n    }\\r\\n\\r\\n    /// @notice Checks if a claim issuer has a specific claim topic.\\r\\n    /// @dev This function checks if a specific claim topic is associated with a claim issuer.\\r\\n    /// @param _issuer The claim issuer to check.\\r\\n    /// @param _claimTopic The claim topic to check.\\r\\n    /// @return bool True if the claim issuer has the claim topic, otherwise false.\\r\\n    function hasClaimTopic(\\r\\n        IClaimIssuer _issuer,\\r\\n        uint256 _claimTopic\\r\\n    ) external view returns (bool) {\\r\\n        uint256 length = _claimIssuerClaimTopics[_issuer].length;\\r\\n        uint256[] memory claimTopics = _claimIssuerClaimTopics[_issuer];\\r\\n        for (uint256 i = 0; i < length; ) {\\r\\n            if (claimTopics[i] == _claimTopic) {\\r\\n                return true;\\r\\n            }\\r\\n            unchecked {\\r\\n                ++i;\\r\\n            }\\r\\n        }\\r\\n        return false;\\r\\n    }\\r\\n\\r\\n    /// @dev Removes a claim issuer from all associated claim topics.\\r\\n    /// @param claimIssuer The claim issuer to be removed.\\r\\n    /// @param length The number of claim topics associated with the claim issuer.\\r\\n    function _removeClaimIssuerFromAllClaimTopics(\\r\\n        IClaimIssuer claimIssuer,\\r\\n        uint length\\r\\n    ) private {\\r\\n        for (uint256 i = 0; i < length; ) {\\r\\n            uint256 claimTopic = _claimIssuerClaimTopics[claimIssuer][i];\\r\\n\\r\\n            _removeIssuerFromTopic(claimIssuer, claimTopic);\\r\\n            unchecked {\\r\\n                ++i;\\r\\n            }\\r\\n        }\\r\\n    }\\r\\n\\r\\n    /// @dev Updates a claim issuer across all associated claim topics.\\r\\n    ///      The function removes the claim issuer from each topic, and then adds it back.\\r\\n    /// @param claimIssuer The claim issuer to be updated.\\r\\n    function _updateIssuerAcrossAllTopics(IClaimIssuer claimIssuer) private {\\r\\n        uint256[] memory claimTopics = _claimIssuerClaimTopics[claimIssuer];\\r\\n        uint length = claimTopics.length;\\r\\n\\r\\n        for (uint256 i = 0; i < length; ) {\\r\\n            uint256 claimTopic = claimTopics[i];\\r\\n\\r\\n            _removeIssuerFromTopic(claimIssuer, claimTopic);\\r\\n            _claimTopicToClaimIssuers[claimTopics[i]].push(claimIssuer);\\r\\n            unchecked {\\r\\n                ++i;\\r\\n            }\\r\\n        }\\r\\n    }\\r\\n\\r\\n    /// @dev Removes a claim issuer from a specific claim topic.\\r\\n    ///      The function identifies and replaces the claim issuer with the last element in the list\\r\\n    ///      then removes the last element, effectively removing the issuer from the list.\\r\\n    /// @param claimIssuer The claim issuer to be removed.\\r\\n    /// @param claimTopic The claim topic identifier from which the issuer is to be removed.\\r\\n    function _removeIssuerFromTopic(\\r\\n        IClaimIssuer claimIssuer,\\r\\n        uint claimTopic\\r\\n    ) private {\\r\\n        IClaimIssuer[] memory claimIssuers = _claimTopicToClaimIssuers[\\r\\n            claimTopic\\r\\n        ];\\r\\n        uint length = claimIssuers.length;\\r\\n\\r\\n        for (uint j = 0; j < length; ) {\\r\\n            if (claimIssuers[j] == claimIssuer) {\\r\\n                _claimTopicToClaimIssuers[claimTopic][j] = claimIssuers[\\r\\n                    length - 1\\r\\n                ];\\r\\n                _claimTopicToClaimIssuers[claimTopic].pop();\\r\\n                break;\\r\\n            }\\r\\n            unchecked {\\r\\n                ++j;\\r\\n            }\\r\\n        }\\r\\n    }\\r\\n\\r\\n    /// @dev Checks if an address is a claim issuer.\\r\\n    /// @param _issuer The address to check.\\r\\n    /// @return bool Returns true if the address is a claim issuer, and false otherwise.\\r\\n    function _isClaimIssuer(IClaimIssuer _issuer) private view returns (bool) {\\r\\n        return (_claimIssuerClaimTopics[_issuer].length != 0);\\r\\n    }\\r\\n}\\r\\n\",\"keccak256\":\"0x0c54ecb6abff32ee62e056072e55de56a61deb312440c3e4100a1da3e0bc0c2b\",\"license\":\"GPL-3.0\"},\"contracts/registry/interface/IClaimIssuersRegistry.sol\":{\"content\":\"// SPDX-License-Identifier: GPL-3.0\\r\\npragma solidity 0.8.17;\\r\\n\\r\\nimport \\\"@onchain-id/solidity/contracts/interface/IClaimIssuer.sol\\\";\\r\\n\\r\\ninterface IClaimIssuersRegistry {\\r\\n    /**\\r\\n     *  this event is emitted when a claim issuer is added in the registry.\\r\\n     *  the event is emitted by the addClaimIssuer function\\r\\n     *  `claimIssuer` is the address of the claim issuer's ClaimIssuer contract\\r\\n     *  `claimTopics` is the set of claims that the claim issuer is allowed to emit\\r\\n     */\\r\\n    event ClaimIssuerAdded(\\r\\n        IClaimIssuer indexed claimIssuer,\\r\\n        uint256[] claimTopics\\r\\n    );\\r\\n\\r\\n    /**\\r\\n     *  this event is emitted when a claim issuer is removed from the registry.\\r\\n     *  the event is emitted by the removeClaimIssuer function\\r\\n     *  `claimIssuer` is the address of the claim issuer's ClaimIssuer contract\\r\\n     */\\r\\n    event ClaimIssuerRemoved(IClaimIssuer indexed claimIssuer);\\r\\n\\r\\n    /**\\r\\n     *  this event is emitted when the set of claim topics is changed for a given claim issuer.\\r\\n     *  the event is emitted by the updateIssuerClaimTopics function\\r\\n     *  `claimIssuer` is the address of the claim issuer's ClaimIssuer contract\\r\\n     *  `claimTopics` is the set of claims that the claim issuer is allowed to emit\\r\\n     */\\r\\n    event ClaimTopicsUpdated(\\r\\n        IClaimIssuer indexed claimIssuer,\\r\\n        uint256[] claimTopics\\r\\n    );\\r\\n\\r\\n    /**\\r\\n     *  @dev registers a ClaimIssuer contract as claim claim issuer.\\r\\n     *  Requires that a ClaimIssuer contract doesn't already exist\\r\\n     *  Requires that the claimTopics set is not empty\\r\\n     *  Requires that there is no more than 15 claimTopics\\r\\n     *  Requires that there is no more than 50 Claim issuers\\r\\n     *  @param _claimIssuer The ClaimIssuer contract address of the claim claim issuer.\\r\\n     *  @param _claimTopics the set of claim topics that the claim issuer is allowed to emit\\r\\n     *  This function can only be called by the owner of the Claim Issuers Registry contract\\r\\n     *  emits a `ClaimIssuerAdded` event\\r\\n     */\\r\\n    function addClaimIssuer(\\r\\n        IClaimIssuer _claimIssuer,\\r\\n        uint256[] calldata _claimTopics\\r\\n    ) external;\\r\\n\\r\\n    /**\\r\\n     *  @dev Removes the ClaimIssuer contract of a claim claim issuer.\\r\\n     *  Requires that the claim issuer contract to be registered first\\r\\n     *  @param _claimIssuer the claim issuer to remove.\\r\\n     *  This function can only be called by the owner of the Claim Issuers Registry contract\\r\\n     *  emits a `ClaimIssuerRemoved` event\\r\\n     */\\r\\n    function removeClaimIssuer(IClaimIssuer _claimIssuer) external;\\r\\n\\r\\n    /**\\r\\n     *  @dev Updates the set of claim topics that a claim issuer is allowed to emit.\\r\\n     *  Requires that this ClaimIssuer contract already exists in the registry\\r\\n     *  Requires that the provided claimTopics set is not empty\\r\\n     *  Requires that there is no more than 15 claimTopics\\r\\n     *  @param _claimIssuer the claim issuer to update.\\r\\n     *  @param _claimTopics the set of claim topics that the claim issuer is allowed to emit\\r\\n     *  This function can only be called by the owner of the Claim Issuers Registry contract\\r\\n     *  emits a `ClaimTopicsUpdated` event\\r\\n     */\\r\\n    function updateIssuerClaimTopics(\\r\\n        IClaimIssuer _claimIssuer,\\r\\n        uint256[] calldata _claimTopics\\r\\n    ) external;\\r\\n\\r\\n    /**\\r\\n     *  @dev Function for getting all the claim claim issuers stored.\\r\\n     *  @return array of all claim issuers registered.\\r\\n     */\\r\\n    function getClaimIssuers() external view returns (IClaimIssuer[] memory);\\r\\n\\r\\n    /**\\r\\n     *  @dev Function for getting all the claim issuer allowed for a given claim topic.\\r\\n     *  @param claimTopic the claim topic to get the claim issuers for.\\r\\n     *  @return array of all claim issuer addresses that are allowed for the given claim topic.\\r\\n     */\\r\\n    function getClaimIssuersForClaimTopic(\\r\\n        uint256 claimTopic\\r\\n    ) external view returns (IClaimIssuer[] memory);\\r\\n\\r\\n    /**\\r\\n     *  @dev Checks if the ClaimIssuer contract is claim\\r\\n     *  @param _issuer the address of the ClaimIssuer contract\\r\\n     *  @return true if the issuer is claim, false otherwise.\\r\\n     */\\r\\n    function isClaimIssuer(IClaimIssuer _issuer) external view returns (bool);\\r\\n\\r\\n    /**\\r\\n     *  @dev Function for getting all the claim topic of claim claim issuer\\r\\n     *  Requires the provided ClaimIssuer contract to be registered in the claim issuers registry.\\r\\n     *  @param _claimIssuer the claim issuer concerned.\\r\\n     *  @return The set of claim topics that the claim issuer is allowed to emit\\r\\n     */\\r\\n    function getClaimIssuerClaimTopics(\\r\\n        IClaimIssuer _claimIssuer\\r\\n    ) external view returns (uint256[] memory);\\r\\n\\r\\n    /**\\r\\n     *  @dev Function for checking if the claim claim issuer is allowed\\r\\n     *  to emit a certain claim topic\\r\\n     *  @param _issuer the address of the claim issuer's ClaimIssuer contract\\r\\n     *  @param _claimTopic the Claim Topic that has to be checked to know if the `issuer` is allowed to emit it\\r\\n     *  @return true if the issuer is claim for this claim topic.\\r\\n     */\\r\\n    function hasClaimTopic(\\r\\n        IClaimIssuer _issuer,\\r\\n        uint256 _claimTopic\\r\\n    ) external view returns (bool);\\r\\n}\\r\\n\",\"keccak256\":\"0x36ebccbb89041f7f9f25abcaa7f700d227d4c683dcfc5436a7dfd26bca557dd1\",\"license\":\"GPL-3.0\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b5061001a3361001f565b61006f565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b6110218061007e6000396000f3fe608060405234801561001057600080fd5b50600436106100a95760003560e01c80636b2c56bd116100715780636b2c56bd146101355780636de4870814610155578063715018a6146101685780638da5cb5b14610170578063d4f4ac4e1461018b578063f2fde38b1461019357600080fd5b806304bc7e84146100ae5780630b4b764c146100c3578063122dade8146100d657806334a89987146100ff57806338d742a414610122575b600080fd5b6100c16100bc366004610def565b6101a6565b005b6100c16100d1366004610e77565b6102e3565b6100e96100e4366004610e77565b6104b4565b6040516100f69190610e9b565b60405180910390f35b61011261010d366004610edf565b61058d565b60405190151581526020016100f6565b6100c1610130366004610def565b610643565b610148610143366004610f0b565b610866565b6040516100f69190610f24565b610112610163366004610e77565b6108d1565b6100c16108f1565b6000546040516001600160a01b0390911681526020016100f6565b610148610905565b6100c16101a1366004610e77565b610967565b6101ae6109e0565b60008190036102045760405162461bcd60e51b815260206004820152601960248201527f4552432d333634333a204e6f20636c61696d20746f706963730000000000000060448201526064015b60405180910390fd5b6001600160a01b0383166000908152600260205260408120549081900361026d5760405162461bcd60e51b815260206004820152601c60248201527f4552432d333634333a204e6f74206120636c61696d206973737565720000000060448201526064016101fb565b61027684610a3a565b6001600160a01b0384166000908152600260205260409020610299908484610d60565b50836001600160a01b03167fec753cfc52044f61676f18a11e500093a9f2b1cd5e4942bc476f2b0438159bcf84846040516102d5929190610f65565b60405180910390a250505050565b6102eb6109e0565b6001600160a01b038116600090815260026020526040812054908190036103545760405162461bcd60e51b815260206004820152601c60248201527f4552432d333634333a204e6f74206120636c61696d206973737565720000000060448201526064016101fb565b60015460005b8181101561044f57836001600160a01b03166001828154811061037f5761037f610f9e565b6000918252602090912001546001600160a01b0316036104475760016103a58184610fb4565b815481106103b5576103b5610f9e565b600091825260209091200154600180546001600160a01b0390921691839081106103e1576103e1610f9e565b9060005260206000200160006101000a8154816001600160a01b0302191690836001600160a01b03160217905550600180548061042057610420610fd5565b600082815260209020810160001990810180546001600160a01b031916905501905561044f565b60010161035a565b5061045a8383610b48565b6001600160a01b038316600090815260026020526040812061047b91610dab565b6040516001600160a01b038416907f8432c8693d2550c2eb52d3f0a803b38eb8c3c0e62234fa1b6b8b35cc3866785490600090a2505050565b60606104d7826001600160a01b0316600090815260026020526040902054151590565b6105235760405162461bcd60e51b815260206004820152601e60248201527f4552432d333634333a2049737375657220646f65736e2774206578697374000060448201526064016101fb565b6001600160a01b0382166000908152600260209081526040918290208054835181840281018401909452808452909183018282801561058157602002820191906000526020600020905b81548152602001906001019080831161056d575b50505050509050919050565b6001600160a01b03821660009081526002602090815260408083208054825181850281018501909352808352928492919084908301828280156105ef57602002820191906000526020600020905b8154815260200190600101908083116105db575b5050505050905060005b82811015610635578482828151811061061457610614610f9e565b60200260200101510361062d576001935050505061063d565b6001016105f9565b506000925050505b92915050565b61064b6109e0565b6001600160a01b0383166106a15760405162461bcd60e51b815260206004820152601e60248201527f4552432d333634333a20496e76616c6964207a65726f2061646472657373000060448201526064016101fb565b6001600160a01b038316600090815260026020526040902054156107075760405162461bcd60e51b815260206004820152601f60248201527f4552432d333634333a2049737375657220616c7265616479206578697374730060448201526064016101fb565b8060008190036107595760405162461bcd60e51b815260206004820152601c60248201527f4552432d333634333a20456d70747920636c61696d20746f706963730000000060448201526064016101fb565b600180548082019091557fb10e2d527612073b26eecdfd717e6a320cf44b4afac2b0732d9fcbe2b7fa0cf60180546001600160a01b0319166001600160a01b03861690811790915560009081526002602052604090206107ba908484610d60565b5060005b8181101561082a57600360008585848181106107dc576107dc610f9e565b602090810292909201358352508181019290925260400160009081208054600180820183559183529290912090910180546001600160a01b0319166001600160a01b038816179055016107be565b50836001600160a01b03167f375851630239b005eafd9230e43a9a9d4a5d7b96a4956fc8e9d2ab3ff4583d1684846040516102d5929190610f65565b60008181526003602090815260409182902080548351818402810184019094528084526060939283018282801561058157602002820191906000526020600020905b81546001600160a01b031681526001909101906020018083116108a85750505050509050919050565b6001600160a01b038116600090815260026020526040812054151561063d565b6108f96109e0565b6109036000610ba2565b565b6060600180548060200260200160405190810160405280929190818152602001828054801561095d57602002820191906000526020600020905b81546001600160a01b0316815260019091019060200180831161093f575b5050505050905090565b61096f6109e0565b6001600160a01b0381166109d45760405162461bcd60e51b815260206004820152602660248201527f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160448201526564647265737360d01b60648201526084016101fb565b6109dd81610ba2565b50565b6000546001600160a01b031633146109035760405162461bcd60e51b815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657260448201526064016101fb565b6001600160a01b038116600090815260026020908152604080832080548251818502810185019093528083529192909190830182828015610a9a57602002820191906000526020600020905b815481526020019060010190808311610a86575b505083519394506000925050505b81811015610b42576000838281518110610ac457610ac4610f9e565b60200260200101519050610ad88582610bf2565b60036000858481518110610aee57610aee610f9e565b60209081029190910181015182528181019290925260400160009081208054600180820183559183529290912090910180546001600160a01b0319166001600160a01b038816179055919091019050610aa8565b50505050565b60005b81811015610b9d576001600160a01b0383166000908152600260205260408120805483908110610b7d57610b7d610f9e565b90600052602060002001549050610b948482610bf2565b50600101610b4b565b505050565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b600081815260036020908152604080832080548251818502810185019093528083529192909190830182828015610c5257602002820191906000526020600020905b81546001600160a01b03168152600190910190602001808311610c34575b505083519394506000925050505b81811015610d5957846001600160a01b0316838281518110610c8457610c84610f9e565b60200260200101516001600160a01b031603610d515782610ca6600184610fb4565b81518110610cb657610cb6610f9e565b6020026020010151600360008681526020019081526020016000208281548110610ce257610ce2610f9e565b600091825260208083209190910180546001600160a01b0319166001600160a01b039490941693909317909255858152600390915260409020805480610d2a57610d2a610fd5565b600082815260209020810160001990810180546001600160a01b0319169055019055610d59565b600101610c60565b5050505050565b828054828255906000526020600020908101928215610d9b579160200282015b82811115610d9b578235825591602001919060010190610d80565b50610da7929150610dc5565b5090565b50805460008255906000526020600020908101906109dd91905b5b80821115610da75760008155600101610dc6565b6001600160a01b03811681146109dd57600080fd5b600080600060408486031215610e0457600080fd5b8335610e0f81610dda565b9250602084013567ffffffffffffffff80821115610e2c57600080fd5b818601915086601f830112610e4057600080fd5b813581811115610e4f57600080fd5b8760208260051b8501011115610e6457600080fd5b6020830194508093505050509250925092565b600060208284031215610e8957600080fd5b8135610e9481610dda565b9392505050565b6020808252825182820181905260009190848201906040850190845b81811015610ed357835183529284019291840191600101610eb7565b50909695505050505050565b60008060408385031215610ef257600080fd5b8235610efd81610dda565b946020939093013593505050565b600060208284031215610f1d57600080fd5b5035919050565b6020808252825182820181905260009190848201906040850190845b81811015610ed35783516001600160a01b031683529284019291840191600101610f40565b6020808252810182905260006001600160fb1b03831115610f8557600080fd5b8260051b80856040850137919091016040019392505050565b634e487b7160e01b600052603260045260246000fd5b8181038181111561063d57634e487b7160e01b600052601160045260246000fd5b634e487b7160e01b600052603160045260246000fdfea264697066735822122073214e9a2aaf0a6312f0c2a821f2e894d3323703486e7cade3e502118defacd364736f6c63430008110033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100a95760003560e01c80636b2c56bd116100715780636b2c56bd146101355780636de4870814610155578063715018a6146101685780638da5cb5b14610170578063d4f4ac4e1461018b578063f2fde38b1461019357600080fd5b806304bc7e84146100ae5780630b4b764c146100c3578063122dade8146100d657806334a89987146100ff57806338d742a414610122575b600080fd5b6100c16100bc366004610def565b6101a6565b005b6100c16100d1366004610e77565b6102e3565b6100e96100e4366004610e77565b6104b4565b6040516100f69190610e9b565b60405180910390f35b61011261010d366004610edf565b61058d565b60405190151581526020016100f6565b6100c1610130366004610def565b610643565b610148610143366004610f0b565b610866565b6040516100f69190610f24565b610112610163366004610e77565b6108d1565b6100c16108f1565b6000546040516001600160a01b0390911681526020016100f6565b610148610905565b6100c16101a1366004610e77565b610967565b6101ae6109e0565b60008190036102045760405162461bcd60e51b815260206004820152601960248201527f4552432d333634333a204e6f20636c61696d20746f706963730000000000000060448201526064015b60405180910390fd5b6001600160a01b0383166000908152600260205260408120549081900361026d5760405162461bcd60e51b815260206004820152601c60248201527f4552432d333634333a204e6f74206120636c61696d206973737565720000000060448201526064016101fb565b61027684610a3a565b6001600160a01b0384166000908152600260205260409020610299908484610d60565b50836001600160a01b03167fec753cfc52044f61676f18a11e500093a9f2b1cd5e4942bc476f2b0438159bcf84846040516102d5929190610f65565b60405180910390a250505050565b6102eb6109e0565b6001600160a01b038116600090815260026020526040812054908190036103545760405162461bcd60e51b815260206004820152601c60248201527f4552432d333634333a204e6f74206120636c61696d206973737565720000000060448201526064016101fb565b60015460005b8181101561044f57836001600160a01b03166001828154811061037f5761037f610f9e565b6000918252602090912001546001600160a01b0316036104475760016103a58184610fb4565b815481106103b5576103b5610f9e565b600091825260209091200154600180546001600160a01b0390921691839081106103e1576103e1610f9e565b9060005260206000200160006101000a8154816001600160a01b0302191690836001600160a01b03160217905550600180548061042057610420610fd5565b600082815260209020810160001990810180546001600160a01b031916905501905561044f565b60010161035a565b5061045a8383610b48565b6001600160a01b038316600090815260026020526040812061047b91610dab565b6040516001600160a01b038416907f8432c8693d2550c2eb52d3f0a803b38eb8c3c0e62234fa1b6b8b35cc3866785490600090a2505050565b60606104d7826001600160a01b0316600090815260026020526040902054151590565b6105235760405162461bcd60e51b815260206004820152601e60248201527f4552432d333634333a2049737375657220646f65736e2774206578697374000060448201526064016101fb565b6001600160a01b0382166000908152600260209081526040918290208054835181840281018401909452808452909183018282801561058157602002820191906000526020600020905b81548152602001906001019080831161056d575b50505050509050919050565b6001600160a01b03821660009081526002602090815260408083208054825181850281018501909352808352928492919084908301828280156105ef57602002820191906000526020600020905b8154815260200190600101908083116105db575b5050505050905060005b82811015610635578482828151811061061457610614610f9e565b60200260200101510361062d576001935050505061063d565b6001016105f9565b506000925050505b92915050565b61064b6109e0565b6001600160a01b0383166106a15760405162461bcd60e51b815260206004820152601e60248201527f4552432d333634333a20496e76616c6964207a65726f2061646472657373000060448201526064016101fb565b6001600160a01b038316600090815260026020526040902054156107075760405162461bcd60e51b815260206004820152601f60248201527f4552432d333634333a2049737375657220616c7265616479206578697374730060448201526064016101fb565b8060008190036107595760405162461bcd60e51b815260206004820152601c60248201527f4552432d333634333a20456d70747920636c61696d20746f706963730000000060448201526064016101fb565b600180548082019091557fb10e2d527612073b26eecdfd717e6a320cf44b4afac2b0732d9fcbe2b7fa0cf60180546001600160a01b0319166001600160a01b03861690811790915560009081526002602052604090206107ba908484610d60565b5060005b8181101561082a57600360008585848181106107dc576107dc610f9e565b602090810292909201358352508181019290925260400160009081208054600180820183559183529290912090910180546001600160a01b0319166001600160a01b038816179055016107be565b50836001600160a01b03167f375851630239b005eafd9230e43a9a9d4a5d7b96a4956fc8e9d2ab3ff4583d1684846040516102d5929190610f65565b60008181526003602090815260409182902080548351818402810184019094528084526060939283018282801561058157602002820191906000526020600020905b81546001600160a01b031681526001909101906020018083116108a85750505050509050919050565b6001600160a01b038116600090815260026020526040812054151561063d565b6108f96109e0565b6109036000610ba2565b565b6060600180548060200260200160405190810160405280929190818152602001828054801561095d57602002820191906000526020600020905b81546001600160a01b0316815260019091019060200180831161093f575b5050505050905090565b61096f6109e0565b6001600160a01b0381166109d45760405162461bcd60e51b815260206004820152602660248201527f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160448201526564647265737360d01b60648201526084016101fb565b6109dd81610ba2565b50565b6000546001600160a01b031633146109035760405162461bcd60e51b815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657260448201526064016101fb565b6001600160a01b038116600090815260026020908152604080832080548251818502810185019093528083529192909190830182828015610a9a57602002820191906000526020600020905b815481526020019060010190808311610a86575b505083519394506000925050505b81811015610b42576000838281518110610ac457610ac4610f9e565b60200260200101519050610ad88582610bf2565b60036000858481518110610aee57610aee610f9e565b60209081029190910181015182528181019290925260400160009081208054600180820183559183529290912090910180546001600160a01b0319166001600160a01b038816179055919091019050610aa8565b50505050565b60005b81811015610b9d576001600160a01b0383166000908152600260205260408120805483908110610b7d57610b7d610f9e565b90600052602060002001549050610b948482610bf2565b50600101610b4b565b505050565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b600081815260036020908152604080832080548251818502810185019093528083529192909190830182828015610c5257602002820191906000526020600020905b81546001600160a01b03168152600190910190602001808311610c34575b505083519394506000925050505b81811015610d5957846001600160a01b0316838281518110610c8457610c84610f9e565b60200260200101516001600160a01b031603610d515782610ca6600184610fb4565b81518110610cb657610cb6610f9e565b6020026020010151600360008681526020019081526020016000208281548110610ce257610ce2610f9e565b600091825260208083209190910180546001600160a01b0319166001600160a01b039490941693909317909255858152600390915260409020805480610d2a57610d2a610fd5565b600082815260209020810160001990810180546001600160a01b0319169055019055610d59565b600101610c60565b5050505050565b828054828255906000526020600020908101928215610d9b579160200282015b82811115610d9b578235825591602001919060010190610d80565b50610da7929150610dc5565b5090565b50805460008255906000526020600020908101906109dd91905b5b80821115610da75760008155600101610dc6565b6001600160a01b03811681146109dd57600080fd5b600080600060408486031215610e0457600080fd5b8335610e0f81610dda565b9250602084013567ffffffffffffffff80821115610e2c57600080fd5b818601915086601f830112610e4057600080fd5b813581811115610e4f57600080fd5b8760208260051b8501011115610e6457600080fd5b6020830194508093505050509250925092565b600060208284031215610e8957600080fd5b8135610e9481610dda565b9392505050565b6020808252825182820181905260009190848201906040850190845b81811015610ed357835183529284019291840191600101610eb7565b50909695505050505050565b60008060408385031215610ef257600080fd5b8235610efd81610dda565b946020939093013593505050565b600060208284031215610f1d57600080fd5b5035919050565b6020808252825182820181905260009190848201906040850190845b81811015610ed35783516001600160a01b031683529284019291840191600101610f40565b6020808252810182905260006001600160fb1b03831115610f8557600080fd5b8260051b80856040850137919091016040019392505050565b634e487b7160e01b600052603260045260246000fd5b8181038181111561063d57634e487b7160e01b600052601160045260246000fd5b634e487b7160e01b600052603160045260246000fdfea264697066735822122073214e9a2aaf0a6312f0c2a821f2e894d3323703486e7cade3e502118defacd364736f6c63430008110033",
+  "devdoc": {
+    "details": "This contract maintains a registry of claim issuers and their associated claim topics for the ERC-3643 standard.",
+    "kind": "dev",
+    "methods": {
+      "addClaimIssuer(address,uint256[])": {
+        "params": {
+          "_claimIssuer": "The address of the claim issuer.",
+          "_claimTopics": "An array of claim topics associated with the claim issuer. Requirements: - The caller must be the owner of the contract. - The claim issuer address must not be zero. - The claim issuer must not already exist in the registry. - The claim topics array must not be empty. - It is recommended to add a reasonable number of claim issuers at once. Emits a ClaimIssuerAdded event."
+        }
+      },
+      "getClaimIssuerClaimTopics(address)": {
+        "params": {
+          "_claimIssuer": "The claim issuer to find associated claim topics for."
+        },
+        "returns": {
+          "_0": "A memory array of claim topics."
+        }
+      },
+      "getClaimIssuers()": {
+        "returns": {
+          "_0": "A memory array of claim issuers."
+        }
+      },
+      "getClaimIssuersForClaimTopic(uint256)": {
+        "params": {
+          "claimTopic": "The claim topic to find associated claim issuers for."
+        },
+        "returns": {
+          "_0": "A memory array of claim issuers."
+        }
+      },
+      "hasClaimTopic(address,uint256)": {
+        "details": "This function checks if a specific claim topic is associated with a claim issuer.",
+        "params": {
+          "_claimTopic": "The claim topic to check.",
+          "_issuer": "The claim issuer to check."
+        },
+        "returns": {
+          "_0": "bool True if the claim issuer has the claim topic, otherwise false."
+        }
+      },
+      "isClaimIssuer(address)": {
+        "params": {
+          "_issuer": "The address to check."
+        },
+        "returns": {
+          "_0": "True if the address is a claim issuer, false otherwise."
+        }
+      },
+      "owner()": {
+        "details": "Returns the address of the current owner."
+      },
+      "removeClaimIssuer(address)": {
+        "params": {
+          "_claimIssuer": "The address of the claim issuer to be removed. Requirements: - The caller must be the owner of the contract. - The claim issuer must exist in the registry. Emits a ClaimIssuerRemoved event."
+        }
+      },
+      "renounceOwnership()": {
+        "details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner."
+      },
+      "transferOwnership(address)": {
+        "details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+      },
+      "updateIssuerClaimTopics(address,uint256[])": {
+        "params": {
+          "_claimIssuer": "The address of the claim issuer.",
+          "_claimTopics": "An array of claim topics to be associated with the claim issuer. Requirements: - The caller must be the owner of the contract. - The claim issuer must exist in the registry. - The claim topics array must not be empty. Emits a ClaimTopicsUpdated event."
+        }
+      }
+    },
+    "stateVariables": {
+      "_claimIssuerClaimTopics": {
+        "details": "Mapping between a claim issuer address and its corresponding claimTopics."
+      },
+      "_claimIssuers": {
+        "details": "Array containing all ClaimIssuers identity contract address."
+      },
+      "_claimTopicToClaimIssuers": {
+        "details": "Mapping between a claim topic and the allowed claim issuers for it."
+      }
+    },
+    "title": "ERC-3643 - ClaimIssuersRegistry",
+    "version": 1
+  },
+  "userdoc": {
+    "events": {
+      "ClaimIssuerAdded(address,uint256[])": {
+        "notice": "this event is emitted when a claim issuer is added in the registry.  the event is emitted by the addClaimIssuer function  `claimIssuer` is the address of the claim issuer's ClaimIssuer contract  `claimTopics` is the set of claims that the claim issuer is allowed to emit"
+      },
+      "ClaimIssuerRemoved(address)": {
+        "notice": "this event is emitted when a claim issuer is removed from the registry.  the event is emitted by the removeClaimIssuer function  `claimIssuer` is the address of the claim issuer's ClaimIssuer contract"
+      },
+      "ClaimTopicsUpdated(address,uint256[])": {
+        "notice": "this event is emitted when the set of claim topics is changed for a given claim issuer.  the event is emitted by the updateIssuerClaimTopics function  `claimIssuer` is the address of the claim issuer's ClaimIssuer contract  `claimTopics` is the set of claims that the claim issuer is allowed to emit"
+      }
+    },
+    "kind": "user",
+    "methods": {
+      "addClaimIssuer(address,uint256[])": {
+        "notice": "Adds a claim issuer to the Claim Issuers Registry."
+      },
+      "getClaimIssuerClaimTopics(address)": {
+        "notice": "Returns an array of claim topics associated with a specific claim issuer."
+      },
+      "getClaimIssuers()": {
+        "notice": "Returns an array of all claim issuers in the registry."
+      },
+      "getClaimIssuersForClaimTopic(uint256)": {
+        "notice": "Returns an array of all claim issuers associated with a specific claim topic."
+      },
+      "hasClaimTopic(address,uint256)": {
+        "notice": "Checks if a claim issuer has a specific claim topic."
+      },
+      "isClaimIssuer(address)": {
+        "notice": "Checks if an address is a claim issuer in the registry."
+      },
+      "removeClaimIssuer(address)": {
+        "notice": "Removes a claim issuer from the Claim Issuers Registry."
+      },
+      "updateIssuerClaimTopics(address,uint256[])": {
+        "notice": "Updates the claim topics associated with a claim issuer."
+      }
+    },
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 2329,
+        "contract": "contracts/registry/ClaimIssuersRegistry.sol:ClaimIssuersRegistry",
+        "label": "_owner",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_address"
+      },
+      {
+        "astId": 4538,
+        "contract": "contracts/registry/ClaimIssuersRegistry.sol:ClaimIssuersRegistry",
+        "label": "_claimIssuers",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_array(t_contract(IClaimIssuer)1561)dyn_storage"
+      },
+      {
+        "astId": 4545,
+        "contract": "contracts/registry/ClaimIssuersRegistry.sol:ClaimIssuersRegistry",
+        "label": "_claimIssuerClaimTopics",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_mapping(t_contract(IClaimIssuer)1561,t_array(t_uint256)dyn_storage)"
+      },
+      {
+        "astId": 4552,
+        "contract": "contracts/registry/ClaimIssuersRegistry.sol:ClaimIssuersRegistry",
+        "label": "_claimTopicToClaimIssuers",
+        "offset": 0,
+        "slot": "3",
+        "type": "t_mapping(t_uint256,t_array(t_contract(IClaimIssuer)1561)dyn_storage)"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_array(t_contract(IClaimIssuer)1561)dyn_storage": {
+        "base": "t_contract(IClaimIssuer)1561",
+        "encoding": "dynamic_array",
+        "label": "contract IClaimIssuer[]",
+        "numberOfBytes": "32"
+      },
+      "t_array(t_uint256)dyn_storage": {
+        "base": "t_uint256",
+        "encoding": "dynamic_array",
+        "label": "uint256[]",
+        "numberOfBytes": "32"
+      },
+      "t_contract(IClaimIssuer)1561": {
+        "encoding": "inplace",
+        "label": "contract IClaimIssuer",
+        "numberOfBytes": "20"
+      },
+      "t_mapping(t_contract(IClaimIssuer)1561,t_array(t_uint256)dyn_storage)": {
+        "encoding": "mapping",
+        "key": "t_contract(IClaimIssuer)1561",
+        "label": "mapping(contract IClaimIssuer => uint256[])",
+        "numberOfBytes": "32",
+        "value": "t_array(t_uint256)dyn_storage"
+      },
+      "t_mapping(t_uint256,t_array(t_contract(IClaimIssuer)1561)dyn_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => contract IClaimIssuer[])",
+        "numberOfBytes": "32",
+        "value": "t_array(t_contract(IClaimIssuer)1561)dyn_storage"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}

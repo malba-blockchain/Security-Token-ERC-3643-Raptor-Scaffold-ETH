@@ -6,12 +6,7 @@ import { AGENT_ROLE, TOKEN_ROLE } from "../scripts/utils";
 import { DeployFunction } from "hardhat-deploy/types";
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 
-/**
- * Deploys a contract named "YourContract" using the deployer account and
- * constructor arguments set to the deployer address
- *
- * @param hre HardhatRuntimeEnvironment object.
- */
+
 async function deployIdentityProxy(
   implementationAuthority: Contract["address"], // Address of the implementation authority contract
   managementKey: string, // Management key for the identity
@@ -253,19 +248,35 @@ const deployFullSuiteFixture: DeployFunction = async function (hre: HardhatRunti
 
   console.log("Token Address: ", token.address);
 
+  console.log("|||||||||||||||||||||||||||basicCompliance|||||||||||||||||||||||||||");
+  console.log("Basic compliance smart contract", basicCompliance);
+  console.log("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+  console.log("provider.getSigner(deployer)", provider.getSigner(deployer));
+  console.log("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+  console.log("Deployer details", deployer);
+  console.log("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+  console.log("BasicCompliance.abi", BasicCompliance.abi);
+  console.log("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+  console.log("provider", provider);
+  console.log("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+  console.log("hre", hre);
+  console.log("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+
+  console.log("Admin role", await basicCompliance.hasRole("0x0000000000000000000000000000000000000000000000000000000000000000", deployer));
+
   // Grant the TOKEN_ROLE to the token contract in the BasicCompliance contract
   await basicCompliance.grantRole(TOKEN_ROLE, token.address);
 
   // Grant the AGENT_ROLE to the token agent in the token contract
   await token.grantRole(AGENT_ROLE, tokenAgent);
-
-  // Grant the AGENT_ROLE to the Token Smart Contract Address in the token contract
+  console.log()
+  // Grant the AGENT_ROLE to the Token Smart Contract Address in the token contract (1)
   await identityRegistry.grantRole(AGENT_ROLE, token.address);
 
-  // Bind the IdentityRegistryStorage contract to the IdentityRegistry contract
+  // Bind the IdentityRegistryStorage contract to the IdentityRegistry contract (2)
   await identityRegistryStorage.bindIdentityRegistry(identityRegistry.address);
 
-  // Define the claim topics and add them to the ClaimTopicsRegistry
+  // Define the claim topics and add them to the ClaimTopicsRegistry (3)
   const claimTopics = [ethers.utils.id("CLAIM_TOPIC")];
   await claimTopicsRegistry.connect(provider.getSigner(deployer)).addClaimTopic(claimTopics[0]);
 

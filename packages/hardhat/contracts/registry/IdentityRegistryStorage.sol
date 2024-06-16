@@ -3,7 +3,7 @@ pragma solidity 0.8.17;
 
 import "@onchain-id/solidity/contracts/interface/IIdentity.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
-
+import "hardhat/console.sol";
 import "./interface/IIdentityRegistryStorage.sol";
 
 /// @title ERC-3643 - IdentityRegistryStorage
@@ -35,6 +35,8 @@ contract IdentityRegistryStorage is IIdentityRegistryStorage, AccessControl {
         _grantRole(bytes32(0), _msgSender());
         _grantRole(AGENT_ROLE, _msgSender());
         _grantRole(OWNER_ROLE, _msgSender());
+        console.log("||||||||||||||||||||||||||||||||This is the owner address in the constructor");
+        console.log(_msgSender());
     }
 
     /// @notice Adds a new identity to the storage
@@ -115,12 +117,17 @@ contract IdentityRegistryStorage is IIdentityRegistryStorage, AccessControl {
     function bindIdentityRegistry(
         address _identityRegistry
     ) external onlyRole(OWNER_ROLE) {
+        console.log("||||||||||||||||||||||||||||||||Got into the bindIdentityRegistry FUNCTION");
         require(
             _identityRegistry != address(0),
             "ERC-3643: Invalid zero address"
         );
+        console.log("||||||||||||||||||||||||||||||||Got into the bindIdentityRegistry FUNCTION");
+        
         _grantRole(AGENT_ROLE, _identityRegistry);
+        console.log("||||||||||||||||||||||||||||||||Got into the bindIdentityRegistry FUNCTION");
         _identityRegistries.push(_identityRegistry);
+        console.log("||||||||||||||||||||||||||||||||Got into the bindIdentityRegistry FUNCTION");
         emit IdentityRegistryBound(_identityRegistry);
     }
 

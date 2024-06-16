@@ -4,6 +4,7 @@ pragma solidity 0.8.17;
 import "./interface/ICompliance.sol";
 import "../token/IToken.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
+import "hardhat/console.sol";
 
 contract BasicCompliance is ICompliance, AccessControl {
     /// Mapping between agents and their statuses
@@ -22,6 +23,7 @@ contract BasicCompliance is ICompliance, AccessControl {
     constructor() {
         _grantRole(0x00, _msgSender());
         _grantRole(ADMIN_ROLE, _msgSender());
+        console.log("GOT INTO CONSTRUCTOR");
     }
 
     /**

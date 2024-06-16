@@ -1,0 +1,259 @@
+{
+  "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "claimTopic",
+          "type": "uint256"
+        }
+      ],
+      "name": "ClaimTopicAdded",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "claimTopic",
+          "type": "uint256"
+        }
+      ],
+      "name": "ClaimTopicRemoved",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_claimTopic",
+          "type": "uint256"
+        }
+      ],
+      "name": "addClaimTopic",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getClaimTopics",
+      "outputs": [
+        {
+          "internalType": "uint256[]",
+          "name": "",
+          "type": "uint256[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_claimTopic",
+          "type": "uint256"
+        }
+      ],
+      "name": "removeClaimTopic",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x5d2d04de7dbf40c70700b174abf78b8caece8c4fc401abefae87aa7598bff8a8",
+  "receipt": {
+    "to": null,
+    "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    "contractAddress": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+    "transactionIndex": 0,
+    "gasUsed": "407128",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000040020000000000000100000800000000000000000000000000000000400000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000000000000000000040000000200000000000000000000000002000000000000000000020000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x51f7da27fadfe4d6ab576868af41604124fd8b73caad705c68de117d469ba3f0",
+    "transactionHash": "0x5d2d04de7dbf40c70700b174abf78b8caece8c4fc401abefae87aa7598bff8a8",
+    "logs": [
+      {
+        "transactionIndex": 0,
+        "blockNumber": 1,
+        "transactionHash": "0x5d2d04de7dbf40c70700b174abf78b8caece8c4fc401abefae87aa7598bff8a8",
+        "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+        "topics": [
+          "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0",
+          "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+        ],
+        "data": "0x",
+        "logIndex": 0,
+        "blockHash": "0x51f7da27fadfe4d6ab576868af41604124fd8b73caad705c68de117d469ba3f0"
+      }
+    ],
+    "blockNumber": 1,
+    "cumulativeGasUsed": "407128",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "numDeployments": 1,
+  "solcInputHash": "a73a49d3777bfb81fa78a85830817825",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"claimTopic\",\"type\":\"uint256\"}],\"name\":\"ClaimTopicAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"claimTopic\",\"type\":\"uint256\"}],\"name\":\"ClaimTopicRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_claimTopic\",\"type\":\"uint256\"}],\"name\":\"addClaimTopic\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getClaimTopics\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_claimTopic\",\"type\":\"uint256\"}],\"name\":\"removeClaimTopic\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"details\":\"A registry for managing claim topics.\",\"kind\":\"dev\",\"methods\":{\"addClaimTopic(uint256)\":{\"details\":\"Can only be called by the owner of the contract. Emits a ClaimTopicAdded event.\",\"params\":{\"_claimTopic\":\"The claim topic to add.\"}},\"getClaimTopics()\":{\"returns\":{\"_0\":\"uint256[] An array of claim topics.\"}},\"owner()\":{\"details\":\"Returns the address of the current owner.\"},\"removeClaimTopic(uint256)\":{\"details\":\"Can only be called by the owner of the contract. Emits a ClaimTopicRemoved event.\",\"params\":{\"_claimTopic\":\"The claim topic to remove.\"}},\"renounceOwnership()\":{\"details\":\"Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner.\"},\"transferOwnership(address)\":{\"details\":\"Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.\"}},\"stateVariables\":{\"_claimTopics\":{\"details\":\"An array to hold all required claim topics.\"}},\"title\":\"ERC-3643 - ClaimTopicsRegistry\",\"version\":1},\"userdoc\":{\"events\":{\"ClaimTopicAdded(uint256)\":{\"notice\":\"this event is emitted when a claim topic has been added to the ClaimTopicsRegistry  the event is emitted by the 'addClaimTopic' function  `claimTopic` is the required claim added to the Claim Topics Registry\"},\"ClaimTopicRemoved(uint256)\":{\"notice\":\"this event is emitted when a claim topic has been removed from the ClaimTopicsRegistry  the event is emitted by the 'removeClaimTopic' function  `claimTopic` is the required claim removed from the Claim Topics Registry\"}},\"kind\":\"user\",\"methods\":{\"addClaimTopic(uint256)\":{\"notice\":\"Adds a claim topic to the registry.\"},\"getClaimTopics()\":{\"notice\":\"Retrieves all claim topics from the registry.\"},\"removeClaimTopic(uint256)\":{\"notice\":\"Removes a claim topic from the registry.\"}},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/registry/ClaimTopicsRegistry.sol\":\"ClaimTopicsRegistry\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"@openzeppelin/contracts/access/Ownable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v4.9.0) (access/Ownable.sol)\\n\\npragma solidity ^0.8.0;\\n\\nimport \\\"../utils/Context.sol\\\";\\n\\n/**\\n * @dev Contract module which provides a basic access control mechanism, where\\n * there is an account (an owner) that can be granted exclusive access to\\n * specific functions.\\n *\\n * By default, the owner account will be the one that deploys the contract. This\\n * can later be changed with {transferOwnership}.\\n *\\n * This module is used through inheritance. It will make available the modifier\\n * `onlyOwner`, which can be applied to your functions to restrict their use to\\n * the owner.\\n */\\nabstract contract Ownable is Context {\\n    address private _owner;\\n\\n    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);\\n\\n    /**\\n     * @dev Initializes the contract setting the deployer as the initial owner.\\n     */\\n    constructor() {\\n        _transferOwnership(_msgSender());\\n    }\\n\\n    /**\\n     * @dev Throws if called by any account other than the owner.\\n     */\\n    modifier onlyOwner() {\\n        _checkOwner();\\n        _;\\n    }\\n\\n    /**\\n     * @dev Returns the address of the current owner.\\n     */\\n    function owner() public view virtual returns (address) {\\n        return _owner;\\n    }\\n\\n    /**\\n     * @dev Throws if the sender is not the owner.\\n     */\\n    function _checkOwner() internal view virtual {\\n        require(owner() == _msgSender(), \\\"Ownable: caller is not the owner\\\");\\n    }\\n\\n    /**\\n     * @dev Leaves the contract without owner. It will not be possible to call\\n     * `onlyOwner` functions. Can only be called by the current owner.\\n     *\\n     * NOTE: Renouncing ownership will leave the contract without an owner,\\n     * thereby disabling any functionality that is only available to the owner.\\n     */\\n    function renounceOwnership() public virtual onlyOwner {\\n        _transferOwnership(address(0));\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Can only be called by the current owner.\\n     */\\n    function transferOwnership(address newOwner) public virtual onlyOwner {\\n        require(newOwner != address(0), \\\"Ownable: new owner is the zero address\\\");\\n        _transferOwnership(newOwner);\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Internal function without access restriction.\\n     */\\n    function _transferOwnership(address newOwner) internal virtual {\\n        address oldOwner = _owner;\\n        _owner = newOwner;\\n        emit OwnershipTransferred(oldOwner, newOwner);\\n    }\\n}\\n\",\"keccak256\":\"0xba43b97fba0d32eb4254f6a5a297b39a19a247082a02d6e69349e071e2946218\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/Context.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts v4.4.1 (utils/Context.sol)\\n\\npragma solidity ^0.8.0;\\n\\n/**\\n * @dev Provides information about the current execution context, including the\\n * sender of the transaction and its data. While these are generally available\\n * via msg.sender and msg.data, they should not be accessed in such a direct\\n * manner, since when dealing with meta-transactions the account sending and\\n * paying for execution may not be the actual sender (as far as an application\\n * is concerned).\\n *\\n * This contract is only required for intermediate, library-like contracts.\\n */\\nabstract contract Context {\\n    function _msgSender() internal view virtual returns (address) {\\n        return msg.sender;\\n    }\\n\\n    function _msgData() internal view virtual returns (bytes calldata) {\\n        return msg.data;\\n    }\\n}\\n\",\"keccak256\":\"0xe2e337e6dde9ef6b680e07338c493ebea1b5fd09b43424112868e9cc1706bca7\",\"license\":\"MIT\"},\"contracts/registry/ClaimTopicsRegistry.sol\":{\"content\":\"// SPDX-License-Identifier: GPL-3.0\\r\\npragma solidity 0.8.17;\\r\\n\\r\\nimport \\\"@openzeppelin/contracts/access/Ownable.sol\\\";\\r\\nimport \\\"./interface/IClaimTopicsRegistry.sol\\\";\\r\\n\\r\\n/// @title ERC-3643 - ClaimTopicsRegistry\\r\\n/// @dev A registry for managing claim topics.\\r\\ncontract ClaimTopicsRegistry is IClaimTopicsRegistry, Ownable {\\r\\n    /// @dev An array to hold all required claim topics.\\r\\n    uint256[] private _claimTopics;\\r\\n\\r\\n    /// @notice Adds a claim topic to the registry.\\r\\n    /// @dev Can only be called by the owner of the contract.\\r\\n    /// Emits a ClaimTopicAdded event.\\r\\n    /// @param _claimTopic The claim topic to add.\\r\\n    function addClaimTopic(uint256 _claimTopic) external onlyOwner {\\r\\n        require(_isClaimTopicUnique(_claimTopic), \\\"ERC-3643: Topic exists\\\");\\r\\n\\r\\n        _claimTopics.push(_claimTopic);\\r\\n        emit ClaimTopicAdded(_claimTopic);\\r\\n    }\\r\\n\\r\\n    /// @notice Removes a claim topic from the registry.\\r\\n    /// @dev Can only be called by the owner of the contract.\\r\\n    /// Emits a ClaimTopicRemoved event.\\r\\n    /// @param _claimTopic The claim topic to remove.\\r\\n    function removeClaimTopic(uint256 _claimTopic) external onlyOwner {\\r\\n        uint256 length = _claimTopics.length;\\r\\n        for (uint256 i = 0; i < length; i++) {\\r\\n            if (_claimTopics[i] == _claimTopic) {\\r\\n                _claimTopics[i] = _claimTopics[length - 1];\\r\\n                _claimTopics.pop();\\r\\n                emit ClaimTopicRemoved(_claimTopic);\\r\\n                break;\\r\\n            }\\r\\n        }\\r\\n    }\\r\\n\\r\\n    /// @notice Retrieves all claim topics from the registry.\\r\\n    /// @return uint256[] An array of claim topics.\\r\\n    function getClaimTopics() external view returns (uint256[] memory) {\\r\\n        return _claimTopics;\\r\\n    }\\r\\n\\r\\n    /// @notice Checks if a claim topic is unique in the registry.\\r\\n    /// @dev Private function to check the uniqueness of a claim topic.\\r\\n    /// @param claimTopic The claim topic to check.\\r\\n    /// @return bool True if the claim topic is unique, false otherwise.\\r\\n    function _isClaimTopicUnique(\\r\\n        uint256 claimTopic\\r\\n    ) private view returns (bool) {\\r\\n        uint256[] memory claimTopics = _claimTopics;\\r\\n        uint256 length = _claimTopics.length;\\r\\n        for (uint256 i = 0; i < length; ) {\\r\\n            if (claimTopics[i] == claimTopic) {\\r\\n                return false;\\r\\n            }\\r\\n            unchecked {\\r\\n                ++i;\\r\\n            }\\r\\n        }\\r\\n        return true;\\r\\n    }\\r\\n}\\r\\n\",\"keccak256\":\"0x3b4192f720f41aed7235240beefc15ed3a2dcc8e3b364707bd44d496b8500820\",\"license\":\"GPL-3.0\"},\"contracts/registry/interface/IClaimTopicsRegistry.sol\":{\"content\":\"// SPDX-License-Identifier: GPL-3.0\\r\\npragma solidity 0.8.17;\\r\\n\\r\\ninterface IClaimTopicsRegistry {\\r\\n    /**\\r\\n     *  this event is emitted when a claim topic has been added to the ClaimTopicsRegistry\\r\\n     *  the event is emitted by the 'addClaimTopic' function\\r\\n     *  `claimTopic` is the required claim added to the Claim Topics Registry\\r\\n     */\\r\\n    event ClaimTopicAdded(uint256 indexed claimTopic);\\r\\n\\r\\n    /**\\r\\n     *  this event is emitted when a claim topic has been removed from the ClaimTopicsRegistry\\r\\n     *  the event is emitted by the 'removeClaimTopic' function\\r\\n     *  `claimTopic` is the required claim removed from the Claim Topics Registry\\r\\n     */\\r\\n    event ClaimTopicRemoved(uint256 indexed claimTopic);\\r\\n\\r\\n    /**\\r\\n     * @dev Add a claim claim topic (For example: KYC=1, AML=2).\\r\\n     * Only owner can call.\\r\\n     * emits `ClaimTopicAdded` event\\r\\n     * cannot add more than 15 topics for 1 token as adding more could create gas issues\\r\\n     * @param _claimTopic The claim topic index\\r\\n     */\\r\\n    function addClaimTopic(uint256 _claimTopic) external;\\r\\n\\r\\n    /**\\r\\n     *  @dev Remove a claim claim topic (For example: KYC=1, AML=2).\\r\\n     *  Only owner can call.\\r\\n     *  emits `ClaimTopicRemoved` event\\r\\n     *  @param _claimTopic The claim topic index\\r\\n     */\\r\\n    function removeClaimTopic(uint256 _claimTopic) external;\\r\\n\\r\\n    /**\\r\\n     *  @dev Get the claim claim topics for the security token\\r\\n     *  @return Array of claim claim topics\\r\\n     */\\r\\n    function getClaimTopics() external view returns (uint256[] memory);\\r\\n}\\r\\n\",\"keccak256\":\"0x5354a22fe4706ac81152c7f3f666f9057fde01e68c498f2a4707edf172fdd7a7\",\"license\":\"GPL-3.0\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b5061001a3361001f565b61006f565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b6105f28061007e6000396000f3fe608060405234801561001057600080fd5b50600436106100625760003560e01c80630829784614610067578063715018a61461007c5780638da5cb5b14610084578063c7b22551146100a4578063df09d604146100b7578063f2fde38b146100cc575b600080fd5b61007a6100753660046104bb565b6100df565b005b61007a6101cf565b6000546040516001600160a01b0390911681526020015b60405180910390f35b61007a6100b23660046104bb565b6101e3565b6100bf61029c565b60405161009b91906104d4565b61007a6100da366004610518565b6102f4565b6100e761036d565b60015460005b818110156101ca57826001828154811061010957610109610548565b9060005260206000200154036101b85760016101258184610574565b8154811061013557610135610548565b90600052602060002001546001828154811061015357610153610548565b60009182526020909120015560018054806101705761017061058d565b60019003818190600052602060002001600090559055827f0b1381093c776453c1bbe54fd68be1b235c65db61d099cb50d194b2991e0eec560405160405180910390a2505050565b806101c2816105a3565b9150506100ed565b505050565b6101d761036d565b6101e160006103c7565b565b6101eb61036d565b6101f481610417565b61023e5760405162461bcd60e51b81526020600482015260166024820152754552432d333634333a20546f7069632065786973747360501b60448201526064015b60405180910390fd5b60018054808201825560009182527fb10e2d527612073b26eecdfd717e6a320cf44b4afac2b0732d9fcbe2b7fa0cf60182905560405182917f01c928b7f7ade2949e92366aa9454dbef3a416b731cf6ec786ba9595bbd814d691a250565b606060018054806020026020016040519081016040528092919081815260200182805480156102ea57602002820191906000526020600020905b8154815260200190600101908083116102d6575b5050505050905090565b6102fc61036d565b6001600160a01b0381166103615760405162461bcd60e51b815260206004820152602660248201527f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160448201526564647265737360d01b6064820152608401610235565b61036a816103c7565b50565b6000546001600160a01b031633146101e15760405162461bcd60e51b815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65726044820152606401610235565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b600080600180548060200260200160405190810160405280929190818152602001828054801561046657602002820191906000526020600020905b815481526020019060010190808311610452575b50506001549394506000925050505b818110156104b0578483828151811061049057610490610548565b6020026020010151036104a857506000949350505050565b600101610475565b506001949350505050565b6000602082840312156104cd57600080fd5b5035919050565b6020808252825182820181905260009190848201906040850190845b8181101561050c578351835292840192918401916001016104f0565b50909695505050505050565b60006020828403121561052a57600080fd5b81356001600160a01b038116811461054157600080fd5b9392505050565b634e487b7160e01b600052603260045260246000fd5b634e487b7160e01b600052601160045260246000fd5b818103818111156105875761058761055e565b92915050565b634e487b7160e01b600052603160045260246000fd5b6000600182016105b5576105b561055e565b506001019056fea264697066735822122008315e9bb45e0998537ffa232749592de5ef6761437cf5466d7509b778c445a464736f6c63430008110033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100625760003560e01c80630829784614610067578063715018a61461007c5780638da5cb5b14610084578063c7b22551146100a4578063df09d604146100b7578063f2fde38b146100cc575b600080fd5b61007a6100753660046104bb565b6100df565b005b61007a6101cf565b6000546040516001600160a01b0390911681526020015b60405180910390f35b61007a6100b23660046104bb565b6101e3565b6100bf61029c565b60405161009b91906104d4565b61007a6100da366004610518565b6102f4565b6100e761036d565b60015460005b818110156101ca57826001828154811061010957610109610548565b9060005260206000200154036101b85760016101258184610574565b8154811061013557610135610548565b90600052602060002001546001828154811061015357610153610548565b60009182526020909120015560018054806101705761017061058d565b60019003818190600052602060002001600090559055827f0b1381093c776453c1bbe54fd68be1b235c65db61d099cb50d194b2991e0eec560405160405180910390a2505050565b806101c2816105a3565b9150506100ed565b505050565b6101d761036d565b6101e160006103c7565b565b6101eb61036d565b6101f481610417565b61023e5760405162461bcd60e51b81526020600482015260166024820152754552432d333634333a20546f7069632065786973747360501b60448201526064015b60405180910390fd5b60018054808201825560009182527fb10e2d527612073b26eecdfd717e6a320cf44b4afac2b0732d9fcbe2b7fa0cf60182905560405182917f01c928b7f7ade2949e92366aa9454dbef3a416b731cf6ec786ba9595bbd814d691a250565b606060018054806020026020016040519081016040528092919081815260200182805480156102ea57602002820191906000526020600020905b8154815260200190600101908083116102d6575b5050505050905090565b6102fc61036d565b6001600160a01b0381166103615760405162461bcd60e51b815260206004820152602660248201527f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160448201526564647265737360d01b6064820152608401610235565b61036a816103c7565b50565b6000546001600160a01b031633146101e15760405162461bcd60e51b815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65726044820152606401610235565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b600080600180548060200260200160405190810160405280929190818152602001828054801561046657602002820191906000526020600020905b815481526020019060010190808311610452575b50506001549394506000925050505b818110156104b0578483828151811061049057610490610548565b6020026020010151036104a857506000949350505050565b600101610475565b506001949350505050565b6000602082840312156104cd57600080fd5b5035919050565b6020808252825182820181905260009190848201906040850190845b8181101561050c578351835292840192918401916001016104f0565b50909695505050505050565b60006020828403121561052a57600080fd5b81356001600160a01b038116811461054157600080fd5b9392505050565b634e487b7160e01b600052603260045260246000fd5b634e487b7160e01b600052601160045260246000fd5b818103818111156105875761058761055e565b92915050565b634e487b7160e01b600052603160045260246000fd5b6000600182016105b5576105b561055e565b506001019056fea264697066735822122008315e9bb45e0998537ffa232749592de5ef6761437cf5466d7509b778c445a464736f6c63430008110033",
+  "devdoc": {
+    "details": "A registry for managing claim topics.",
+    "kind": "dev",
+    "methods": {
+      "addClaimTopic(uint256)": {
+        "details": "Can only be called by the owner of the contract. Emits a ClaimTopicAdded event.",
+        "params": {
+          "_claimTopic": "The claim topic to add."
+        }
+      },
+      "getClaimTopics()": {
+        "returns": {
+          "_0": "uint256[] An array of claim topics."
+        }
+      },
+      "owner()": {
+        "details": "Returns the address of the current owner."
+      },
+      "removeClaimTopic(uint256)": {
+        "details": "Can only be called by the owner of the contract. Emits a ClaimTopicRemoved event.",
+        "params": {
+          "_claimTopic": "The claim topic to remove."
+        }
+      },
+      "renounceOwnership()": {
+        "details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner."
+      },
+      "transferOwnership(address)": {
+        "details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+      }
+    },
+    "stateVariables": {
+      "_claimTopics": {
+        "details": "An array to hold all required claim topics."
+      }
+    },
+    "title": "ERC-3643 - ClaimTopicsRegistry",
+    "version": 1
+  },
+  "userdoc": {
+    "events": {
+      "ClaimTopicAdded(uint256)": {
+        "notice": "this event is emitted when a claim topic has been added to the ClaimTopicsRegistry  the event is emitted by the 'addClaimTopic' function  `claimTopic` is the required claim added to the Claim Topics Registry"
+      },
+      "ClaimTopicRemoved(uint256)": {
+        "notice": "this event is emitted when a claim topic has been removed from the ClaimTopicsRegistry  the event is emitted by the 'removeClaimTopic' function  `claimTopic` is the required claim removed from the Claim Topics Registry"
+      }
+    },
+    "kind": "user",
+    "methods": {
+      "addClaimTopic(uint256)": {
+        "notice": "Adds a claim topic to the registry."
+      },
+      "getClaimTopics()": {
+        "notice": "Retrieves all claim topics from the registry."
+      },
+      "removeClaimTopic(uint256)": {
+        "notice": "Removes a claim topic from the registry."
+      }
+    },
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 2329,
+        "contract": "contracts/registry/ClaimTopicsRegistry.sol:ClaimTopicsRegistry",
+        "label": "_owner",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_address"
+      },
+      {
+        "astId": 5068,
+        "contract": "contracts/registry/ClaimTopicsRegistry.sol:ClaimTopicsRegistry",
+        "label": "_claimTopics",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_array(t_uint256)dyn_storage"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_array(t_uint256)dyn_storage": {
+        "base": "t_uint256",
+        "encoding": "dynamic_array",
+        "label": "uint256[]",
+        "numberOfBytes": "32"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}

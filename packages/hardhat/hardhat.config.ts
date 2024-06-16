@@ -12,6 +12,7 @@ import "@xyrusworx/hardhat-solidity-json";
 import "@nomiclabs/hardhat-solhint";
 import "@primitivefi/hardhat-dodoc";
 
+
 // If not set, it uses ours Alchemy's default API key.
 // You can get your own at https://dashboard.alchemyapi.io
 const providerApiKey = process.env.ALCHEMY_API_KEY || "oKxs-03sij-U_N0iOlrSsZFr29-IqbuF";
@@ -64,7 +65,15 @@ const config: HardhatUserConfig = {
         enabled: process.env.MAINNET_FORKING_ENABLED === "true",
       },
       allowUnlimitedContractSize: true,
-      blockGasLimit: 100000000000000
+      blockGasLimit: 10000000000000000000,
+    },
+    localhost: {
+      forking: {
+        url: `https://eth-mainnet.alchemyapi.io/v2/${providerApiKey}`,
+        enabled: process.env.MAINNET_FORKING_ENABLED === "true",
+      },
+      allowUnlimitedContractSize: true,
+      blockGasLimit: 10000000000000000000
     },
     mainnet: {
       url: `https://eth-mainnet.alchemyapi.io/v2/${providerApiKey}`,
