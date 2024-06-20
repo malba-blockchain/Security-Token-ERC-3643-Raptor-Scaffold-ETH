@@ -283,7 +283,7 @@ describe("Deployment of environment wallet addresses", function () {
             // Grant the AGENT_ROLE to the token agent in the token contract
             await token.grantRole(AGENT_ROLE, tokenAgent);
 
-            //console.log("Default admin role in identity registry", await identityRegistry.hasRole("0xb19546dff01e856fb3f010c267a7b1c60363cf8a4664e21cc89c26224620214e", deployer));
+            console.log("Default admin role in identity registry", await identityRegistry.hasRole("0xb19546dff01e856fb3f010c267a7b1c60363cf8a4664e21cc89c26224620214e", deployer));
         
             // Grant the AGENT_ROLE to the Token Smart Contract Address in the token contract (1)
             //await identityRegistry.grantRole(AGENT_ROLE, token.address);

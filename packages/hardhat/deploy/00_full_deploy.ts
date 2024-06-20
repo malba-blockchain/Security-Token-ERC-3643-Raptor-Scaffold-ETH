@@ -248,28 +248,12 @@ const deployFullSuiteFixture: DeployFunction = async function (hre: HardhatRunti
 
   console.log("Token Address: ", token.address);
 
-  console.log("|||||||||||||||||||||||||||basicCompliance|||||||||||||||||||||||||||");
-  console.log("Basic compliance smart contract", basicCompliance);
-  console.log("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-  console.log("provider.getSigner(deployer)", provider.getSigner(deployer));
-  console.log("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-  console.log("Deployer details", deployer);
-  console.log("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-  console.log("BasicCompliance.abi", BasicCompliance.abi);
-  console.log("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-  console.log("provider", provider);
-  console.log("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-  console.log("hre", hre);
-  console.log("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-
-  console.log("Admin role", await basicCompliance.hasRole("0x0000000000000000000000000000000000000000000000000000000000000000", deployer));
-
   // Grant the TOKEN_ROLE to the token contract in the BasicCompliance contract
   await basicCompliance.grantRole(TOKEN_ROLE, token.address);
 
   // Grant the AGENT_ROLE to the token agent in the token contract
   await token.grantRole(AGENT_ROLE, tokenAgent);
-  console.log()
+
   // Grant the AGENT_ROLE to the Token Smart Contract Address in the token contract (1)
   await identityRegistry.grantRole(AGENT_ROLE, token.address);
 

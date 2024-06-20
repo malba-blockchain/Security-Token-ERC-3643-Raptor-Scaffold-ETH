@@ -2,6 +2,8 @@ d:&cd D:\USER\Downloads\ATLAS\Projects\Mastering-Security-Token-ERC-3643\scaffol
 
 d:&cd D:\USER\Downloads\ATLAS\Projects\Mastering-Security-Token-ERC-3643\scaffold-eth-2\packages\hardhat
 
+scaffold-eth-2
+
 yarn install
 
 yarn hardhat clean
@@ -68,10 +70,6 @@ Places to check
 
 D:\USER\Downloads\ATLAS\Projects\Mastering-Security-Token-ERC-3643\scaffold-eth-2\packages\hardhat\node_modules\hardhat\node_modules
 D:\USER\Downloads\ATLAS\Projects\Mastering-Security-Token-ERC-3643\scaffold-eth-2\packages\hardhat\node_modules
-
-CONTINUE HERE: 
-
-CONTINUE WITH TURNING tokenOID INTO A SMART CONTRACT YOU CAN SEE IN THE INTERFACE
 
 
 https://github.com/Aboudjem/ERC-3643
@@ -398,5 +396,11 @@ Its possible to execute the function revoke role from an account with super admi
 
 
 CONTINUE HERE:
+rmdir /s packages\hardhat\deployments && yarn test
 
-Create tests for unfreezePartialTokens
+CONTINUE DEVELOPING TESTING CASES WITH 18 DECIMALS
+
+
+
+
+
