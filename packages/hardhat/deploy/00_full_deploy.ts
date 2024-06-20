@@ -719,7 +719,6 @@ const deployFullSuiteFixture: DeployFunction = async function (hre: HardhatRunti
 
   console.log("Alice wallet frozen tokens amount after: ", (await token.getFrozenTokens(aliceWallet)).toNumber());
 
-
   //Testing mint
   console.log("\n✅Testing mint");
   console.log("Alice wallet balance before: ", (await token.balanceOf(aliceWallet)).toNumber());
@@ -735,7 +734,6 @@ const deployFullSuiteFixture: DeployFunction = async function (hre: HardhatRunti
   console.log("Alice wallet balance before: ", (await token.balanceOf(aliceWallet)).toNumber());
   console.log("Alice wallet frozen tokens amount: ", (await token.getFrozenTokens(aliceWallet)).toNumber());
 
-
   await token.connect(provider.getSigner(deployer)).pause();
   await token.connect(provider.getSigner(deployer)).mint(aliceWallet, 500);
 
@@ -745,7 +743,6 @@ const deployFullSuiteFixture: DeployFunction = async function (hre: HardhatRunti
   await token.connect(provider.getSigner(deployer)).freezePartialTokens(aliceWallet, 500);
 
   console.log("Alice wallet balance after: ", (await token.balanceOf(aliceWallet)).toNumber());
-
   console.log("Alice wallet frozen tokens amount: ", (await token.getFrozenTokens(aliceWallet)).toNumber());
 
 

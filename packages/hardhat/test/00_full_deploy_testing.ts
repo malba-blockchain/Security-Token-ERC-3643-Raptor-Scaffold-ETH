@@ -414,7 +414,7 @@ describe("ERC 3646 Raptor: Wallets - Compliance smart contracts - Environment te
 
     // Grant the AGENT_ROLE to the token agent in the IdentityRegistry contract
     await identityRegistry.grantRole(AGENT_ROLE, tokenAgent);
-
+    console.log("\n"); //For good looking format in the console
     return {
       provider, deployer, tokenIssuer, tokenAgent, tokenAdmin, claimIssuer, aliceWallet, bobWallet, charlieWallet,
       davidWallet, anotherWallet, claimIssuerSigningKey, aliceActionKey, 
@@ -423,8 +423,9 @@ describe("ERC 3646 Raptor: Wallets - Compliance smart contracts - Environment te
       deployerIdentity, aliceIdentity, bobIdentity, charlieIdentity, davidIdentity
     };
   };
-
+  
   it("1. Should deploy the environment of wallet addresses", async function () {
+    console.log("\n"); //For good looking format in the console
 
     const { deployer, tokenIssuer, tokenAgent, tokenAdmin, claimIssuer, aliceWallet, bobWallet, charlieWallet,
       davidWallet, anotherWallet, claimIssuerSigningKey, aliceActionKey} =
@@ -450,6 +451,7 @@ describe("ERC 3646 Raptor: Wallets - Compliance smart contracts - Environment te
   });
 
   it("2. Should deploy the compliance smart contracts suite", async function () {
+    console.log("\n"); //For good looking format in the console 
 
     const { identityImplementation, identityImplementationAuthority, claimTopicsRegistry, claimIssuersRegistry, identityRegistryStorage,
       identityRegistry, basicCompliance, tokenOID, token, claimIssuerContract} =
@@ -471,6 +473,7 @@ describe("ERC 3646 Raptor: Wallets - Compliance smart contracts - Environment te
   });
 
   it("3. Should deploy the identities and claims for stakeholders", async function () {
+    console.log("\n"); //For good looking format in the console
 
     const { deployerIdentity, aliceIdentity, bobIdentity, charlieIdentity, davidIdentity} =
       await loadFixture(deployTokenFixture);
@@ -481,23 +484,372 @@ describe("ERC 3646 Raptor: Wallets - Compliance smart contracts - Environment te
     console.log("   Bob Identity Address: ", bobIdentity.address);
     console.log("   Charlie Identity Address: ", charlieIdentity.address);
     console.log("   David Identity Address: ", davidIdentity.address);
+
     expect(true).to.be.true;
   });
 
   it("4. Should issue the initial amounts of tokens for the main stakeholders", async function () {
 
+    console.log("\n"); //For good looking format in the console
+
     const { provider, deployer, tokenAgent, aliceWallet, bobWallet, charlieWallet,
       davidWallet, token} =
       await loadFixture(deployTokenFixture);
 
-      // Mint tokens to stakeholders wallets
-      await token.connect(provider.getSigner(tokenAgent)).mint(aliceWallet, ethers.utils.parseUnits("1000", 18)); // Mint 1000 tokens to Alice
-      await token.connect(provider.getSigner(tokenAgent)).mint(bobWallet, 2000); // Mint 500 tokens to Bob
-      await token.connect(provider.getSigner(tokenAgent)).mint(charlieWallet, 5000); // Mint 5000 tokens to Charlie
-      await token.connect(provider.getSigner(tokenAgent)).mint(davidWallet, 2000); // Mint 2000 tokens to David
-      await token.connect(provider.getSigner(tokenAgent)).mint(deployer, 100000); // Mint 100000 tokens to Deployer
+      console.log("   Alice wallet balance before: ", (await token.balanceOf(aliceWallet)).toString());
+      console.log("   Bob wallet balance before: ", (await token.balanceOf(bobWallet)).toString());
+      console.log("   Charlie wallet balance before: ", (await token.balanceOf(bobWallet)).toString());
+      console.log("   David wallet balance before: ", (await token.balanceOf(bobWallet)).toString());
+      console.log("   Deployer wallet balance before: ", (await token.balanceOf(bobWallet)).toString());
+      console.log("\n"); //For good looking format in the console
 
-      expect(await token.balanceOf(aliceWallet)).to.equal(ethers.utils.parseUnits("1000", 18));
+      // Mint tokens to stakeholders wallets
+      await token.connect(provider.getSigner(tokenAgent)).mint(aliceWallet, ethers.utils.parseUnits("2000", 18)); // Mint 1000 tokens to Alice
+      await token.connect(provider.getSigner(tokenAgent)).mint(bobWallet, ethers.utils.parseUnits("2000", 18)); // Mint 500 tokens to Bob
+      await token.connect(provider.getSigner(tokenAgent)).mint(charlieWallet, ethers.utils.parseUnits("5000", 18)); // Mint 5000 tokens to Charlie
+      await token.connect(provider.getSigner(tokenAgent)).mint(davidWallet, ethers.utils.parseUnits("2000", 18)); // Mint 2000 tokens to David
+      await token.connect(provider.getSigner(tokenAgent)).mint(deployer, ethers.utils.parseUnits("100000", 18)); // Mint 100000 tokens to Deployer
+
+      console.log("   Alice wallet balance after: ", (await token.balanceOf(aliceWallet)).toString());
+      console.log("   Bob wallet balance after: ", (await token.balanceOf(bobWallet)).toString());
+      console.log("   Charlie wallet balance after: ", (await token.balanceOf(bobWallet)).toString());
+      console.log("   David wallet balance after: ", (await token.balanceOf(bobWallet)).toString());
+      console.log("   Deployer wallet balance after: ", (await token.balanceOf(bobWallet)).toString());
+
+      expect(await token.balanceOf(aliceWallet)).to.equal(ethers.utils.parseUnits("2000", 18));
+      expect(await token.balanceOf(bobWallet)).to.equal(ethers.utils.parseUnits("2000", 18));
+      expect(await token.balanceOf(charlieWallet)).to.equal(ethers.utils.parseUnits("5000", 18));
+      expect(await token.balanceOf(davidWallet)).to.equal(ethers.utils.parseUnits("2000", 18));
+      expect(await token.balanceOf(deployer)).to.equal(ethers.utils.parseUnits("100000", 18));
   });
+
+  it("5. Should increase allowance for wallets", async function () {
+    console.log("\n"); //For good looking format in the console
+
+    const { provider, deployer, aliceWallet, bobWallet, token} = await loadFixture(deployTokenFixture);
+      
+      //Testing increaseAllowance
+      console.log("   Alice wallet allowance before: ", (await token.allowance(deployer, aliceWallet)).toString());
+      console.log("   Bob wallet allowance before: ", (await token.allowance(deployer, bobWallet)).toString());
+
+      await token.connect(provider.getSigner(deployer)).increaseAllowance(aliceWallet, ethers.utils.parseUnits("3000", 18)); // Increase allowance in 3000 to Alice wallet
+      await token.connect(provider.getSigner(deployer)).increaseAllowance(bobWallet, ethers.utils.parseUnits("1000", 18)); // Increase allowance in 3000 to Alice wallet
+
+      console.log("   Alice wallet allowance after: ", (await token.allowance(deployer, aliceWallet)).toString());
+      console.log("   Bob wallet allowance after: ", (await token.allowance(deployer, bobWallet)).toString());
+
+
+      expect(await token.allowance(deployer, aliceWallet)).to.equal(ethers.utils.parseUnits("3000", 18));
+  });
+
+  it("6. Should decrease allowance for wallets", async function () {
+    console.log("\n"); //For good looking format in the console
+
+    const { provider, deployer, aliceWallet, token} = await loadFixture(deployTokenFixture);
+      
+      //Testing decrease allowance
+      console.log("   Alice wallet allowance before: ", (await token.allowance(deployer, aliceWallet)).toString());
+
+      await token.connect(provider.getSigner(deployer)).decreaseAllowance(aliceWallet, ethers.utils.parseUnits("1000", 18)); // Increase allowance in 3000 to Alice wallet
+
+      console.log("   Alice wallet allowance after: ", (await token.allowance(deployer, aliceWallet)).toString());
+
+      expect(await token.allowance(deployer, aliceWallet)).to.equal(ethers.utils.parseUnits("2000", 18));
+  });
+
+  it("7. Should do batch transfer", async function () {
+    console.log("\n"); //For good looking format in the console
+
+    const { provider, deployer, aliceWallet, bobWallet, charlieWallet, token} = await loadFixture(deployTokenFixture);
+      
+      //Testing batchTransferFrom
+      console.log("   Alice wallet balance before: ", (await token.balanceOf(aliceWallet)).toString());
+      console.log("   Bob wallet balance before: ", (await token.balanceOf(bobWallet)).toString());
+      console.log("   Charlie wallet balance before: ", (await token.balanceOf(charlieWallet)).toString());
+
+      await token.connect(provider.getSigner(aliceWallet)).batchTransferFrom([deployer, deployer, deployer], 
+        [aliceWallet, bobWallet, charlieWallet], 
+        [ethers.utils.parseUnits("500", 18), ethers.utils.parseUnits("500", 18), ethers.utils.parseUnits("500", 18)]); // Batch transfer to wallets
+    
+      console.log("\n   Alice wallet balance after: ", (await token.balanceOf(aliceWallet)).toString());
+      console.log("   Bob wallet balance after: ", (await token.balanceOf(bobWallet)).toString());
+      console.log("   Charlie wallet balance after: ", (await token.balanceOf(charlieWallet)).toString());
+
+      expect(await token.balanceOf(aliceWallet)).to.equal(ethers.utils.parseUnits("2500", 18));
+      expect(await token.balanceOf(bobWallet)).to.equal(ethers.utils.parseUnits("2500", 18));
+      expect(await token.balanceOf(charlieWallet)).to.equal(ethers.utils.parseUnits("5500", 18));
+  });
+
+  it("8. Should approve funds", async function () {
+    console.log("\n"); //For good looking format in the console
+
+    const { provider, deployer, aliceWallet, token} = await loadFixture(deployTokenFixture);
+      
+      //Testing approve
+      console.log("   Alice wallet allowance before: ", (await token.allowance(deployer, aliceWallet)).toString());
+      await token.connect(provider.getSigner(deployer)).approve(aliceWallet, 0); // Change approved amout to 0 to Alice wallet
+      
+      console.log("   Alice wallet allowance after: ", (await token.allowance(deployer, aliceWallet)).toString());
+      expect(await token.allowance(deployer, aliceWallet)).to.equal(ethers.utils.parseUnits("0", 18));
+  });
+
+  it("9. Should batch burn tokens", async function () {
+    console.log("\n"); //For good looking format in the console
+
+    const { provider, deployer, aliceWallet, bobWallet, charlieWallet, token} = await loadFixture(deployTokenFixture);
+      
+    //Testing batch burn tokens
+    console.log("   Alice wallet balance before: ", (await token.balanceOf(aliceWallet)).toString());
+    console.log("   Bob wallet balance before: ", (await token.balanceOf(bobWallet)).toString());
+    console.log("   Charlie wallet balance before: ", (await token.balanceOf(charlieWallet)).toString());
+  
+    await token.connect(provider.getSigner(deployer)).batchBurn([aliceWallet, bobWallet, charlieWallet], 
+      [ethers.utils.parseUnits("500", 18), ethers.utils.parseUnits("500", 18), ethers.utils.parseUnits("500", 18)]);
+  
+    console.log("\n   Alice wallet balance after: ", (await token.balanceOf(aliceWallet)).toString());
+    console.log("   Bob wallet balance after: ", (await token.balanceOf(bobWallet)).toString());
+    console.log("   Charlie wallet balance after: ", (await token.balanceOf(charlieWallet)).toString());
+
+    expect(await token.balanceOf(aliceWallet)).to.equal(ethers.utils.parseUnits("2000", 18));
+    expect(await token.balanceOf(bobWallet)).to.equal(ethers.utils.parseUnits("2000", 18));
+    expect(await token.balanceOf(charlieWallet)).to.equal(ethers.utils.parseUnits("5000", 18));
+  });
+
+  it("10. Should batch force transfer of tokens", async function () {
+    console.log("\n"); //For good looking format in the console
+
+    const { provider, deployer, aliceWallet, bobWallet, charlieWallet, davidWallet, token} = await loadFixture(deployTokenFixture);
+      
+    //Testing batch force transfer
+    console.log("   Alice wallet balance before: ", (await token.balanceOf(aliceWallet)).toString());
+    console.log("   Bob wallet balance before: ", (await token.balanceOf(bobWallet)).toString());
+    console.log("   Charlie wallet balance before: ", (await token.balanceOf(charlieWallet)).toString());
+    console.log("   David wallet balance after: ", (await token.balanceOf(davidWallet)).toString());
+  
+    await token.connect(provider.getSigner(deployer)).batchForcedTransfer([aliceWallet, bobWallet, charlieWallet], 
+      [davidWallet, davidWallet, davidWallet], [ethers.utils.parseUnits("500", 18), 
+        ethers.utils.parseUnits("500", 18), ethers.utils.parseUnits("500", 18)]);
+  
+    console.log("\n   Alice wallet balance after: ", (await token.balanceOf(aliceWallet)).toString());
+    console.log("   Bob wallet balance after: ", (await token.balanceOf(bobWallet)).toString());
+    console.log("   Charlie wallet balance after: ", (await token.balanceOf(charlieWallet)).toString());
+    console.log("   David wallet balance after: ", (await token.balanceOf(davidWallet)).toString());
+
+    expect(await token.balanceOf(aliceWallet)).to.equal(ethers.utils.parseUnits("1500", 18));
+    expect(await token.balanceOf(bobWallet)).to.equal(ethers.utils.parseUnits("1500", 18));
+    expect(await token.balanceOf(charlieWallet)).to.equal(ethers.utils.parseUnits("4500", 18));
+    expect(await token.balanceOf(davidWallet)).to.equal(ethers.utils.parseUnits("3500", 18));
+  });
+
+  it("11. Should do a partial freeze of tokens", async function () {
+    console.log("\n"); //For good looking format in the console
+
+    const { provider, deployer, aliceWallet, bobWallet, charlieWallet, token} = await loadFixture(deployTokenFixture);
+      
+    //Testing batch partial freeze tokens
+    console.log("   Alice wallet frozen tokens after: ", (await token.getFrozenTokens(aliceWallet)).toString());
+    console.log("   Bob wallet frozen tokens after: ", (await token.getFrozenTokens(bobWallet)).toString());
+    console.log("   Charlie wallet frozen tokens after: ", (await token.getFrozenTokens(charlieWallet)).toString());
+  
+    await token.connect(provider.getSigner(deployer)).batchFreezePartialTokens([aliceWallet, bobWallet, charlieWallet], 
+      [ethers.utils.parseUnits("500", 18), ethers.utils.parseUnits("500", 18), ethers.utils.parseUnits("500", 18)]);
+  
+    console.log("\n   Alice wallet frozen tokens after: ", (await token.getFrozenTokens(aliceWallet)).toString());
+    console.log("   Bob wallet frozen tokens after: ", (await token.getFrozenTokens(bobWallet)).toString());
+    console.log("   Charlie wallet frozen tokens after: ", (await token.getFrozenTokens(charlieWallet)).toString());
+
+    expect(await token.getFrozenTokens(aliceWallet)).to.equal(ethers.utils.parseUnits("500", 18));
+    expect(await token.getFrozenTokens(bobWallet)).to.equal(ethers.utils.parseUnits("500", 18));
+    expect(await token.getFrozenTokens(charlieWallet)).to.equal(ethers.utils.parseUnits("500", 18));
+  });
+
+  it("12. Should do batch mint", async function () {
+    console.log("\n"); //For good looking format in the console
+
+    const { provider, deployer, aliceWallet, bobWallet, charlieWallet, token} = await loadFixture(deployTokenFixture);
+      
+      //Testing batch mint
+      console.log("   Alice wallet balance before: ", (await token.balanceOf(aliceWallet)).toString());
+      console.log("   Bob wallet balance before: ", (await token.balanceOf(bobWallet)).toString());
+      console.log("   Charlie wallet balance before: ", (await token.balanceOf(charlieWallet)).toString());
+    
+      await token.connect(provider.getSigner(deployer)).batchMint([aliceWallet, bobWallet, charlieWallet], 
+        [ethers.utils.parseUnits("1000", 18), ethers.utils.parseUnits("1000", 18), 
+          ethers.utils.parseUnits("1000", 18)]);
+    
+      console.log("\n   Alice wallet balance after: ", (await token.balanceOf(aliceWallet)).toString());
+      console.log("   Bob wallet balance after: ", (await token.balanceOf(bobWallet)).toString());
+      console.log("   Charlie wallet balance after: ", (await token.balanceOf(charlieWallet)).toString());
+
+      expect(await token.balanceOf(aliceWallet)).to.equal(ethers.utils.parseUnits("2500", 18));
+      expect(await token.balanceOf(bobWallet)).to.equal(ethers.utils.parseUnits("2500", 18));
+      expect(await token.balanceOf(charlieWallet)).to.equal(ethers.utils.parseUnits("5500", 18));
+  });
+
+  it("13. Should do batch setting of frozen addresses", async function () {
+    console.log("\n"); //For good looking format in the console
+
+    const { provider, deployer, aliceWallet, bobWallet, charlieWallet, davidWallet, token} = await loadFixture(deployTokenFixture);
+      
+      //Testing batch setting of frozen addresses
+      console.log("   Alice wallet is frozen before: ", (await token.isFrozen(aliceWallet)));
+      console.log("   Bob wallet is frozen before: ", (await token.isFrozen(bobWallet)));
+      console.log("   Charlie wallet is frozen before: ", (await token.isFrozen(charlieWallet)));
+      console.log("   David wallet is frozen before: ", (await token.isFrozen(davidWallet)));
+    
+      await token.connect(provider.getSigner(deployer)).batchSetAddressFrozen(
+        [aliceWallet, bobWallet, charlieWallet, davidWallet], [false, false, false, true]);
+
+      console.log("\n   Alice wallet is frozen: ", (await token.isFrozen(aliceWallet)));
+      console.log("   Bob wallet is frozen: ", (await token.isFrozen(bobWallet)));
+      console.log("   Charlie wallet is frozen: ", (await token.isFrozen(charlieWallet)));
+      console.log("   David wallet is frozen before: ", (await token.isFrozen(davidWallet)));
+    
+      expect(await token.isFrozen(aliceWallet)).to.be.false;
+      expect(await token.isFrozen(bobWallet)).to.be.false;
+      expect(await token.isFrozen(charlieWallet)).to.be.false;
+      expect(await token.isFrozen(davidWallet)).to.be.true;
+  });
+
+  it("14. Should do batch transfer of tokens", async function () {
+    console.log("\n"); //For good looking format in the console
+
+    const { provider, deployer, aliceWallet, bobWallet, charlieWallet, davidWallet, token} = await loadFixture(deployTokenFixture);
+      
+      //Testing batch transfer of tokens
+      console.log("   Deployer wallet balance before: ", (await token.balanceOf(deployer)).toString());
+      console.log("   Alice wallet balance before: ", (await token.balanceOf(aliceWallet)).toString());
+      console.log("   Bob wallet balance before: ", (await token.balanceOf(bobWallet)).toString());
+      console.log("   Charlie wallet balance before: ", (await token.balanceOf(charlieWallet)).toString());
+    
+      await token.connect(provider.getSigner(deployer)).batchTransfer([aliceWallet, bobWallet, charlieWallet], 
+        [ethers.utils.parseUnits("1000", 18), ethers.utils.parseUnits("1000", 18), ethers.utils.parseUnits("1000", 18)]);
+    
+      console.log("\n   Deployer wallet balance after: ", (await token.balanceOf(deployer)).toString());
+      console.log("   Alice wallet balance after: ", (await token.balanceOf(aliceWallet)).toString());
+      console.log("   Bob wallet balance after: ", (await token.balanceOf(bobWallet)).toString());
+      console.log("   Charlie wallet balance after: ", (await token.balanceOf(charlieWallet)).toString());
+    
+      expect(await token.balanceOf(deployer)).to.equal(ethers.utils.parseUnits("95500", 18));
+      expect(await token.balanceOf(aliceWallet)).to.equal(ethers.utils.parseUnits("3500", 18));
+      expect(await token.balanceOf(bobWallet)).to.equal(ethers.utils.parseUnits("3500", 18));
+      expect(await token.balanceOf(charlieWallet)).to.equal(ethers.utils.parseUnits("6500", 18));
+  });
+
+  it("15. Should do partial batch unfreeze of tokens", async function () {
+    console.log("\n"); //For good looking format in the console
+
+    const { provider, deployer, aliceWallet, bobWallet, charlieWallet, davidWallet, token} = await loadFixture(deployTokenFixture);
+      
+      //Testing partial batch unfreeze of tokens
+      console.log("   Alice wallet frozen tokens after: ", (await token.getFrozenTokens(aliceWallet)).toString());
+      console.log("   Bob wallet frozen tokens after: ", (await token.getFrozenTokens(bobWallet)).toString());
+      console.log("   Charlie wallet frozen tokens after: ", (await token.getFrozenTokens(charlieWallet)).toString());
+    
+      await token.connect(provider.getSigner(deployer)).batchUnfreezePartialTokens([aliceWallet, bobWallet, charlieWallet], 
+        [ethers.utils.parseUnits("500", 18), ethers.utils.parseUnits("500", 18), ethers.utils.parseUnits("500", 18)]);
+    
+      console.log("\n   Alice wallet frozen tokens after: ", (await token.getFrozenTokens(aliceWallet)).toString());
+      console.log("   Bob wallet frozen tokens after: ", (await token.getFrozenTokens(bobWallet)).toString());
+      console.log("   Charlie wallet frozen tokens after: ", (await token.getFrozenTokens(charlieWallet)).toString());
+  
+      expect(await token.getFrozenTokens(aliceWallet)).to.equal(ethers.utils.parseUnits("0", 18));
+      expect(await token.getFrozenTokens(bobWallet)).to.equal(ethers.utils.parseUnits("0", 18));
+      expect(await token.getFrozenTokens(charlieWallet)).to.equal(ethers.utils.parseUnits("0", 18));
+  });
+
+  it("16. Should burn tokens of wallets", async function () {
+    console.log("\n"); //For good looking format in the console
+
+    const { provider, deployer, aliceWallet, token} = await loadFixture(deployTokenFixture);
+      
+      //Testing burn of tokens
+      console.log("   Total tokens amount before: ", (await token.totalSupply()).toString());
+      console.log("   Alice tokens amount before: ", (await token.balanceOf(aliceWallet)).toString());
+    
+      await token.connect(provider.getSigner(deployer)).burn(aliceWallet, ethers.utils.parseUnits("1000", 18));
+    
+      console.log("\n   Total tokens amount after: ", (await token.totalSupply()).toString());
+      console.log("   Alice tokens amount after: ", (await token.balanceOf(aliceWallet)).toString());
+
+      expect(await token.totalSupply()).to.equal(ethers.utils.parseUnits("111500", 18));
+      expect(await token.balanceOf(aliceWallet)).to.equal(ethers.utils.parseUnits("2500", 18));
+
+  });
+
+  it("17. Should make a forced transfer of tokens", async function () {
+    console.log("\n"); //For good looking format in the console
+
+    const { provider, deployer, aliceWallet, bobWallet, token} = await loadFixture(deployTokenFixture);
+      
+      //Testing force transfer
+      console.log("   Alice tokens amount before: ", (await token.balanceOf(aliceWallet)).toString());
+      console.log("   Bob tokens amount before: ", (await token.balanceOf(bobWallet)).toString());
+    
+      await token.connect(provider.getSigner(deployer)).forcedTransfer(aliceWallet, bobWallet, 
+        ethers.utils.parseUnits("500", 18));
+    
+      console.log("   Alice tokens amount after: ", (await token.balanceOf(aliceWallet)).toString());
+      console.log("   Bob tokens amount after: ", (await token.balanceOf(bobWallet)).toString());
+
+      expect(await token.balanceOf(aliceWallet)).to.equal(ethers.utils.parseUnits("2000", 18));
+      expect(await token.balanceOf(bobWallet)).to.equal(ethers.utils.parseUnits("4000", 18));
+  });
+
+  it("18. Should partially freeze tokens of a wallet", async function () {
+    console.log("\n"); //For good looking format in the console
+
+    const { provider, deployer, aliceWallet, token} = await loadFixture(deployTokenFixture);
+      
+      //Testing partial freeze of tokens
+      console.log("   Alice wallet frozen tokens amount before: ", (await token.getFrozenTokens(aliceWallet)).toString());
+      await token.connect(provider.getSigner(deployer)).freezePartialTokens(aliceWallet, ethers.utils.parseUnits("500", 18));
+    
+      console.log("   Alice wallet frozen tokens amount after: ", (await token.getFrozenTokens(aliceWallet)).toString());
+      expect(await token.getFrozenTokens(aliceWallet)).to.equal(ethers.utils.parseUnits("500", 18));
+  });
+
+  it("19. Should mint tokens to a wallet", async function () {
+    console.log("\n"); //For good looking format in the console
+
+    const { provider, deployer, aliceWallet, token} = await loadFixture(deployTokenFixture);
+      
+      //Testing mint tokens to a wallet 
+      console.log("   Alice wallet balance before: ", (await token.balanceOf(aliceWallet)).toString());
+      await token.connect(provider.getSigner(deployer)).mint(aliceWallet, ethers.utils.parseUnits("500", 18));
+    
+      console.log("   Alice wallet balance after: ", (await token.balanceOf(aliceWallet)).toString());
+      expect(await token.balanceOf(aliceWallet)).to.equal(ethers.utils.parseUnits("2500", 18));
+  });
+
+  it("20. Should pause smart contract", async function () {
+    console.log("\n"); //For good looking format in the console
+
+    const { provider, deployer, aliceWallet, bobWallet, charlieWallet, token} = await loadFixture(deployTokenFixture);
+      
+      //Testing pause of smart contract
+      await token.connect(provider.getSigner(deployer)).pause();
+      console.log("   Smart contract paused");
+
+      expect(await token.connect(provider.getSigner(deployer)).mint(aliceWallet, ethers.utils.parseUnits("500", 18))).to.not.be.reverted;
+      console.log("   Minting transaction is possible");
+
+      expect(await token.connect(provider.getSigner(deployer)).forcedTransfer(deployer, aliceWallet, ethers.utils.parseUnits("500", 18))).to.not.be.reverted;
+      console.log("   Forced transfer is possible");
+      
+      expect(await token.connect(provider.getSigner(deployer)).burn(aliceWallet, ethers.utils.parseUnits("500", 18))).to.not.be.reverted;
+      console.log("   Burning tokens is possible");
+      
+      expect(await token.connect(provider.getSigner(deployer)).freezePartialTokens(aliceWallet, ethers.utils.parseUnits("500", 18))).to.not.be.reverted;
+      console.log("   Freezing partial tokens is possible");
+
+      expect(token.connect(provider.getSigner(deployer)).transfer(aliceWallet, ethers.utils.parseUnits("500", 18))).to.be.reverted;
+      console.log("\n   Transfer of tokens is reverted");
+
+      expect(token.connect(provider.getSigner(bobWallet)).transferFrom(deployer, charlieWallet, ethers.utils.parseUnits("500", 18))).to.be.reverted;
+      console.log("   Transfer From tokens is reverted");
+  });
+
+  
 
 });
