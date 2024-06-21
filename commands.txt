@@ -396,11 +396,7 @@ Its possible to execute the function revoke role from an account with super admi
 
 
 CONTINUE HERE:
-rmdir /s packages\hardhat\deployments && yarn test
-
-CONTINUE DEVELOPING TESTING CASES WITH 18 DECIMALS
-
-
+Add final documentation
 
 
 
