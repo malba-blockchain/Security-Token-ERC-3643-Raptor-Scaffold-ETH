@@ -12,15 +12,14 @@ import "@xyrusworx/hardhat-solidity-json";
 import "@nomiclabs/hardhat-solhint";
 import "@primitivefi/hardhat-dodoc";
 
-
 // If not set, it uses ours Alchemy's default API key.
 // You can get your own at https://dashboard.alchemyapi.io
-const providerApiKey = process.env.ALCHEMY_API_KEY || "oKxs-03sij-U_N0iOlrSsZFr29-IqbuF";
+const providerApiKey = process.env.ALCHEMY_API_KEY || "bW_eK_aRxQsGnt2dPJiYq4K8-UyKTpor";
 // If not set, it uses the hardhat account 0 private key.
 const deployerPrivateKey =
-  process.env.DEPLOYER_PRIVATE_KEY ?? "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
+  process.env.DEPLOYER_PRIVATE_KEY ?? "6a3f06594e2e0009dd37076749d7321e9994c668cb9d0ecdbe38e5c14221e735";
 // If not set, it uses ours Etherscan default API key.
-const etherscanApiKey = process.env.ETHERSCAN_API_KEY || "DNXJA8RX2Q3VZ4URQIWP7Z68CJXQZSC6AW";
+const etherscanApiKey = process.env.ETHERSCAN_API_KEY || "NV3PM7WWB44UQ95Y29QPRDU3K5Q8RBEYAK";
 
 const config: HardhatUserConfig = {
   solidity: {
@@ -49,7 +48,7 @@ const config: HardhatUserConfig = {
     outputDir: "./docgen",
     freshOutput: true,
   },
-  defaultNetwork: "localhost",
+  defaultNetwork: "polygonAmoy",
   namedAccounts: {
     deployer: {
       // By default, it will take the first Hardhat account as the deployer
@@ -105,6 +104,10 @@ const config: HardhatUserConfig = {
     },
     polygonMumbai: {
       url: `https://polygon-mumbai.g.alchemy.com/v2/${providerApiKey}`,
+      accounts: [deployerPrivateKey],
+    },
+    polygonAmoy: {
+      url: `https://polygon-amoy.g.alchemy.com/v2/${providerApiKey}`,
       accounts: [deployerPrivateKey],
     },
     polygonZkEvm: {
