@@ -1,12 +1,12 @@
 # ERC-3643 RAPTOR - SCAFFOLD ETH 2 VERSION:
 
-## 🦖 RAPTOR: An Educational Approach to the T-REX Standard (ERC-3643)
+## 🦖 RAPTOR: An Educational Approach to the T-REX Standard (ERC 3643)
 
 ![T-REX](https://repository-images.githubusercontent.com/639089118/95a268d6-0902-40e8-9e61-f46133e6d9ee)
 
 ## Introduction
 
-The **Raptor Version of ERC-3643** . Is a respectful nod to the [**T-Rex (ERC-3643) standard**](https://github.com/TokenySolutions/T-REX/), developed by [@TokenySolutions](https://github.com/TokenySolutions).
+The **Raptor Version of ERC-3643** . Is a respectful nod to the [**T-Rex (ERC 3643) standard**](https://github.com/TokenySolutions/T-REX/), developed by [@TokenySolutions](https://github.com/TokenySolutions).
 
 The Raptor version, created by Adam Boudj [@Aboudjem](https://github.com/Aboudjem) isn't about competition with T-Rex, it's about sharing knowledge and making it easier for everyone to understand this great piece of technology. 🧩
 
